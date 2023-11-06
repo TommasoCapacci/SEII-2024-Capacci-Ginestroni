@@ -1,57 +1,62 @@
+\documentclass[table, 12pt]{article}
+\usepackage{graphicx}
+\usepackage[T1]{fontenc}
+\usepackage{tocloft}
+\usepackage{todonotes}
+\usepackage{caption}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{listings}
+\usepackage{pdfpages}
+\usepackage{pdflscape}
+\usepackage{textpos}
+\usepackage{scrhack}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage{longtable}
+\usepackage{enumitem}
+\usepackage{tasks}
+\usepackage{tabularx}
+\usepackage{titlesec}
+\usepackage{listing}
+\usepackage{alloy}
+\usepackage{graphicx}
 
-\input{commandsFile}
+
+\titleformat{\paragraph}
+{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}
+{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
 
 \begin{document}
-
-%TITLE PAGE
-
 \begin{titlepage}
-
-
-%LOGO
-
-{\begin{table}[t!]
-\centering
-\begin{tabu} to \textwidth { X[1.3,r,p] X[1.7,l,p] }
-\textcolor{Blue}
-{\textbf{\small{Gabriele}}} & \includegraphics[scale=0.5]{Images/PolimiLogo}
-\end{tabu}
-\end{table}}~\\ [7cm]
-
-%TITLE 
-
-\begin{flushleft}
-
-%Replace the text string with your title
-{\textcolor{Blue}{\textbf{\Huge{Requirement Analysis and Specification
-        Document}}}} \\ [1cm]
-
-\end{flushleft}
-
+    \centering
+    {\scshape\large AY 2023/2024 \par}
+    \vfill
+    %\includegraphics[width=100pt]{assets/logo-polimi-new}\par\vspace{1cm}
+    {\scshape\LARGE Politecnico di Milano \par}
+    \vspace{1.5cm}
+    {\huge\bfseries RASD\@: Requirement Analysis
+        and Specification Document \par}
+    \vspace{2cm}
+    {\Large {Tommaso Capacci \quad Gabriele Ginestroni}\par}
+    \vfill
+    {\large Professor\par
+        Elisabetta \textsc{De Nitto}}
+    \vfill
+    {\large \textbf{Version 1.2}\\ \today \par}
 \end{titlepage}
-
-%Define deliverable specific info
-%Replace cell contents where needed
-\begin{table}[h!]
-\begin{tabu} to \textwidth { X[0.3,r,p] X[0.7,l,p] }
-\hline
-
-\textbf{Deliverable:} & RASD\\
-\textbf{Title:} & Requirement Analysis and Verification Document \\
-\textbf{Authors:} & YOUR NAMES \\
-\textbf{Version:} & 1.0 \\ 
-\textbf{Date:} & 31-January-2016 \\
-\textbf{Download page:} & LINK TO YOUR REPOSITORY \\
-\textbf{Copyright:} & Copyright © 2017, YOUR NAMES – All rights reserved \\
-\hline
-\end{tabu}
-\end{table}
-
-
-
-
-\setcounter{page}{2}
-
+\hypersetup{%
+    pdfborder = {0 0 0}
+}
+\thispagestyle{plain}
+\pagenumbering{gobble}
+\mbox{}
+\newpage
+\pagenumbering{roman}
+\tableofcontents
+\newpage
+\pagenumbering{arabic}
 
 %------------------------------------------------------------------------------------------------------------------------------------------------
 \newpage
@@ -65,31 +70,31 @@
 
 %------------------------------------------------------------------------------------------------------------------------------------------------
 \clearpage
-{\color{Blue}{\section{Introduction}}}
+{{\section{Introduction}}}
 \label{sect:introduction}
 \input{Files/introduction}
 
 %------------------------------------------------------------------------------------------------------------------------------------------------
 \clearpage
-{\color{Blue}{\section{Overall Description}}}
+{{\section{Overall Description}}}
 \label{sect:overview}
 \input{Files/overview}
 
 %------------------------------------------------------------------------------------------------------------------------------------------------
 \clearpage
-{\color{Blue}{\section{Specific Requirements}}}
+{{\section{Specific Requirements}}}
 \label{sect:requirements}
 \input{Files/requirements}
 
 %------------------------------------------------------------------------------------------------------------------------------------------------
 \clearpage
-{\color{Blue}{\section{Formal Analysis Using Alloy}}}
+{{\section{Formal Analysis Using Alloy}}}
 \label{sect:alloy}
 \input{Files/alloy}
 
 %------------------------------------------------------------------------------------------------------------------------------------------------
 \clearpage
-{\color{Blue}{\section{Effort Spent}}}
+{{\section{Effort Spent}}}
 \label{sect:effort}
 \input{Files/effort}
 
@@ -100,8 +105,5 @@
 \bibliographystyle{plain}
 \bibliography{main}
 %------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-
 
 \end{document}
