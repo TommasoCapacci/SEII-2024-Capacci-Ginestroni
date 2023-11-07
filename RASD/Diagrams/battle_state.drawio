@@ -1,0 +1,62 @@
+<mxfile host="Electron" modified="2023-11-07T20:24:33.251Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.0.3 Chrome/114.0.5735.289 Electron/25.8.4 Safari/537.36" etag="Jpc7rh3FC692Odz0txTV" version="22.0.3" type="device">
+  <diagram name="Page-1" id="58cdce13-f638-feb5-8d6f-7d28b1aa9fa0">
+    <mxGraphModel dx="992" dy="654" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="none" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="2a3bc250acf0617d-8" value="Battle" style="shape=umlFrame;whiteSpace=wrap;html=1;rounded=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;fillColor=none;width=115;height=45;" parent="1" vertex="1">
+          <mxGeometry x="120" y="290" width="630" height="280" as="geometry" />
+        </mxCell>
+        <mxCell id="382b91b5511bd0f7-1" value="" style="ellipse;html=1;shape=startState;rounded=1;shadow=0;comic=0;labelBackgroundColor=none;fontFamily=Verdana;fontSize=12;align=center;direction=south;" parent="1" vertex="1">
+          <mxGeometry x="202" y="365" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="382b91b5511bd0f7-6" value="Team Formation" style="rounded=1;whiteSpace=wrap;html=1;arcSize=24;shadow=0;comic=0;labelBackgroundColor=none;fontFamily=Verdana;fontSize=12;align=center;" parent="1" vertex="1">
+          <mxGeometry x="310" y="350" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="382b91b5511bd0f7-7" value="Submission&lt;br&gt;&amp;nbsp;Phase" style="rounded=1;whiteSpace=wrap;html=1;arcSize=24;shadow=0;comic=0;labelBackgroundColor=none;fontFamily=Verdana;fontSize=12;align=center;" parent="1" vertex="1">
+          <mxGeometry x="550" y="350" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="2a3bc250acf0617d-9" style="edgeStyle=orthogonalEdgeStyle;html=1;labelBackgroundColor=none;endArrow=open;endSize=8;fontFamily=Verdana;fontSize=12;align=left;fontColor=default;" parent="1" source="382b91b5511bd0f7-1" target="382b91b5511bd0f7-6" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2a3bc250acf0617d-10" style="edgeStyle=orthogonalEdgeStyle;html=1;labelBackgroundColor=none;endArrow=open;endSize=8;fontFamily=Verdana;fontSize=12;align=left;exitX=0.99;exitY=0.592;exitDx=0;exitDy=0;exitPerimeter=0;fontColor=default;" parent="1" target="382b91b5511bd0f7-7" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="550" y="380" />
+              <mxPoint x="550" y="380" />
+            </Array>
+            <mxPoint x="428.79999999999995" y="380.52" as="sourcePoint" />
+            <mxPoint x="550" y="378" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="bV7B6O8-BSonbPtz_pfU-1" value="" style="ellipse;html=1;shape=endState;labelBackgroundColor=none;" parent="1" vertex="1">
+          <mxGeometry x="204" y="485" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="bV7B6O8-BSonbPtz_pfU-2" value="deadline" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;labelBackgroundColor=none;" parent="1" vertex="1">
+          <mxGeometry x="460" y="350" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="bV7B6O8-BSonbPtz_pfU-3" value="educator ends battle" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;labelBackgroundColor=none;" parent="1" vertex="1">
+          <mxGeometry x="320" y="455" width="170" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="TeSpg_9mg7_JtCFg0eHT-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="TeSpg_9mg7_JtCFg0eHT-1" target="bV7B6O8-BSonbPtz_pfU-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="TeSpg_9mg7_JtCFg0eHT-1" value="Consolidation&lt;br&gt;Phase" style="rounded=1;whiteSpace=wrap;html=1;arcSize=24;shadow=0;comic=0;labelBackgroundColor=none;fontFamily=Verdana;fontSize=12;align=center;" vertex="1" parent="1">
+          <mxGeometry x="550" y="470" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="TeSpg_9mg7_JtCFg0eHT-5" value="" style="endArrow=classic;html=1;rounded=0;elbow=vertical;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="382b91b5511bd0f7-7" target="TeSpg_9mg7_JtCFg0eHT-1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="480" y="460" as="sourcePoint" />
+            <mxPoint x="530" y="410" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="610" y="450" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="TeSpg_9mg7_JtCFg0eHT-6" value="deadline" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;labelBackgroundColor=none;" vertex="1" parent="1">
+          <mxGeometry x="610" y="425" width="60" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
