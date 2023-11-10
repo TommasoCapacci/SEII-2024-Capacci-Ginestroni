@@ -1,24 +1,37 @@
-This document has been prepared to help you approaching Latex as a formatting tool for your Travlendar+ deliverables. This document suggests you a possible style and format for your deliverables and contains information about basic formatting commands in Latex. A good guide to Latex is available here \href{https://tobi.oetiker.ch/lshort/lshort.pdf}{https://tobi.oetiker.ch/lshort/lshort.pdf}, but you can find many other good references on the web. 
+TODO
+\subsection{Purpose}
+Traditional classroom teaching focuses heavily on theory and concepts, without providing sufficient opportunities for students to gain hands-on coding experience.
+Additionally, the student-instructor relationship is usually limited to formal lectures and exams, missing some kind of continuous evaluation, which is essential to stimulate learning.
 
-Writing in Latex means writing textual files having a \texttt{.tex} extension and exploiting the Latex markup commands for formatting purposes. Your files then need to be compiled using the Latex compiler. Similarly to programming languages, you can find many editors that help you writing and compiling your latex code. Here \href{https://beebom.com/best-latex-editors/}{https://beebom.com/best-latex-editors/} you have a short oviewview of some of them. Feel free to choose the one you like.  
+CodeKataBattle aims to fill these gaps by facilitating competitive programming challenges that motivate students to put concepts into practice. The aim of the product is to provide an alternative to evaluate students with respect to their coding skills in a more enjoyable way: this is achieved by allowing educators to create tournaments in which students can partecipate and compete. By integrating with static analysis tools, the automated scoring system provides reliable evaluation so students can measure their improvements. By collaborating in teams, they also learn key skills like communication and source control. Indeed, partecipating to battles, students will gain experience in using GitHub as source control system.
 
-Include a subsection for each of the following items\footnote{By the way, what follows is the structure of an itemized list in Latex.}:
-\begin{itemize}
-\item
-Purpose: here we include the goals of the project
-\item
-Scope: here we include an analysis of the world and of the shared phenomena
-\item
-Definitions, Acronyms, Abbreviations
-\item
-Revision history
-\item
-Reference Documents 
-\item
-Document Structure
-\end{itemize}
-Below you see how to define the header for a subsection.
+ These kind of evaluation also teaches how the test-first approach can be useful when it comes to developing a new piece of software.
+
+ For instructors, CodeKataBattle enables closer mentorship driven by qualitative code reviews, by including optional manual evaluation. Finally, educators will have the opportunity to enhance their code review skills while increasing the engagement with their students. Overall, the platform creates a virtuous cycle of learning powered by practice, feedback and community.
+
+ %---------------------------------
+ \subsubsection{Goals}
+ \label{goals}
+ The main objectives of our system are the following:
+ \begin{enumerate}[label=$\bullet$ \textbf{G\arabic*:}]
+     \item \textbf{ Allow students to participate to programming challenges in teams}\\This is the main goal of the system. Students will be able to form teams to partecipate to Code Kata Battles and collaborate through GitHub.
+     \item \textbf { Allow educators to create tournaments}\\Only educators are allowed to create tournaments, which are composed by a non predefined number of battles. Once a new tournament is created, all the students of the platform are notified and can partecipate to it.
+     \item \textbf{ Allow educators to create programming challenges}\\The creator of the tournament (or allowed educators) can create programming challenges (Code Kata Battles) within the context of a tournament.
+     \item \textbf{ Let the system to automatically score and rank students’ submissions}\\Students submissions are automatically analyzed and ranked by the system, combining functional aspects, timeliness and quality level of sources. Functional aspects are measured in terms of number of unit test cases passed out of all test cases. Timeliness instead is measured in terms of elapsed time passed since the start of the battle. Finally, quality level of sources is measured in terms of code quality, whose aspects can be selected by the educator at battle creation time, and is computed by integrating with static analysis tools.
+     \item \textbf{ Allow educators to manually inspect and review students’ submissions}\\Educators will have the possibility to enable manual evaluation of students' submissions for a battle. If the option is enabled, the educator, at the end of the submission phase of a battle, can review the code of all the teams and assign a score. In this case, the system will combine the automatically computed score with the manual one to produce the final battle rank.
+     \item \textbf{ Allow students to track their performance}\\Teams will we able to see their current rank evolving during the battle, updated for each new submission. Additionally, at the end of each battle, the platform updates a personal tournament score of each student, that is the sum of all battle scores received in that tournament. In this way, the student can track his/her performance during the tournament as well.
+ \end{enumerate}
+
+ %--------------------------------------
 \subsection{Scope}
-... Here you see a subsubsection
-\subsubsection{World Phenomena}
-%what you write here is a comment that is not shown in the final text
+\subsubsection{Phenomena}
+
+\subsubsection{Definitions}
+\subsubsection{Acronyms}
+\subsubsection{Abbreviations}
+
+\subsection{Revision History}
+
+\subsection{Reference Documents}
+
+\subsection{Document Structure}
