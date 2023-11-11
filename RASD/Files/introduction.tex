@@ -21,9 +21,29 @@ CodeKataBattle aims to fill these gaps by facilitating competitive programming c
      \item \textbf{ Allow educators to manually inspect and review submissions of students}\\Educators will have the possibility to enable manual evaluation of students' submissions for a battle. If the option is enabled, the educator, at the end of the submission phase of a battle, can review the code of all the teams and assign a score. In this case, the system will combine the automatically computed score with the manual one to produce the final battle rank.
      \item \textbf{ Allow students to track their performance}\\Teams will we able to see their current rank evolving during the battle, updated for each new submission. Additionally, at the end of each battle, the platform updates a personal tournament score of each student, that is the sum of all battle scores received in that tournament. In this way, the student can track his performance during the tournament as well.
  \end{enumerate}
-
+\newpage
  %--------------------------------------
 \subsection{Scope}
+The Code Kata Battle (CKB) platform aims at providing a collaborative environment for students to enhance their software development skills through structured practice sessions called "code kata battles". CKB facilitates an engaging learning experience by enabling students to partecipate in friendly competition while refining their programming skills.
+
+The system should allow 2 types of accesses, one for \textbf{educators} and the other for normal \textbf{students}: educators will have the possibility to create \textbf{tournaments} and \textbf{battles}, while students will have the possibility to subscribe to tournaments and provide solutions for the battles that compose them.
+
+Students can decide whether to participate to a battle by creating a new team or joining one, in respect with the constraints decided by the educator at battle creation time. Teams can be created by students in the context of a battle so that other students subscribed to the same tournament can freely decide to join and team up to produce a solution.
+
+The system will facilitate the collaboration between team members by integrating with \textbf{GitHub} through its \emph{GitHub Actions}. In this way, students will be able to collaborate on the same project and share their code.
+
+Once the students start developing their solutions, the platform will also start evaluating them. Evaluation is performed in 2 ways:
+\begin{itemize}
+    \item {Mandatory \textbf{automated evaluation}; it includes:}
+    \begin{itemize}
+        \item {functional aspects measured in terms of number of test cases that are correctly solved}
+        \item {timeliness, measured in terms of time passed between the start of the battle and the last commit}
+        \item {quality level of the sources, extracted through  \textbf{external static analysis tools} that consider multiple aspects selected by the educator at battle creation time (e.g. security, reliability, and maintainability)}
+    \end{itemize} 
+    \item {Optional \textbf{manual evaluation}: personal score assigned by the educator, who checks and evaluates the work done by students}
+\end{itemize}
+Lastly, once the deadline for the submission of solutions expires (and after the manual evaluation has been performed in case it was expected), the system assigns to every team that participated in the battle an integer score between 0 and 100 that will concur to the definition of the personal score of each user in the context of the tournament the battle belongs to, in addition to the teams’ rank of the battle. At any point in time every user subscribed to CKB can see the list of ongoing tournaments and the rank of enrolled users.
+For a smoother experience, students will receive email notifications about the most important events, such as the availability of a new tournament and battle, or the publication of the final rank of a battle.
 \subsubsection{Phenomena}
 
 \subsubsection{Definitions}
