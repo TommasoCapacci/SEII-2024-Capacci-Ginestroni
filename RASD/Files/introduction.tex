@@ -1,4 +1,3 @@
-TODO
 \subsection{Purpose}
 Traditional classroom teaching focuses heavily on theory and concepts, without providing sufficient opportunities for students to gain hands-on coding experience.
 Additionally, the student-instructor relationship is usually limited to formal lectures and exams, missing some kind of continuous evaluation, which is essential to stimulate learning.
@@ -45,7 +44,44 @@ Once the students start developing their solutions, the platform will also start
 Lastly, once the deadline for the submission of solutions expires (and after the manual evaluation has been performed in case it was expected), the system assigns to every team that participated in the battle an integer score between 0 and 100. This will concur both to the team's battle rank and to the personal score of each user in the context of the tournament the battle belongs to. At any point in time every user subscribed to CKB can see the list of ongoing tournaments and the rank of enrolled users.
 For a smoother experience, students will receive email notifications about the most important events, such as the availability of a new tournament and battle, or the publication of the final rank of a battle.
 \subsubsection{Phenomena}
-
+According to the paper "The World and the Machine" by M.Jackson and P.Zave, we can identify the application domains. The following table describes the world, shared and the machine phenomena, including the reference to which part controls the phenomena.
+\begin{table}[H]
+    \rowcolors{3}{blue!15}{white}
+    \begin{tabular}{|p{9.5cm}|p{2cm}|p{1.5cm}|}
+        \hline
+        \rowcolor{blue!50}
+        Phenomenon & Controlled & Shared \\
+        \hline
+        Teacher needs to evaluate his students & W & N \\
+        Evaluator decides to challenge his students & W & N \\
+        Student wants to improve his coding skills & W & N \\
+        Students may communicate with each other & W & N \\
+        Student invites other student & W & N \\
+        User/educator subscribes to the platform & W & Y \\
+        User/educator logins & W & Y \\
+        Educator creates a tournament & W & Y \\
+        Educator creates a battle within a tournament & W & Y \\
+        Educator submits manual optional evaluation  & W & Y \\
+        User creates a group & W & Y \\
+        User joins a group & W & Y \\
+        User checks list of ongoing tournaments and ranks & W & Y \\
+        User forks the GitHub repository of the code kata & W & Y \\
+        User commits a new solution & W & Y \\
+        User checks the updated score of a battle & W & Y \\
+        System is notified by GitHub about a new submission & W & Y \\
+        Platform creates GitHub repository and sends the link to the students of the teams subscribed to the battle & M & Y \\
+        Platform sends notification to users & M & Y \\
+        Platform updates battle score of a team & M & Y \\
+        System evaluates quality level of a submission through static analysis & M & Y \\
+        System checks login data & M & N \\
+        System pulls new submission from GitHub & M & N \\
+        System evaluates functional aspects of a submission & M & N \\
+        System evaluates timeliness of a submission & M & N \\
+        \hline
+    \end{tabular}
+    \caption{phenomena table}
+\end{table}
+\newpage
 \subsubsection{Definitions}
 \subsubsection{Acronyms}
 \subsubsection{Abbreviations}
