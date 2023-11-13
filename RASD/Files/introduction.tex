@@ -52,26 +52,32 @@ According to the paper "The World and the Machine" by M.Jackson and P.Zave, we c
         \rowcolor{blue!50}
         Phenomenon & Controlled & Shared \\
         \hline
-        Teacher needs to evaluate his students & W & N \\
+        Teachers test their students & W & N \\
         Evaluator decides to challenge his students & W & N \\
         Student wants to improve his coding skills & W & N \\
         Students may communicate with each other & W & N \\
-        Student invites other student & W & N \\
-        User/educator subscribes to the platform & W & Y \\
-        User/educator logins & W & Y \\
+        Student invites other student to join his team & W & N \\
+        Student/educator subscribes to the platform & W & Y \\
+        Student/educator logins & W & Y \\
         Educator creates a tournament & W & Y \\
+        Educator adds other educator as tournament collaborator  & W & Y \\
         Educator creates a battle within a tournament & W & Y \\
+        Educator closes the battle's consolidation stage & W & Y \\
+        Educator terminates a tournament & W & Y \\
         Educator submits manual optional evaluation  & W & Y \\
-        User creates a group & W & Y \\
-        User joins a group & W & Y \\
-        User checks list of ongoing tournaments and ranks & W & Y \\
-        User forks the GitHub repository of the code kata & W & Y \\
-        User commits a new solution & W & Y \\
-        User checks the updated score of a battle & W & Y \\
-        System is notified by GitHub about a new submission & W & Y \\
+        Student creates a team & W & Y \\
+        Student joins a team & W & Y \\
+        Student checks list of ongoing tournaments and ranks & W & Y \\
+        Student forks the GitHub repository of the code kata & W & Y \\
+        Student commits a new submission on GitHub & W & Y \\
+        Student checks the updated score of a battle & W & Y \\
+        System closes tournament's subscription phase & M & Y \\
+        System closes battle's team formation phase & M & Y \\
+        System closes battle's submission phase & M & Y \\
         Platform creates GitHub repository and sends the link to the students of the teams subscribed to the battle & M & Y \\
         Platform sends notification to users & M & Y \\
-        Platform updates battle score of a team & M & Y \\
+        System computes and updates battle score of a team & M & Y \\
+        System computes and updates student's tournament personal score & M & Y \\
         System evaluates quality level of a submission through static analysis & M & Y \\
         System checks login data & M & N \\
         System pulls new submission from GitHub & M & N \\
