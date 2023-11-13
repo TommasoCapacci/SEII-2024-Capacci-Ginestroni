@@ -94,7 +94,7 @@ According to the paper "The World and the Machine" by M.Jackson and P.Zave, we c
     \item {\textbf{User:} anyone that has registered to the platform}
     \item {\textbf{Student:} the first kind of users and, basically, the people this product is designed for. Their objective is to submit solutions to battles}
     \item {\textbf{Team:} students can decide to group up and form a team to partecipate to a battle. The score assigned to the submission of a team will be assigned also to each one of its members}
-    \item {\textbf{Team leader:} whoever creates a team for a battle. He is in charge of forking the GitHub repository of the battle and adding his team mates as GitHub collaborators. He also has to properly set-up the GitHub Actions workflow that will be used to automatically evaluate the submissions of the team}
+    \item {\textbf{Team leader:} whoever creates a team for a battle. He is in charge of forking the GitHub repository of the battle and adding his teammates as GitHub collaborators. He also has to properly set-up the GitHub Actions workflow that will be used to automatically evaluate the submissions of the team}
     \item {\textbf{Educator:} the second kind of users. They create tournaments, set-up battles, and eventually, evaluate the solutions that teams of students have submitted during the challenge}
     \item {\textbf{Tournament:} collection of coding exercises (battles) about specific topics of a subject. Interested students can subscribe to it and participate to its battles as soon as they are published}
     \item {\textbf{Code Kata Battle (or battle):} the atomic unit of a tournament. Usually students are asked to implement an algorithm or to develope a simple project that solves the task. Each battle belongs to a specific tournament: students submitting solutions for a battle will obtain a score that will be used to compute both the team's rank for the battle and the members' tournament rank}
@@ -111,14 +111,40 @@ According to the paper "The World and the Machine" by M.Jackson and P.Zave, we c
 \end{itemize}
 \subsubsection{Acronyms}
 \begin{itemize}
-    \item {\textbf{ID:}\\blabla}
+    \item {\textbf{CKB:} Code Kata Battles}
+    \item {\textbf{API:} Application Programming Interface}
+    \item {\textbf{UML:} Unified Modeling Language}
 \end{itemize}
 \subsubsection{Abbreviations}
 \begin{itemize}
-    \item {\textbf{ID:}\\blabla}
+    \item {\textbf{Gn:} Goal number “n”}
+    \item {\textbf{Dn:} Domain Assumption number “n”}
+    \item {\textbf{Rn:} Requirement number “n”}
 \end{itemize}
 \subsection{Revision History}
-
+\begin{itemize}
+    \item December 22, 2023: version 1.0 (first release)
+\end{itemize}
 \subsection{Reference Documents}
+\begin{itemize}
+    \item {Specification document: "Assignment RDD AY 2023-2024"}
+    \item {RASD reference template: “02g.CreatingRASD”}
+    \item {Paper: "Jackson and Zave: the world and the machine"}
+    \item {UML official specification \href{https://www.omg.org/spec/UML/}{https://www.omg.org/spec/UML/}}
+    \item {Alloy official documentation: \href{https://alloytools.org/documentation.html}{https://alloytools.org/documentation.html}}
+\item {GitHub  API official documentation \href{https://docs.github.com/en/rest/guides/getting-started-with-the-rest-api?apiVersion=2022-11-28}{https://docs.github.com/en/rest/guides/getting-started-with-the-rest-api?apiVersion=2022-11-28}}
+\end{itemize}
 
 \subsection{Document Structure}
+\begin{itemize}
+    \item {\textbf{Section 1: Introduction}\\This section offers a brief overview of the product and its domain. \\It also contains the list of definitions, acronyms and abbreviations that could be found in this document. \\Finally, there are
+    the list of definitions, acronyms and abbreviations that could be found in this document.}
+    \item {\textbf{Section 2: Overall Description}\\The second chapter offers a more detailed description of the product domain through state machine diagrams and UML class diagram. It contains also the hardware and the software costraints of the system. Finally, there is an overview of
+     all the product features and the actors they are built for. Some scenarios are included to better understand the expected functionalities.}
+    \item {\textbf{Section 3: Specific Requirements}\\This section contains a description of functional requirement through some use cases and activity diagrams.}
+    \item {\textbf{Section 4: Formal Analysis through Alloy}\\The fourth chapter is a formal analysis of the model, made through the Alloy, including a graphic
+    representation of it obtained from Alloy Tool.
+    }
+    \item {\textbf{Section 5: Effort spent}}\\The fifth and last chapter contains the time spent by each contributor of this document.
+
+\end{itemize}
