@@ -24,17 +24,105 @@
 \end{itemize}
 
 \subsubsection{ State diagrams}
-In order to provide a complete description of the application domain, here we included the state diagrams relative to battles and tournaments.
+In order to provide a complete description of the application domain, here we included the state diagrams relative to tournaments and battles.
 \begin{figure}[h]
-    \centering
-    \includegraphics[scale=0.4]{Diagrams/tournament_state.jpg}
+    \hspace{-20px}
+    \includegraphics[scale=0.5]{Diagrams/tournament_state.jpg}
     \caption{Tournament state diagram}
     \label{tournament_state}
 \end{figure}
 \begin{figure}[h]
-    \centering
-    \includegraphics[scale=0.4]{Diagrams/battle_state.jpg}
+    \hspace{20px}
+    \includegraphics[scale=0.55]{Diagrams/battle_state.jpg}
     \caption{Battle state diagram}
     \label{battle_state}
 \end{figure}
 \\In particular, in the case of battles, which transition is taken after the submission stage only depends on whether the manual evaluation was enabled or not.
+
+\subsection{Product functions}
+\subsubsection{Sign up and Log in}
+These functions are used to respectively subscribe to the platform and access the personal area. This will be available to all kind of users, with a little difference between students and educators. Specifically, during the sign up process, the system will start by asking the user if he/she wants to sign up as a student or as an educator.
+
+In the student’s case, the system will ask the new user to enter his/her first and family name, a GitHub username, an email and a password: if the provided email is not already used for another account (of any type) and it really exists a GitHub account associated to the provided username, the system registers the new user. Alternatively, the system allows users to sign up through external identity providers like Google, Facebook and GitHub.
+
+In the educator’s case instead, the system will ask the same information but, instead of the GitHub username (which is not needed in the case of an educator), it will ask him/her a form to explain why is he/she subscribing and a document that proves its identity.
+
+At this point, since notifications will be send via mail in any case, in order to use the system the new user has to verify its email: a verification email is sent to the provided email address containing a link that the user will have to click to confirm it.
+
+Obviously in the future, in order to log in, the user will be asked to provide the email and password entered during the sign up phase: if these match, the system will grant access.
+\subsubsection{Manage tournaments}
+This functionality is available only to educators and basically represents the main functionality that the platform provides.
+
+In order to initiate a new competition, each educator can decide to create a new tournament. To do this the educator log in to its personal area and then goes to the page listing all the tournaments that he’s ever created (even the ones that have already terminated: the system persists their final ranks and other useful information, see “Create battles” function) or that he has been granted access to. Here the educator can click a button to create a new tournament: a new page is displayed, in which the user has to provide a new (unique) name for the tournament, fix a subscription deadline and, eventually, grant the possibility to other educators to create battles in the context of the new tournament (this is done by fulfilling a search box with their emails such that the system can send them an invitation, which they can accept or not). This is the only setting that can be changed at any time, even while the tournament is active.
+\subsubsection{Join a tournament}
+This functionality is available only to students. In order to subscribe to a new tournament a student can find inside its personal area a page listing all the tournaments he/she has ever participated to. In this page there’s also a button that allows the student to join a new tournament: a new page is displayed, in which the user has to provide the name (or part of it) of the tournament of interest. The system searches among all the (active) tournaments those whose name is compatible with what the user’s query and returns the list of these.
+
+At this point the student can refine his/her search or select the right tournament from the list and, by doing this, subscribe to it.
+\subsubsection{Create a battle}
+This functionality is available only to educators. An educator can select an active tournament from the page showing the list of the tournaments he/she has access to: inside the new page that is displayed educators can find data relative to the tournament (e.g. the state of the tournament and how much time before the next) and the students subscribed to it (e.g. actual ranking and list of subscribed students) and also a button that allows them to create a new code kata battle.
+
+By clicking it, the user is brought to a new webpage in which has to provide multiple information:
+\begin{itemize}
+    \item Battle name
+    \item Programming language of use
+    \item Upload Code Kata, including project description, automation scripts and test cases
+    \item Set minimum and maximum number of students per group
+    \item Set registration and final submission deadline
+    \item Specify scoring configuration (see “Evaluate a submission” function)
+\end{itemize}
+At this point the battle is created and the registration phase starts. Once the registration deadline is met, the system will prepare the development environment for each student: specifically, it will create a new public repository on the platform GitHub account and send the relative link to all team leaders, which will need to fork the repository, set up GitHub Actions and invite his/her teammates (if there are) as collaborators.
+\subsubsection{Join a battle}
+This functionality is available only to students. A student that is subscribed to a tournament is notified upon the creation of a new battle in the context of it. In the case the user is interested into participating, he/she can subscribe to it by creating a team or joining one that has already been created.
+
+As first thing he/she has to access the page relative to the teams for that battle. This can be done in 2 ways:
+\begin{itemize}
+    \item Directly by clicking the link inside the notification sent through the email.
+    \item Go to the page displaying his/her list of tournaments and select the one of the new battle: inside a new page there will be shown the actual rank and the list of battles up to the last,  the active one, which can be selected. If a user selects a battle it has already subscribed to, he/she is brought to the page devoted to its team.
+\end{itemize}
+Inside a new page it will be displayed the list of available teams and 2 buttons.
+
+The first button allows the student to create a new group: upon click a new page will be shown in which the student has to fill a form to enter all the necessary information. Specifically, the student has to:
+\begin{itemize}
+    \item Provide a (unique) name for the team
+    \item Set the visibility of the group: the creator can toggle a checkbox to specify that the team will be private
+\end{itemize}
+At this point a random invite code is generated for the new group: this will be used as a reference to search specific groups and also represents the only way to access private teams. In this case the student that created the team will be marked as team leader (see “Create battles” functionality). This functionality is particularly important because students that want to participate by their own, need to create a group (in order to be sure, they can set it as private and simply keep the invitation code for theirselves: anyway we must keep in mind that this scenario is available only when the minimum number of students per group is set to 1).
+
+The second button instead allows the student to join an already existing group: this is achieved by allowing the student to search groups by name (private groups will not be shown) or directly by inserting the relative invite code: if the specified group does not already contain the maximum number of students for the battle, the user can select it to subscribe.
+\subsubsection{Submit a solution}
+Once the registration phase is over, the submission phase starts: the system provides each student/team a GitHub repository in which the solution code has to be collected (teams of students have to manually guarantee access to all needed collaborators). Then, GitHub Actions has to be set up in each of these repositories in order to enable the necessary workflow: in this way the submission of a new solution is performed by committing and pushing over the repository as we would normally use GitHub for. On push, an API call will notify the platform of the publication of a new solution for that student/team and proceed to evaluate it.
+\subsubsection{Evaluate a submission}
+The platform provides an automatic evaluation system that is used to score the solutions submitted by the students. Scoring is divided in 2 groups:
+\begin{itemize}
+    \item \textbf{Automatic evaluation:} this comprises all the aspects that are mandatory to be assessed. These are:
+    \begin{itemize}
+        \item Correctness, measured in terms of number of test cases solved correctly out of all.
+        \item Timeliness, measured in term of time passed between the registration deadline and the last commit.
+        \item Quality level: the system uses external tools to evaluate the code with respect to 3 possible aspects that are security, reliability and maintainability (educator decides which to include at battle creation time).
+    \end{itemize}
+    \item \textbf{Manual evaluation:} this is an optional evaluation phase that educators can decide to reserve time for (must be indicated at battle creation time).\\Specifically, in the case the educator has requested it, as soon as the mandatory evaluation has been completed the system allows him/her to manually inspect the code provided by each team: by clicking on the name of the team inside the final rank the system displays a new page in which is shown the link to the team’s GitHub repository and a form that must be filled with the new score. The final mark will be computed as the arithmetic average between the automatically assessed score and the one assigned by the educator.
+\end{itemize}
+\subsubsection{Visualize ranking}
+At any time, any user of any kind can visualize the ranking of the tournaments/battles it was involved in by reaching the dedicated page inside their personal area and selecting the tournament/battle of interest. Battle ranks are computed considering the highest score of each team, while the tournament ranks are computed considering, for each student, the sum of the scores assigned to its teams during battles in the context of that tournament.
+\subsubsection{Send notification}
+The system sends notifications (by means of emails) to its users in many cases:
+\begin{itemize}
+    \item on tournament creation, all the students subscribed to the platform are notified
+    \item on battle creation, all the students subscribed to the tournament the new battle will belong to are notified
+    \item on tournament/battle closure
+    \item on solution evaluation
+\end{itemize}
+
+\subsection{User characteristics}
+As we’ve already said many times, the system is meant to be used by 2 kind of users:
+\begin{itemize}
+    \item \textbf{Educators:} this is the type of users that uses the platform to create competitions. They can create tournaments and battles and, eventually, evaluate the solutions provided by students. They must have a good knowledge of how to create valid automation scripts and have a basic understanding of how to use a web browser.
+    \item \textbf{Students:} these are the users that will use the platform to be evaluated or simply to take part in a competition. They can subscribe to tournaments and battles, join groups of students and submit solutions. They are required to have a good knowledge of how to properly setup a GitHub repository and of all the programming languages involved in the battles.
+\end{itemize} 
+
+\subsection{Assumptions, dependencies and constraints}
+\subsubsection{Additional constraints}
+Since the platform will need to ask the user for personal information like name, surname and email address, it needs to guarantee that this data will be processed and stored accordingly to the GDPR.
+
+Moreover, from the moment that the platform will also use cookies (e.g. to keep users authenticated), the system will need to get consent from visitors before placing cookies on their devices, in compliance with the EU ePrivacy regulations.
+\subsubsection{Domain assumptions}
