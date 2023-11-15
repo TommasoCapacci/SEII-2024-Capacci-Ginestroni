@@ -85,9 +85,14 @@ The first button allows the student to create a new group: upon click a new page
     \item Provide a (unique) name for the team
     \item Set the visibility of the group: the creator can toggle a checkbox to specify that the team will be private
 \end{itemize}
-At this point a random invite code is generated for the new group: this will be used as a reference to search specific groups and also represents the only way to access private teams. In this case the student that created the team will be marked as team leader (see “Create battles” functionality). This functionality is particularly important because students that want to participate by their own, need to create a group (in order to be sure, they can set it as private and simply keep the invitation code for theirselves: anyway we must keep in mind that this scenario is available only when the minimum number of students per group is set to 1).
+At this point the system creates 2 random strings that will be univocally associated with the newly created team:
+\begin{itemize}
+    \item an invite code: this will represent the only way to access private teams and, in general, an alternative way to join teams.
+    \item an API token: this will be requested to be included inside the GitHub Actions workflow in order to allow the system to understand which team a solution belongs to.
+\end{itemize}  
+In this case the student that created the team will be marked as team leader (see “Create battles” functionality). This functionality is particularly important because students that want to participate by their own, need to create a group (in order to be sure, they can set it as private and simply keep the invitation code for theirselves: anyway we must keep in mind that this scenario is available only when the minimum number of students per group is set to 1).
 
-The second button instead allows the student to join an already existing group: this is achieved by allowing the student to search groups by name (private groups will not be shown) or directly by inserting the relative invite code: if the specified group does not already contain the maximum number of students for the battle, the user can select it to subscribe.
+The second button instead allows the student to join an already existing group: this is achieved by allowing the student to search groups by name (in case of private teams, in a following page the student will be asked to provide the right invite code) or by directly providing their invite code: if the specified group does not already contain the maximum number of students for the battle, the system adds the student to the group.
 \subsubsection{Submit a solution}
 Once the registration phase is over, the submission phase starts: the system provides each student/team a GitHub repository in which the solution code has to be collected (teams of students have to manually guarantee access to all needed collaborators). Then, GitHub Actions has to be set up in each of these repositories in order to enable the necessary workflow: in this way the submission of a new solution is performed by committing and pushing over the repository as we would normally use GitHub for. On push, an API call will notify the platform of the publication of a new solution for that student/team and proceed to evaluate it.
 \subsubsection{Evaluate a submission}
