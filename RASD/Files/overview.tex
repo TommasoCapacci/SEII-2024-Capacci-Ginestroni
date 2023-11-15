@@ -98,14 +98,14 @@ Once the registration phase is over, the submission phase starts: the system pro
 \subsubsection{Evaluate a submission}
 The platform provides an automatic evaluation system that is used to score the solutions submitted by the students. Scoring is divided in 2 groups:
 \begin{itemize}
-    \item \textbf{Automatic evaluation:} this comprises all the aspects that are mandatory to be assessed. These are:
+    \item \textbf{Automatic evaluation}: this comprises all the aspects that are mandatory to be assessed. These are:
     \begin{itemize}
         \item Correctness, measured in terms of number of test cases solved correctly out of all.
         \item Timeliness, measured in term of time passed between the registration deadline and the last commit.
         \item Quality level: the system uses external tools to evaluate the code with respect to 3 possible aspects that are security, reliability and maintainability (educator decides which to include at battle creation time).
     \end{itemize}
     These aspects are quantified and then combined in a way to return an integer score between 0 and 100.
-    \item \textbf{Manual evaluation:} this is an optional evaluation phase that educators can decide to reserve time for (must be indicated at battle creation time). Specifically, in the case the educator has specified it, as soon as the mandatory evaluation has been computed the system allows him/her to manually inspect the code provided by each team: by clicking on the name of the team inside the final rank the system displays a new page in which is shown the link to the team’s GitHub repository and a form that must be filled with an integer score between 0 and 100.\\ The final mark will be computed as the arithmetic average between the automatically assessed score and the one assigned by the educator.
+    \item \textbf{Manual evaluation}: this is an optional evaluation phase that educators can decide to reserve time for (must be indicated at battle creation time). Specifically, in the case the educator has specified it, as soon as the mandatory evaluation has been computed the system allows him/her to manually inspect the code provided by each team: by clicking on the name of the team inside the final rank the system displays a new page in which is shown the link to the team’s GitHub repository and a form that must be filled with an integer score between 0 and 100.\\ The final mark will be computed as the arithmetic average between the automatically assessed score and the one assigned by the educator.
 \end{itemize}
 \subsubsection{Visualize ranking}
 At any time, any user of any kind can visualize the ranking of the tournaments/battles it was involved in by reaching the dedicated page inside their personal area and selecting the tournament/battle of interest. Battle ranks are computed considering the highest score of each team, while the tournament ranks are computed considering, for each student, the sum of the scores assigned to its teams during battles in the context of that tournament.
@@ -121,8 +121,8 @@ The system sends notifications (by means of emails) to its users in the followin
 \subsection{User characteristics}
 As we’ve already said many times, the system is meant to be used by 2 kind of users:
 \begin{itemize}
-    \item \textbf{Educators:} this is the type of users that uses the platform to create competitions. They can create tournaments and battles and, eventually, evaluate the solutions provided by students. They must have a good knowledge of how to create valid automation scripts and have a basic understanding of how to use a web browser.
-    \item \textbf{Students:} these are the users that will use the platform to be evaluated or simply to take part in a competition. They can subscribe to tournaments and battles, join groups of students and submit solutions. They are required to have a good knowledge of how to properly setup a GitHub repository and of all the programming languages involved in the battles.
+    \item \textbf{Educators}: this is the type of users that uses the platform to create competitions. They can create tournaments and battles and, eventually, evaluate the solutions provided by students. They must have a good knowledge of how to create valid automation scripts and have a basic understanding of how to use a web browser.
+    \item \textbf{Students}: these are the users that will use the platform to be evaluated or simply to take part in a competition. They can subscribe to tournaments and battles, join groups of students and submit solutions. They are required to have a good knowledge of how to properly setup a GitHub repository and of all the programming languages involved in the battles.
 \end{itemize} 
 
 \subsection{Assumptions, dependencies and constraints}
@@ -131,3 +131,16 @@ Since the platform will need to ask the user for personal information like name,
 
 Moreover, from the moment that the platform will also use cookies (e.g. to keep users authenticated), the system will need to get consent from visitors before placing cookies on their devices, in compliance with the EU ePrivacy regulations.
 \subsubsection{Domain assumptions}
+\begin{enumerate}[label=$\bullet$ \textbf{D\arabic*:}]
+    \item Users have access to a stable and reliable internet connection to interact with the CKB platform.
+    \item Supported programming languages are limited to popular options like Java, Python and C++.
+    \item Registered educators are all legitimate and verified.
+    \item Educators upload correct test cases and well-structured Code Kata projects.
+    \item Users are expected to engage in code kata battles with integrity, without resorting to plagiarism or cheating.
+    \item Maximum number of students per groups an educator can set will always be bounded (e.g. less than 4).
+    \item Students will fork the code kata GitHub repository once ready and invite only his teammates as collaborators.
+    \item Only one student per group will perform the steps needed to set-up the team's repository and the GitHub Actions workflow.
+    \item Every student has a GitHub account.
+    \item Students know how to setup a GitHub Actions worfkflow.
+    \item Static analysis tools are able to quantify the specified code quality aspects.
+\end{enumerate}

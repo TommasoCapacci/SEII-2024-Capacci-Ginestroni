@@ -1,1 +1,81 @@
-Organize this section according to the rules defined in the project description. 
+\subsection{External Interface Requirements}
+\subsubsection{User Interfaces}
+TODO\\
+The platform will have a web interface accessible via browser from both students and educators. Key interfaces will include account registration, log in page, tournament/battle creation, team creation/joining and rankings visualization.
+\subsubsection{Hardware Interfaces}
+The software does not require any other hardware interface different from normal personal computers from which users can access the platform.
+\subsubsection{Software Interfaces}
+Some of the functionalities provided by the system exploit specific interfaces to work. These are:
+\begin{itemize}
+    \item \textbf{GitHub interface}: the system has to be able to interface with GitHub to create the original repository for each battle, which will then be forked by the different teams. Moreover, in order to be notified about the submission of a new solution, the system itself must expose a REST endpoint that will be invoked by the automated GitHub Actions workflow set up by each team.
+    \item \textbf{Static analysis tools}: some of the aspects that have to be evaluated require the execution of some static analysis method over the provided code. In this case, the platform utilizes external services directly provided by third-party organizations.
+\end{itemize}
+Each of these interfaces are implemented by correctly setting and utilizing specific API calls to the involved services that will be included inside the platform’s inner processes.
+\subsubsection{Communication Interfaces}
+From the moment that most of the system’s services are provided through the platform’s website and REST API calls, no other protocol than normal HTTP should be needed. Anyway, it is worth mentioning that communication between the system and user is achieved through notifications sent via mail using an external mail service provider.
+
+\subsection{Functional Requirements}
+The main requirements the system has to fulfill are the following:
+\begin{enumerate}[label=$\bullet$ \textbf{R\arabic*:}]
+    \item System shall allow user to register as educator or student.
+    \item System shall allow user to log in.
+    \item System shall allow educator to create a tournament.
+    \item System shall allow educator (tournament creator) to set the name of the tournament.
+    \item System shall allow educator (tournament creator) to set the description of the tournament.
+    \item System shall allow educator (tournament creator) to set the subscription deadline of the tournament.
+    \item System shall notify all students enrolled to the platform about a newly created tournament.
+    \item System shall allow educator (tournament creator) to end the tournament.
+    \item System shall allow educator (tournament creator) to add another educator as collaborator to the tournament.
+    \item System shall allow educator (tournament creator or collaborator) to create a battle for the tournament.
+    \item System shall allow educator (tournament creator or collaborator) to upload the Code Kata of the battle.
+    \item System shall allow educator (battle creator) to set minimum and maximum number of students per group allowed for the battle.
+    \item System shall allow educator (battle creator) to set the registration deadline of the battle.
+    \item System shall allow educator (battle creator) to set the submission deadline of the battle.
+    \item System shall allow educator (battle creator) to enable/disable optional manual evaluation for the battle.
+    \item System shall allow educator (battle creator) to select relevant aspects of quality level to be extracted through static analysis.
+    \item System shall notify all users enrolled to a tournament about a newly created battle.
+    \item System shall integrate with external static analysis tools through proper API calls.
+    \item System shall create the GitHub repository of a battle as soon as the registration phase closes.
+    \item System shall assign to each submission sent before the submission deadline a score (natural number between 0 and 100) combining correctness, timeliness and code quality \textit{as soon as possible}.
+    \item System shall allow educator (battle creator) to set a manual score (natural number between 0 and 100) to the last valid team’s submission during the consolidation stage of the battle.
+    \item System shall compute a final score combining automatic and manual score (if available) for each team after the consolidation stage if expected or after the submission deadline otherwise.
+    \item System shall update the battle teams’ ranks after a new score is available.
+    \item System shall notify all students participating to the battle about the availability of the final battle rank.
+    \item System shall update the tournament students’ scores as the sum of all the battle scores received during the tournament once the final battle rank becomes available.
+    \item System shall notify all involved users about the availability of the tournament student’s final rank.
+    \item System shall allow all users to see the list of ongoing tournaments.
+    \item System shall allow all users to see all tournaments’ ranks.
+    \item System shall allow all users subscribed to the same battle the relative battle's rank.
+    \item System should manage every ranking (tournament or battle) in a way that it represents the correct order of students/teams within its context, from the ones with the highest score to the ones with the lowest.
+    \item System shall allow student to enroll to a tournament within the subscription deadline.
+    \item System shall allow student to create a team within the registration deadline.
+    \item System shall allow student (team creator) to set the team name.
+    \item System shall allow student (team creator) to set the privacy of the group.
+    \item System shall allow student to join a team \textit{only} before the registration deadline.
+    \item System shall allow \textit{only} students who know the correct invite code to join private groups.
+    \item System shall allow team members to set their the repository URL.
+    \item System shall generate a unique API token for each team.
+    \item System should offer an external API which, when invoked, will notify the platform about a new commit on a team’s GitHub repository.
+\end{enumerate}
+\subsubsection{Use cases}
+\subsubsection{Requirements mapping}
+
+\subsection{Performance Requirements}
+Even though the platform is not mission critical, should guarantee a smooth and appealing experience to all kind of users. Given the complexity of the overall project, we describe different performance requirements for different aspects:
+\begin{itemize}
+    \item \textit{Basic user interaction with the webapp}: response time for user actions like creating/joining a team, loading scoreboards, creating a tournament etc should be under 2 seconds for 90\% of requests under normal load.
+    \item \textit{Space requirements}: a reasonable estimate of a project’s maximum size is about 40-50 MB. So, the system, to control the space usage, should limit the allowed projects sizes to 80 MB.
+    \item \textit{Upload/download speed requirements}: given the previous estimate of project’s size, the system should guarantee a good throughput in terms of upload and download speed of the projects’ files. System should be able to reserve on average at least 8 Mb/s to each connection; this means that a project directory of 50 MB would take about 50 seconds to be downloaded. However, bandwidth of educator’s uploads should be prioritized. A pessimistic estimate with 1000 concurrent upload/download connections suggests that the systems needs at least a 10 Gb/s internet connection. Aggregating different Internet Service Providers may be considered to achieve greater bandwidths.
+    \item \textit{Computational resources}: system should be sized to handle up to 100 simultaneous code submissions from different teams, providing a score within 20 seconds. Multiple CPUs and threading will help in handling this kind of concurrency.
+    \item \textit{Notifications}: email notification should be able to reach all the recipients within 2 minutes.
+\end{itemize}
+These performance requirements will be taken in consideration also in choosing the external static analysis provider.
+
+Moreover, given the different and independent performance requirements of all the functions involved, it is preferred to support each one with different machines or subsystems. In this way, the overall platform could still work with degraded performance affecting only a part of the functionalities.
+
+The performance of the system could be improved following some basic strategies:
+\begin{itemize}
+    \item \textbf{Limit inbound API rate}: this will help in reducing commits from the same team (preventing also spam attacks).
+    \item \textbf{Bound execution time}: kill the evaluation of a submission after a timeout. This will help preventing to spend too many resources for tasks that should be quick to perform. 
+\end{itemize}
+In conclusion, it is important to mention again that even though the system is not providing an essential service to the user, it should offer a non stressful educational experience. Indeed, given the strict deadlines system, even a little delay in the submission could compromise the competition (which could potentially reflect into school marks of students), thus the overall purpose of the project.
