@@ -99,17 +99,18 @@ The platform provides an automatic evaluation system that is used to score the s
         \item Timeliness, measured in term of time passed between the registration deadline and the last commit.
         \item Quality level: the system uses external tools to evaluate the code with respect to 3 possible aspects that are security, reliability and maintainability (educator decides which to include at battle creation time).
     \end{itemize}
-    \item \textbf{Manual evaluation:} this is an optional evaluation phase that educators can decide to reserve time for (must be indicated at battle creation time).\\Specifically, in the case the educator has requested it, as soon as the mandatory evaluation has been completed the system allows him/her to manually inspect the code provided by each team: by clicking on the name of the team inside the final rank the system displays a new page in which is shown the link to the team’s GitHub repository and a form that must be filled with the new score. The final mark will be computed as the arithmetic average between the automatically assessed score and the one assigned by the educator.
+    These aspects are quantified and then combined in a way to return an integer score between 0 and 100.
+    \item \textbf{Manual evaluation:} this is an optional evaluation phase that educators can decide to reserve time for (must be indicated at battle creation time). Specifically, in the case the educator has specified it, as soon as the mandatory evaluation has been computed the system allows him/her to manually inspect the code provided by each team: by clicking on the name of the team inside the final rank the system displays a new page in which is shown the link to the team’s GitHub repository and a form that must be filled with an integer score between 0 and 100.\\ The final mark will be computed as the arithmetic average between the automatically assessed score and the one assigned by the educator.
 \end{itemize}
 \subsubsection{Visualize ranking}
 At any time, any user of any kind can visualize the ranking of the tournaments/battles it was involved in by reaching the dedicated page inside their personal area and selecting the tournament/battle of interest. Battle ranks are computed considering the highest score of each team, while the tournament ranks are computed considering, for each student, the sum of the scores assigned to its teams during battles in the context of that tournament.
 \subsubsection{Send notification}
-The system sends notifications (by means of emails) to its users in many cases:
+The system sends notifications (by means of emails) to its users in the following cases:
 \begin{itemize}
     \item on tournament creation, all the students subscribed to the platform are notified
     \item on battle creation, all the students subscribed to the tournament the new battle will belong to are notified
-    \item on tournament/battle closure
-    \item on solution evaluation
+    \item as soon as the final battle score is available, all the students belonging to the same team are notified
+    \item on tournament closure, all subscribed students are notified
 \end{itemize}
 
 \subsection{User characteristics}
