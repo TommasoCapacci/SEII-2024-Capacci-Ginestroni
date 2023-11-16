@@ -66,7 +66,7 @@ Even though the platform is not mission critical, should guarantee a smooth and 
     \item \textit{Basic user interaction with the webapp}: response time for user actions like creating/joining a team, loading scoreboards, creating a tournament etc should be under 2 seconds for 90\% of requests under normal load.
     \item \textit{Space requirements}: a reasonable estimate of a project’s maximum size is about 40-50 MB. So, the system, to control the space usage, should limit the allowed projects sizes to 80 MB.
     \item \textit{Upload/download speed requirements}: given the previous estimate of project’s size, the system should guarantee a good throughput in terms of upload and download speed of the projects’ files. System should be able to reserve on average at least 8 Mb/s to each connection; this means that a project directory of 50 MB would take about 50 seconds to be downloaded. However, bandwidth of educator’s uploads should be prioritized. A pessimistic estimate with 1000 concurrent upload/download connections suggests that the systems needs at least a 10 Gb/s internet connection. Aggregating different Internet Service Providers may be considered to achieve greater bandwidths.
-    \item \textit{Computational resources}: system should be sized to handle up to 100 simultaneous code submissions from different teams, providing a score within 20 seconds. Multiple CPUs and threading will help in handling this kind of concurrency.
+    \item \textit{Computational resources}: system should be sized to handle up to 100 simultaneous code submissions from different teams, providing a score within 20 seconds. Multiple CPUs with worker pooling approach will help in handling this kind of concurrency, dealing also with scalability issues.
     \item \textit{Notifications}: email notification should be able to reach all the recipients within 2 minutes.
 \end{itemize}
 These performance requirements will be taken in consideration also in choosing the external static analysis provider.
@@ -76,6 +76,6 @@ Moreover, given the different and independent performance requirements of all th
 The performance of the system could be improved following some basic strategies:
 \begin{itemize}
     \item \textbf{Limit inbound API rate}: this will help in reducing commits from the same team (preventing also spam attacks).
-    \item \textbf{Bound execution time}: kill the evaluation of a submission after a timeout. This will help preventing to spend too many resources for tasks that should be quick to perform. 
+    \item \textbf{Bound execution time}: terminate the evaluation of a submission after a timeout. This will help to prevent excessive resource consumption on tasks that should be quick to perform. 
 \end{itemize}
-In conclusion, it is important to mention again that even though the system is not providing an essential service to the user, it should offer a non stressful educational experience. Indeed, given the strict deadlines system, even a little delay in the submission could compromise the competition (which could potentially reflect into school marks of students), thus the overall purpose of the project.
+In conclusion, it is important to mention again that even though the system is not providing an essential service to the user, it should offer a non stressful educational experience. Indeed, given the strict deadlines system, even a little delay in the submission can compromise the competition (which could potentially reflect into school marks of students), thus the overall purpose of the project.
