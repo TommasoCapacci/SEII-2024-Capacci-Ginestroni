@@ -227,3 +227,35 @@ The performance of the system could be improved following some basic strategies:
     \item \textbf{Bound execution time}: terminate the evaluation of a submission after a timeout. This will help to prevent excessive resource consumption on tasks that should be quick to perform. 
 \end{itemize}
 In conclusion, it is important to mention again that even though the system is not providing an essential service to the user, it should offer a non stressful educational experience. Indeed, given the strict deadlines system, even a little delay in the submission can compromise the competition (which could potentially reflect into school marks of students), thus the overall purpose of the project.
+
+\subsection{Design Constraints}
+\subsubsection{Standards compliance}
+There are several standards the system must comply with:
+\begin{itemize}
+    \item The web interface will comply with the latest versions of HTML, CSS and JavaScript standards.
+    \item API will follow REST architectural constraints and use JSON data formats.
+    \item Coordinated Universal Time (UTC) will be used to store timestamps in order to correctly show deadlines to user located in different time-zones.
+\end{itemize}
+\subsubsection{Hardware limitations}
+The CDK platform has no strict hardware requirements, but should perform well on average smartphone or computer equipped with a modern web browser and a reliable internet connection.
+\subsubsection{Privacy constraints}
+Since the platform will need to ask the user for personal information like name, surname and email address, it needs to guarantee that this data will be processed and stored accordingly to the GDPR. Moreover, from the moment that the platform will also use cookies (e.g. to keep users authenticated), the system will need to get consent from visitors before placing cookies on their devices, in compliance with the EU ePrivacy regulations.
+\subsubsection{Quality constraints}
+User acceptance testing will measure task success rate and user satisfaction.
+
+\subsection{Software System Attributes}
+\subsubsection{Reliability}
+Given the complexity of the project, reaching high reliability levels represents a challenge and a key to success for the product. Indeed, even though the systems performs many interactions with external actors and service providers, consistency and integrity of the overall platform should be guaranteed even in case of errors or unexpected conditions.
+\subsubsection{Availability}
+Service should be continuously available (24/7) to users, with little downtime and rapid service recovery. Service level target is 99.9%. Planned maintenances should be communicated to users in advance, given the strict time requirements of the service offered by the platform.
+\subsubsection{Usability}
+The platform should be intuitive and minimal, still offering all the functionalities needed by all kind of users.
+\subsubsection{Security}
+\begin{itemize}
+    \item Passwords must be securely hashed and salted before storage.
+    \item Encryption should be used for sensitive data.
+    \item Input validation and sanitization should be applied to prevent attacks.
+    \item Adopt HTTPS protocol, which uses encryption for secure communication.
+\end{itemize}
+\subsubsection{Scalability}
+The system should be designed to easily scale horizontally to accommodate growth in traffic.
