@@ -3,7 +3,7 @@
 TODO\\
 The platform will have a web interface accessible via browser from both students and educators. Key interfaces will include account registration, log in page, tournament/battle creation, team creation/joining and rankings visualization.
 \subsubsection{Hardware Interfaces}
-The software does not require any other hardware interface different from normal personal computers from which users can access the platform.
+The software does not require any other hardware interface different than personal computers or smartphones equipped with modern browser from which users can access the platform.
 \subsubsection{Software Interfaces}
 Some of the functionalities provided by the system exploit specific interfaces to work. These are:
 \begin{itemize}
@@ -169,9 +169,6 @@ $\bullet$ \textbf{G4}: Allow educators to manually evaluate students' submission
         & \textbf{R15}: System shall allow educator (battle creator) to enable/disable optional manual evaluation for the battle \\
         & \textbf{R21}: System shall allow educator (battle creator) to set a manual score (natural number between 0 and 100) to the last valid team’s submission during the consolidation stage of the battle \\
         \hline
-    \end{tabular}
-    \begin{tabular}{ |m{3cm}|m{10cm}| }
-        \hline
         \textbf{Domain \newline Assumptions} 
         & \textbf{D1}: Users have access to a stable and reliable internet connection to interact with the CKB platform \\
         & \textbf{D8}: Students will fork the Code Kata GitHub repository once ready \\
@@ -247,7 +244,7 @@ User acceptance testing will measure task success rate and user satisfaction.
 \subsubsection{Reliability}
 Given the complexity of the project, reaching high reliability levels represents a challenge and a key to success for the product. Indeed, even though the systems performs many interactions with external actors and service providers, consistency and integrity of the overall platform should be guaranteed even in case of errors or unexpected conditions.
 \subsubsection{Availability}
-Service should be continuously available (24/7) to users, with little downtime and rapid service recovery. Service level target is 99.9%. Planned maintenances should be communicated to users in advance, given the strict time requirements of the service offered by the platform.
+Service should be continuously available (24/7) to users, with little downtime and rapid service recovery. The overall service level target is 99.5\%, which corresponds nearly to 50 minutes of downtime per week. Planned maintenances should be communicated to users in advance, given the strict time requirements of the service offered by the platform.
 \subsubsection{Usability}
 The platform should be intuitive and minimal, still offering all the functionalities needed by all kind of users.
 \subsubsection{Security}
@@ -255,7 +252,9 @@ The platform should be intuitive and minimal, still offering all the functionali
     \item Passwords must be securely hashed and salted before storage.
     \item Encryption should be used for sensitive data.
     \item Input validation and sanitization should be applied to prevent attacks.
-    \item Adopt HTTPS protocol, which uses encryption for secure communication.
+    \item Adopt HTTPS protocol, which uses encryption for secure communication.
+    \item Deploy firewalls to protect the system from unauthorized access.
+    \item Employ API authentication mechanism to limit access to the API.
 \end{itemize}
 \subsubsection{Scalability}
 The system should be designed to easily scale horizontally to accommodate growth in traffic.
