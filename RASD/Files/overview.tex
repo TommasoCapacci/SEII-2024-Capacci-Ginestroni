@@ -24,19 +24,19 @@
 
 \subsubsection{State diagrams}
 In order to provide a complete description of the application domain, here we included the state diagrams relative to tournaments and battles.
-\begin{figure}[h]
+\begin{figure}[H]
     \hspace{-20px}
     \includegraphics[scale=0.5]{Diagrams/tournament_state.jpg}
     \caption{Tournament state diagram}
     \label{tournament_state}
 \end{figure}
-\begin{figure}[h]
-    \hspace{20px}
-    \includegraphics[scale=0.55]{Diagrams/battle_state.jpg}
+\begin{figure}[H]
+    \hspace{35px}
+    \includegraphics[scale=0.5]{Diagrams/battle_state.jpg}
     \caption{Battle state diagram}
     \label{battle_state}
 \end{figure}
-\\In particular, in the case of battles, which transition is taken after the submission stage only depends on whether the manual evaluation was enabled or not.
+In particular, in the case of battles, which transition is taken after the submission stage only depends on whether the manual evaluation was enabled or not.
 
 \subsection{Product functions}
 \subsubsection{Sign up and Log in}
@@ -119,11 +119,21 @@ The system sends notifications (by means of emails) to its users in the followin
 \end{itemize}
 
 \subsection{User characteristics}
+\subsubsection{User types}
 As we’ve already said many times, the system is meant to be used by 2 kind of users:
 \begin{itemize}
     \item \textbf{Educators}: this is the type of users that uses the platform to create competitions. They can create tournaments and battles and, eventually, evaluate the solutions provided by students. They must have a good knowledge of how to create valid automation scripts and have a basic understanding of how to use a web browser.
     \item \textbf{Students}: these are the users that will use the platform to be evaluated or simply to take part in a competition. They can subscribe to tournaments and battles, join groups of students and submit solutions. They are required to have a good knowledge of how to properly setup a GitHub repository and of all the programming languages involved in the battles.
 \end{itemize} 
+\subsubsection{Educator requirements}
+In order to allow for automatic recognition of all the different kinds of files that the educator has to upload, the system requires him/her to upload a zip file containing all the needed files formatted in a specific way. In this section we'll mainly focus on its content rather than the way it must be structured, which instead will be in the focus of the Design Document. 
+
+In particular, the zip file must contain:
+\begin{itemize}
+    \item a folder that contains all the files needed to build the project (e.g. source code, build automation scripts, etc.). This will basically be what the GitHub repository of the battle will contain, so it must be organized in the exact way the educator wants it to appear on GitHub.
+    \item a file which contains all the test cases, expressed by means of (input, expected output) couples.
+\end{itemize}
+This separation also allows the system to understand which files must be uploaded on the GitHub repository and which not (i.e. test cases, since they must not be visible to students).
 
 \subsection{Assumptions, dependencies and constraints}
 \subsubsection{Domain assumptions}
