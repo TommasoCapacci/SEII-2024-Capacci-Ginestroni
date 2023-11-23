@@ -175,7 +175,50 @@ The main requirements the system has to fulfill are the following:
     \item System shall allow the educator to access the code of the submitted solutions.
 \end{enumerate}
 \subsubsection{Use cases}
-TODO
+\begin{center}
+    \begin{tabular}{ |c|m{10cm}| }
+        \hline
+        \textbf{ID} & 1 \\
+        \hline
+        \textbf{Name} & User registration \\
+        \hline
+        \textbf{Actors} & Unregistered user \\
+        \hline
+        \textbf{Entry conditions} & The user has opened the webapp. \\
+        \hline
+        \textbf{Event flow} &
+        \begin{enumerate}
+            \item The user opens the webapp.
+            \item The user clicks on the "Sign up" button.
+            \item The user fills the form with his personal information.
+            \item The user clicks on the "Sign up" button.
+            \item The system checks if the provided information is valid.
+            \item The system creates a new user account.
+            \item The system redirects the user to the home page.
+        \end{enumerate} \\
+        \hline
+        \textbf{Exit conditions} & The user has successfully created a new account. \\
+        \hline
+        \textbf{Exceptions} & 
+        \begin{itemize}
+            \item The user has provided invalid information.
+            \item The user has provided an email address already used by another account.
+        \end{itemize} \\
+        \hline
+        \textbf{Alternative} &
+        \begin{enumerate}
+            \item The user opens the webapp.
+            \item The user clicks on the "Sign up with Google" button.
+            \item The user is redirected to the Google login page.
+            \item The user logs in with his Google account.
+            \item The system checks if the provided information is valid.
+            \item The system creates a new user account.
+            \item The system redirects the user to the home page.
+        \end{enumerate} \\
+        \hline
+    \end{tabular}
+\end{center}
+
 \subsubsection{Goals mapping}
 $\bullet$ \textbf{G1}: Allow students to participate to collaborative programming challenges
 \begin{center}
