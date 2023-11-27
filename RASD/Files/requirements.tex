@@ -138,7 +138,6 @@ The main requirements the system has to fulfill are the following:
     \item System shall allow user to log in.
     \item System shall allow educator to create a tournament.
     \item System shall allow educator (tournament creator) to set the name of the tournament.
-    \item System shall allow educator (tournament creator) to set the description of the tournament.
     \item System shall allow educator (tournament creator) to set the subscription deadline of the tournament.
     \item System shall notify all students enrolled to the platform about a newly created tournament.
     \item System shall allow educator (tournament creator) to end the tournament.
@@ -174,6 +173,7 @@ The main requirements the system has to fulfill are the following:
     \item System shall generate a unique API token for each team.
     \item System should offer an external API which, when invoked, will notify the platform about a new commit on a team’s GitHub repository.
     \item System shall allow the educator to access the code of the submitted solutions.
+    \item System shall generate a unique invite code for each team.
 \end{enumerate}
 \subsubsection{Use cases}
 \begin{center}
@@ -228,19 +228,20 @@ $\bullet$ \textbf{G1}: Allow students to participate to collaborative programmin
         \textbf{Requirements} 
         & \textbf{R1}: System shall allow user to register as educator or student \\
         & \textbf{R2}: System shall allow user to log in \\
-        & \textbf{R7}: System shall notify all students enrolled to the platform about a newly created tournament \\
-        & \textbf{R17}: System shall notify all users enrolled to a tournament about a newly created battle \\
-        & \textbf{R19}: System shall create the GitHub repository of a battle as soon as the registration phase closes, sending its link to all involved students \\
-        & \textbf{R27}: System shall allow all users to see the list of ongoing tournaments \\
-        & \textbf{R31}: System shall allow student to enroll to a tournament within the subscription deadline \\
-        & \textbf{R32}: System shall allow student to create a team within the registration deadline \\
-        & \textbf{R33}: System shall allow student (team creator) to set the team name \\
-        & \textbf{R34}: System shall allow student (team creator) to set the privacy of the group \\
-        & \textbf{R35}: System shall allow student to join a team \textit{only} before the registration deadline \\
-        & \textbf{R36}: System shall allow \textit{only} students who know the correct invite code to join private groups \\
-        & \textbf{R37}: System shall allow team members to set their the repository URL \\
-        & \textbf{R38}: System shall generate a unique API token for each team \\
-        & \textbf{R39}: System should offer an external API which, when invoked, will notify the platform about a new commit on a team’s GitHub repository \\
+        & \textbf{R6}: System shall notify all students enrolled to the platform about a newly created tournament \\
+        & \textbf{R16}: System shall notify all users enrolled to a tournament about a newly created battle \\
+        & \textbf{R18}: System shall create the GitHub repository of a battle as soon as the registration phase closes, sending its link to all involved students \\
+        & \textbf{R26}: System shall allow all users to see the list of ongoing tournaments \\
+        & \textbf{R30}: System shall allow student to enroll to a tournament within the subscription deadline \\
+        & \textbf{R31}: System shall allow student to create a team within the registration deadline \\
+        & \textbf{R32}: System shall allow student (team creator) to set the team name \\
+        & \textbf{R33}: System shall allow student (team creator) to set the privacy of the group \\
+        & \textbf{R34}: System shall allow student to join a team \textit{only} before the registration deadline \\
+        & \textbf{R35}: System shall allow \textit{only} students who know the correct invite code to join private groups \\
+        & \textbf{R36}: System shall allow team members to set their the repository URL \\
+        & \textbf{R37}: System shall generate a unique API token for each team \\
+        & \textbf{R38}: System should offer an external API which, when invoked, will notify the platform about a new commit on a team’s GitHub repository \\
+        & \textbf{R40}: System shall generate a unique invite code for each team \\
         \hline
     \end{tabular}
     \begin{tabular}{ |m{3cm}|m{10cm}| }
@@ -267,17 +268,16 @@ $\bullet$ \textbf{G2}: Allow educators to create programming challenges
         & \textbf{R2}: System shall allow user to log in \\
         & \textbf{R3}: System shall allow educator to create a tournament \\
         & \textbf{R4}: System shall allow educator (tournament creator) to set the name of the tournament \\
-        & \textbf{R5}: System shall allow educator (tournament creator) to set the description of the tournament \\
-        & \textbf{R6}: System shall allow educator (tournament creator) to set the subscription deadline of the tournament \\
-        & \textbf{R8}: System shall allow educator (tournament creator) to end the tournament \\
-        & \textbf{R9}: System shall allow educator (tournament creator) to add another educator as collaborator to the tournament \\
-        & \textbf{R10}: System shall allow educator (tournament creator or collaborator) to create a battle for the tournament \\
-        & \textbf{R11}: System shall allow educator (tournament creator or collaborator) to upload the Code Kata of the battle \\
-        & \textbf{R12}: System shall allow educator (battle creator) to set minimum and maximum number of students per group allowed for the battle \\
-        & \textbf{R13}: System shall allow educator (battle creator) to set the registration deadline of the battle \\
-        & \textbf{R14}: System shall allow educator (battle creator) to set the submission deadline of the battle \\
-        & \textbf{R15}: System shall allow educator (battle creator) to enable/disable optional manual evaluation for the battle \\
-        & \textbf{R16}: System shall allow educator (battle creator) to select relevant aspects of code quality to be extracted through static analysis \\
+        & \textbf{R5}: System shall allow educator (tournament creator) to set the subscription deadline of the tournament \\
+        & \textbf{R7}: System shall allow educator (tournament creator) to end the tournament \\
+        & \textbf{R8}: System shall allow educator (tournament creator) to add another educator as collaborator to the tournament \\
+        & \textbf{R9}: System shall allow educator (tournament creator or collaborator) to create a battle for the tournament \\
+        & \textbf{R10}: System shall allow educator (tournament creator or collaborator) to upload the Code Kata of the battle \\
+        & \textbf{R11}: System shall allow educator (battle creator) to set minimum and maximum number of students per group allowed for the battle \\
+        & \textbf{R12}: System shall allow educator (battle creator) to set the registration deadline of the battle \\
+        & \textbf{R13}: System shall allow educator (battle creator) to set the submission deadline of the battle \\
+        & \textbf{R14}: System shall allow educator (battle creator) to enable/disable optional manual evaluation for the battle \\
+        & \textbf{R15}: System shall allow educator (battle creator) to select relevant aspects of code quality to be extracted through static analysis \\
         \hline
     \end{tabular}
     \begin{tabular}{ |m{3cm}|m{10cm}| }
@@ -296,13 +296,13 @@ $\bullet$ \textbf{G3}: Allow the system to automatically evaluate students' subm
     \begin{tabular}{ |m{3cm}|m{10cm}| }
         \hline
         \textbf{Requirements} 
-        & \textbf{R18}: System shall integrate with external static analysis tools through proper API calls \\
-        & \textbf{R19}: System shall create the GitHub repository of a battle as soon as the registration phase closes, sending its link to all involved students \\
-        & \textbf{R20}: System shall assign to each submission sent before the submission deadline a score (natural number between 0 and 100) combining correctness, timeliness and code quality \textit{as soon as possible} \\
-        & \textbf{R22}: System shall compute a final score combining automatic and manual score (if available) for each team after the consolidation stage if expected or after the submission deadline otherwise \\
-        & \textbf{R37}: System shall allow team members to set their the repository URL \\
-        & \textbf{R38}: System shall generate a unique API token for each team \\
-        & \textbf{R39}: System should offer an external API which, when invoked, will notify the platform about a new commit on a team’s GitHub repository \\
+        & \textbf{R17}: System shall integrate with external static analysis tools through proper API calls \\
+        & \textbf{R18}: System shall create the GitHub repository of a battle as soon as the registration phase closes, sending its link to all involved students \\
+        & \textbf{R19}: System shall assign to each submission sent before the submission deadline a score (natural number between 0 and 100) combining correctness, timeliness and code quality \textit{as soon as possible} \\
+        & \textbf{R21}: System shall compute a final score combining automatic and manual score (if available) for each team after the consolidation stage if expected or after the submission deadline otherwise \\
+        & \textbf{R36}: System shall allow team members to set their the repository URL \\
+        & \textbf{R37}: System shall generate a unique API token for each team \\
+        & \textbf{R38}: System should offer an external API which, when invoked, will notify the platform about a new commit on a team’s GitHub repository \\
         \hline
     \end{tabular}
     \begin{tabular}{ |m{3cm}|m{10cm}| }
@@ -324,10 +324,10 @@ $\bullet$ \textbf{G4}: Allow educators to manually evaluate students' submission
         \textbf{Requirements} 
         & \textbf{R1}: System shall allow user to register as educator or student \\
         & \textbf{R2}: System shall allow user to log in \\
-        & \textbf{R14}: System shall allow educator (battle creator) to set the submission deadline of the battle \\
-        & \textbf{R15}: System shall allow educator (battle creator) to enable/disable optional manual evaluation for the battle \\
-        & \textbf{R21}: System shall allow educator (battle creator) to set a manual score (natural number between 0 and 100) to the last valid team’s submission during the consolidation stage of the battle \\
-        & \textbf{R40}: System shall allow the educator to access the code of the submitted solutions \\
+        & \textbf{R13}: System shall allow educator (battle creator) to set the submission deadline of the battle \\
+        & \textbf{R14}: System shall allow educator (battle creator) to enable/disable optional manual evaluation for the battle \\
+        & \textbf{R20}: System shall allow educator (battle creator) to set a manual score (natural number between 0 and 100) to the last valid team’s submission during the consolidation stage of the battle \\
+        & \textbf{R39}: System shall allow the educator to access the code of the submitted solutions \\
         \hline
         \textbf{Domain \newline Assumptions} 
         & \textbf{D1}: Users have access to a stable and reliable internet connection to interact with the CKB platform \\
@@ -344,17 +344,17 @@ $\bullet$ \textbf{G5}: Allow students to track their performance
         \textbf{Requirements} 
         & \textbf{R1}: System shall allow user to register as educator or student \\
         & \textbf{R2}: System shall allow user to log in \\
-        & \textbf{R18}: System shall integrate with external static analysis tools through proper API calls \\
-        & \textbf{R20}: System shall assign to each submission sent before the submission deadline a score (natural number between 0 and 100) combining correctness, timeliness and code quality \textit{as soon as possible} \\
-        & \textbf{R21}: System shall allow educator (battle creator) to set a manual score (natural number between 0 and 100) to the last valid team’s submission during the consolidation stage of the battle \\
-        & \textbf{R22}: System shall compute a final score combining automatic and manual score (if available) for each team after the consolidation stage if expected or after the submission deadline otherwise \\
-        & \textbf{R23}: System shall update the battle teams’ ranks right after a new score is available \\
-        & \textbf{R24}: System shall notify all students participating to the battle about the availability of the final battle rank \\
-        & \textbf{R25}: System shall update the tournament students’ scores as the sum of all the battle scores received during the tournament once the final battle rank becomes available \\
-        & \textbf{R26}: System shall notify all involved users about the availability of the tournament student’s final rank \\
-        & \textbf{R28}: System shall allow all users to see all tournaments’ ranks \\
-        & \textbf{R29}: System shall allow all users to see all battles' ranks \\
-        & \textbf{R30}: System should manage every ranking (tournament or battle) in a way that it represents the correct order of students/teams within its context, from the ones with the highest score to the ones with the lowest \\    
+        & \textbf{R17}: System shall integrate with external static analysis tools through proper API calls \\
+        & \textbf{R19}: System shall assign to each submission sent before the submission deadline a score (natural number between 0 and 100) combining correctness, timeliness and code quality \textit{as soon as possible} \\
+        & \textbf{R20}: System shall allow educator (battle creator) to set a manual score (natural number between 0 and 100) to the last valid team’s submission during the consolidation stage of the battle \\
+        & \textbf{R21}: System shall compute a final score combining automatic and manual score (if available) for each team after the consolidation stage if expected or after the submission deadline otherwise \\
+        & \textbf{R22}: System shall update the battle teams’ ranks right after a new score is available \\
+        & \textbf{R23}: System shall notify all students participating to the battle about the availability of the final battle rank \\
+        & \textbf{R24}: System shall update the tournament students’ scores as the sum of all the battle scores received during the tournament once the final battle rank becomes available \\
+        & \textbf{R25}: System shall notify all involved users about the availability of the tournament student’s final rank \\
+        & \textbf{R27}: System shall allow all users to see all tournaments’ ranks \\
+        & \textbf{R28}: System shall allow all users to see all battles' ranks \\
+        & \textbf{R29}: System should manage every ranking (tournament or battle) in a way that it represents the correct order of students/teams within its context, from the ones with the highest score to the ones with the lowest \\    
         \hline
     \end{tabular}
     \begin{tabular}{ |m{3cm}|m{10cm}| }
