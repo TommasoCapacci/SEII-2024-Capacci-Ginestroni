@@ -150,7 +150,7 @@ The main requirements the system has to fulfill are the following:
     \item System shall allow educator (battle creator) to enable/disable optional manual evaluation for the battle.
     \item System shall allow educator (battle creator) to select relevant aspects of code quality to be extracted through static analysis.
     \item System shall notify all users enrolled to a tournament about a newly created battle.
-    \item System shall integrate with external static analysis tools through proper API calls.
+    \item The system shall be able to perform static analysis on submitted code utilizing third-party static code analysis tools and services.
     \item System shall create the GitHub repository of a battle as soon as the registration phase closes, sending its link to all involved students.
     \item System shall assign to each submission sent before the submission deadline a score (natural number between 0 and 100) combining correctness, timeliness and code quality \textit{as soon as possible}.
     \item System shall allow educator (battle creator) to set a manual score (natural number between 0 and 100) to the last valid team’s submission during the consolidation stage of the battle.
@@ -175,6 +175,7 @@ The main requirements the system has to fulfill are the following:
     \item System shall allow the educator to access the code of the submitted solutions.
     \item System shall generate a unique invite code for each team.
     \item System shall allow educator (battle creator) to close the consolidation stage of the battle if manual evaluation is enabled.
+    \item System shall allow students to see the latest score of their team.
 \end{enumerate}
 \subsubsection{Use cases}
 \begin{center}
@@ -297,7 +298,7 @@ $\bullet$ \textbf{G3}: Allow the system to automatically evaluate students' subm
     \begin{tabular}{ |m{3cm}|m{10cm}| }
         \hline
         \textbf{Requirements} 
-        & \textbf{R17}: System shall integrate with external static analysis tools through proper API calls \\
+        & \textbf{R17}: The system shall be able to perform static analysis on submitted code utilizing third-party static code analysis tools and services \\
         & \textbf{R18}: System shall create the GitHub repository of a battle as soon as the registration phase closes, sending its link to all involved students \\
         & \textbf{R19}: System shall assign to each submission sent before the submission deadline a score (natural number between 0 and 100) combining correctness, timeliness and code quality \textit{as soon as possible} \\
         & \textbf{R21}: System shall compute a final score combining automatic and manual score (if available) for each team if manual evaluation is enabled \\
@@ -346,7 +347,7 @@ $\bullet$ \textbf{G5}: Allow students to track their performance
         \textbf{Requirements} 
         & \textbf{R1}: System shall allow user to register as educator or student \\
         & \textbf{R2}: System shall allow user to log in \\
-        & \textbf{R17}: System shall integrate with external static analysis tools through proper API calls \\
+        & \textbf{R17}: The system shall be able to perform static analysis on submitted code utilizing third-party static code analysis tools and services \\
         & \textbf{R19}: System shall assign to each submission sent before the submission deadline a score (natural number between 0 and 100) combining correctness, timeliness and code quality \textit{as soon as possible} \\
         & \textbf{R20}: System shall allow educator (battle creator) to set a manual score (natural number between 0 and 100) to the last valid team’s submission during the consolidation stage of the battle \\
         & \textbf{R21}: System shall compute a final score combining automatic and manual score (if available) for each team if manual evaluation is enabled \\
@@ -356,7 +357,8 @@ $\bullet$ \textbf{G5}: Allow students to track their performance
         & \textbf{R25}: System shall notify all involved users about the availability of the tournament student’s final rank \\
         & \textbf{R27}: System shall allow all users to see all tournaments’ ranks \\
         & \textbf{R28}: System shall allow all users to see all battles' ranks \\
-        & \textbf{R29}: System should manage every ranking (tournament or battle) in a way that it represents the correct order of students/teams within its context, from the ones with the highest score to the ones with the lowest \\    
+        & \textbf{R29}: System should manage every ranking (tournament or battle) in a way that it represents the correct order of students/teams within its context, from the ones with the highest score to the ones with the lowest \\
+        & \textbf{R42}: System shall allow students to see the latest score of their team \\    
         \hline
     \end{tabular}
     \begin{tabular}{ |m{3cm}|m{10cm}| }
