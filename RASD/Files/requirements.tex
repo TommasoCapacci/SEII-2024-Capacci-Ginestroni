@@ -177,52 +177,708 @@ The main requirements the system has to fulfill are the following:
     \item System shall allow educator (battle creator) to close the consolidation stage of the battle if manual evaluation is enabled.
     \item System shall allow students to see the latest score of their team.
 \end{enumerate}
+\newpage
+
 \subsubsection{Use cases}
+\textbf{Shared perspective}
 \begin{center}
     \begin{tabular}{ |c|m{10cm}| }
         \hline
         \textbf{ID} & 1 \\
         \hline
-        \textbf{Name} & User registration \\
+        \textbf{Name} & Signup \\
         \hline
-        \textbf{Actors} & Unregistered user \\
+        \textbf{Actors} & User \\
         \hline
-        \textbf{Entry conditions} & The user has opened the webapp. \\
+        \textbf{Entry conditions} &
+        \begin{itemize}
+            \item User is connected to the platform’s website
+            \item User selected the option to register to the service
+        \end{itemize} \\
         \hline
         \textbf{Event flow} &
         \begin{enumerate}
-            \item The user opens the webapp.
-            \item The user clicks on the "Sign up" button.
-            \item The user fills the form with his personal information.
-            \item The user clicks on the "Sign up" button.
-            \item The system checks if the provided information is valid.
-            \item The system creates a new user account.
-            \item The system redirects the user to the home page.
+            \item User inserts the required information
+            \item User flags the “Sign up as student” checkbox if he/she wants to sign up as a student, otherwise leaves it unchecked. In the case of a student, is also asked to provide its GitHub username
+            \item User clicks on the “Sign up” button
+            \item System checks user data
         \end{enumerate} \\
         \hline
-        \textbf{Exit conditions} & The user has successfully created a new account. \\
+        \textbf{Exit conditions} &
+        \begin{itemize}
+            \item System adds the new user to its internal database
+            \item User is logged in and redirected to the Home page
+        \end{itemize} \\
         \hline
         \textbf{Exceptions} & 
         \begin{itemize}
-            \item The user has provided invalid information.
-            \item The user has provided an email address already used by another account.
+            \item The email provided by the user is already in use for another account of the same type (student or educator)
+            \item Some text field is left empty
+            \item In the case of a student, does not exist any GitHub account corresponding to the provided username
+        \end{itemize} 
+        In all previous cases the registration is rejected and an error message is displayed on the page \\
+        \hline
+    \end{tabular}
+    \begin{tabular}{ |c|m{10cm}| }
+        \hline
+        \textbf{ID} & 2 \\
+        \hline
+        \textbf{Name} & SignupSSO \\
+        \hline
+        \textbf{Actors} & User, Identity provider \\
+        \hline
+        \textbf{Entry conditions} &
+        \begin{itemize}
+            \item User is connected to the platform’s website
+            \item User selected the option to register to the service
         \end{itemize} \\
         \hline
-        \textbf{Alternative} &
+        \textbf{Event flow} &
         \begin{enumerate}
-            \item The user opens the webapp.
-            \item The user clicks on the "Sign up with Google" button.
-            \item The user is redirected to the Google login page.
-            \item The user logs in with his Google account.
-            \item The system checks if the provided information is valid.
-            \item The system creates a new user account.
-            \item The system redirects the user to the home page.
+            \item User clicks on the icon of the identity provider he/she wants to sign up through
+            \item SSO provides to the system the information it needs for the user’s registration
+            \item Inside a new page, the user needs to click one of two buttons to specify whether he/she wants to sign up as a student or as an educator. In the case of a student, is also asked to provide its GitHub username
+            \item System checks user data
         \end{enumerate} \\
+        \hline
+        \textbf{Exit conditions} &
+        \begin{itemize}
+            \item System adds the new user to its internal database
+            \item User is logged in and redirected to the Home page
+        \end{itemize} \\
+        \hline
+        \textbf{Exceptions} & 
+        \begin{itemize}
+            \item The email provided by the user is already in use for another account of the same type (student or educator)
+            \item In the case of a student, does not exist any GitHub account corresponding to the provided username
+        \end{itemize} 
+        In all previous cases the registration is rejected and an error message is displayed on the page \\
+        \hline
+    \end{tabular}
+    \begin{tabular}{ |c|m{10cm}| }
+        \hline
+        \textbf{ID} & 3 \\
+        \hline
+        \textbf{Name} & Login \\
+        \hline
+        \textbf{Actors} & User \\
+        \hline
+        \textbf{Entry conditions} &
+        \begin{itemize}
+            \item User is connected to the platform’s website
+            \item User selected the option to log in
+            \item User has already registered to the service
+        \end{itemize} \\
+        \hline
+        \textbf{Event flow} &
+        \begin{enumerate}
+            \item User fills username and password fields
+            \item User clicks on the “Log in” button
+            \item System checks the validity of the provided credentials
+        \end{enumerate} \\
+        \hline
+        \textbf{Exit conditions} &
+        \begin{itemize}
+            \item User is logged in and redirected to the Home page
+        \end{itemize} \\
+        \hline
+        \textbf{Exceptions} & 
+        \begin{itemize}
+            \item The provided credentials do not correspond to any of the accounts registered on the platform
+            \item Some text field is left empty
+        \end{itemize} 
+        In all previous cases the log in request is rejected and an error message is displayed on the page \\
+        \hline
+    \end{tabular}
+    \begin{tabular}{ |c|m{10cm}| }
+        \hline
+        \textbf{ID} & 4 \\
+        \hline
+        \textbf{Name} & LoginSSO \\
+        \hline
+        \textbf{Actors} & User, Identity provider \\
+        \hline
+        \textbf{Entry conditions} &
+        \begin{itemize}
+            \item User is connected to the platform’s website
+            \item User selected the option to log in
+            \item User has already registered to the service
+        \end{itemize} \\
+        \hline
+        \textbf{Event flow} &
+        \begin{enumerate}
+            \item User clicks on the icon of the Identity provider he/she signed up with
+            \item SSO provides to the system the information it needs for the user’s authentication
+            \item System checks user validity
+        \end{enumerate} \\
+        \hline
+        \textbf{Exit conditions} &
+        \begin{itemize}
+            \item User is logged in and redirected to the Home page
+        \end{itemize} \\
+        \hline
+        \textbf{Exceptions} & 
+        \begin{itemize}
+            \item User selects a different identity provider with respect to the one he/she initially used to register to the platform
+        \end{itemize} 
+        In the previous case the log in request is rejected and an error message is displayed on the page \\
+        \hline
+    \end{tabular}
+    \begin{tabular}{ |c|m{10cm}| }
+        \hline
+        \textbf{ID} & 5 \\
+        \hline
+        \textbf{Name} & CreateBattle \\
+        \hline
+        \textbf{Actors} & Educator, GitHub, Email Service \\
+        \hline
+        \textbf{Entry conditions} &
+        \begin{itemize}
+            \item Educator is logged in
+            \item Educator has created or is a collaborator of the tournament in the context of which he/she wants to create the new battle in
+            \item Educator has already prepared the Code Kata zip file
+        \end{itemize} \\
+        \hline
+        \textbf{Event flow} &
+        \begin{enumerate}
+            \item Educator navigates to the tournaments page
+            \item Educator selects the tournament from his/her “Manage your tournaments” list
+            \item Educator clicks the “Create battle” button
+            \item Educator inserts all the needed information and uploads the Code Kata
+            \item Educator clicks the “Confirm” button
+            \item Educator is redirected to the tournament’s page
+            \item System checks the validity of the provided information and project files
+            \item System notifies all the students enrolled into the tournament about the new battle via the Email Service
+        \end{enumerate} \\
+        \hline
+        \textbf{Exit conditions} &
+        \begin{itemize}
+            \item System adds the new battle to the tournament’s battles list and students can subscribe to it until the registration deadline
+            \item System creates the repository for the challenge via GitHub API when the subscription deadline is met. System sends an email to all the students subscribed to the battle with the URL of the repository to fork
+            \item Emails to students are correctly dispatched
+        \end{itemize} \\
+        \hline
+        \textbf{Exceptions} & 
+        \begin{itemize}
+            \item The provided title has already been used for another battle of the same tournament 
+            \item Some text field is left empty
+            \item The uploaded Code Kata is not correctly structured
+        \end{itemize} 
+        In all previous cases the battle creation request is refused and an error message is shown in the page \\
+        \hline
+    \end{tabular}
+    \begin{tabular}{ |c|m{10cm}| }
+        \hline
+        \textbf{ID} & 6 \\
+        \hline
+        \textbf{Name} & VisualizeTournamentRank \\
+        \hline
+        \textbf{Actors} & User \\
+        \hline
+        \textbf{Entry conditions} &
+        \begin{itemize}
+            \item User is logged in
+        \end{itemize} \\
+        \hline
+        \textbf{Event flow} &
+        \begin{enumerate}
+            \item User navigates to the tournaments page
+            \item User inputs the name of the tournament of interest in the dedicated searchbox
+            \item User selects the right tournament
+            \item User clicks the “Leaderboard” button
+        \end{enumerate} \\
+        \hline
+        \textbf{Exit conditions} &
+        \begin{itemize}
+            \item System shows the page containing the tournament’s ranking
+        \end{itemize} \\
+        \hline
+        \textbf{Alternative} & 
+            1a. User directly selects the tournament from the ones shown inside his/her tournaments page or home page \\
+        \hline
+        \textbf{Exceptions} & 
+        \begin{itemize}
+            \item Tournaments state is not “Ongoing” or “Ended”
+        \end{itemize} 
+        In the previous case the “Leaderboard” button will not be clickable \\
+        \hline
+    \end{tabular}
+    \begin{tabular}{ |c|m{10cm}| }
+        \hline
+        \textbf{ID} & 7 \\
+        \hline
+        \textbf{Name} & VisualizeBattleRank \\
+        \hline
+        \textbf{Actors} & User \\
+        \hline
+        \textbf{Entry conditions} &
+        \begin{itemize}
+            \item User is logged in
+        \end{itemize} \\
+        \hline
+        \textbf{Event flow} &
+        \begin{enumerate}
+            \item User navigates to the tournaments page
+            \item User inputs the name of the tournament of interest in the dedicated searchbox
+            \item User selects the right tournament
+            \item User selects the battle of interest from the tournament’s battle list
+        \end{enumerate} \\
+        \hline
+        \textbf{Exit conditions} &
+        \begin{itemize}
+            \item System shows the page containing the battle’s ranking
+        \end{itemize} \\
+        \hline
+        \textbf{Alternative} & 
+            1a. User directly selects the battle from the ones shown in the context of his/her home page \\
+        \hline
+        \textbf{Exceptions} & 
+        \begin{itemize}
+            \item Battle is in Subscription Phase
+        \end{itemize} 
+        In the previous case the battle's ranking will simply show the list of teams that subscribed till now \\
+        \hline
+    \end{tabular}
+    \begin{tabular}{ |c|m{10cm}| }
+        \hline
+        \textbf{ID} & 8 \\
+        \hline
+        \textbf{Name} & EvaluateSubmission \\
+        \hline
+        \textbf{Actors} & GitHub Actions, GitHub, Static Analysis tool \\
+        \hline
+        \textbf{Entry conditions} &
+        \begin{itemize}
+            \item A new commit is pushed into some team’s GitHub repository
+            \item GitHub Actions workflow is setup (once per team)
+            \item Team’s repository is setup in the team’s settings page (once per team)
+        \end{itemize} \\
+        \hline
+        \textbf{Event flow} &
+        \begin{enumerate}
+            \item GitHub Actions performs a request directed to the system’s API endpoint, including the relative API token of the team as an additional parameter of the request
+            \item System checks the validity of the token and retrieves the corresponding repository URL
+            \item System pulls the code of the new submission directly from GitHub via API
+            \item System computes a score for timeliness by comparing the timestamp of the POST request with the one corresponding to the start of the submission phase of the battle
+            \item System computes a score for correctness by executing all the test cases provided and comparing the results with the expected ones
+            \item If specified from the battle creator, the system provides the code for the evaluation to the external static analysis tool which will assign a score for each of the code quality aspects selected at battle creation time
+        \end{enumerate} \\
+        \hline
+        \textbf{Exit conditions} &
+        \begin{itemize}
+            \item System computes an overall score by averaging the results of all the previous evaluations and updates the team’s score and rank
+        \end{itemize} \\
+        \hline
+        \textbf{Exceptions} & 
+        \begin{itemize}
+            \item GitHub Actions workflow is not correctly setup, the system’s endpoint receives a request with a token that does not correspond to any of the teams subscribed to the battle
+            \item Repository’s url is not correctly setup in the team’s settings page, system is not able to retrieve the code
+        \end{itemize} 
+        In all previous cases the new submission is simply ignored by the system \\
+        \hline
+    \end{tabular}
+    \begin{tabular}{ |c|m{10cm}| }
+        \hline
+        \textbf{ID} & 9 \\
+        \hline
+        \textbf{Name} & ReviewCode \\
+        \hline
+        \textbf{Actors} & Educator, GitHub \\
+        \hline
+        \textbf{Entry conditions} &
+        \begin{itemize}
+            \item Educator is logged in
+            \item Battle is in Consolidation Stage
+        \end{itemize} \\
+        \hline
+        \textbf{Event flow} &
+        \begin{enumerate}
+            \item Educator navigates to the tournament section
+            \item Educator selects the right tournament
+            \item Educator selects the battle of interest
+            \item Educator selects a team from the battle’s ranking
+            \item Educator clicks the link to the team’s GitHub repository to inspect the code
+            \item Educator provides a score by inputting it inside the dedicated textbox
+            \item Educator clicks the “Confirm” button
+        \end{enumerate} \\
+        \hline
+        \textbf{Exit conditions} &
+        \begin{itemize}
+            \item System saves the new manual score in its database and computes the final battle score as the average between the new score and the automatic evaluation results
+        \end{itemize} \\
+        \hline
+        \textbf{Alternative} & 
+            1a. Educator directly selects the battle from the ones shown in the context of his/her home page \\
+        \hline
+        \textbf{Exceptions} & 
+        \begin{itemize}
+            \item The score text field is left empty or contains something that is not an integer number between 0 and 100
+        \end{itemize} 
+        In this case the score registration request is rejected and an error message is shown \\
         \hline
     \end{tabular}
 \end{center}
 
-\subsubsection{Goals mapping}
+\textbf{Student perspective}
+\begin{center}
+    \begin{tabular}{ |c|m{10cm}| }
+        \hline
+        \textbf{ID} & 10 \\
+        \hline
+        \textbf{Name} & JoinTournament \\
+        \hline
+        \textbf{Actors} & Student \\
+        \hline
+        \textbf{Entry conditions} &
+        \begin{itemize}
+            \item Student is logged in
+        \end{itemize} \\
+        \hline
+        \textbf{Event flow} &
+        \begin{enumerate}
+            \item Student navigates to the tournaments section
+            \item System shows the list of tournaments the student is enrolled in and the list of all available tournaments in the platform
+            \item Student clicks on one of the tournaments in the list of available tournaments
+            \item Student is redirected to the page of the tournament containing the list of all students currently enrolled
+            \item Student clicks on “Enroll”
+        \end{enumerate} \\
+        \hline
+        \textbf{Exit conditions} &
+        \begin{itemize}
+            \item Student is correctly enrolled into the tournament
+        \end{itemize} \\
+        \hline
+    \end{tabular}
+    \begin{tabular}{ |c|m{10cm}| }
+        \hline
+        \textbf{ID} & 11 \\
+        \hline
+        \textbf{Name} & CreateTeam \\
+        \hline
+        \textbf{Actors} & Student \\
+        \hline
+        \textbf{Entry conditions} &
+        \begin{itemize}
+            \item Student is logged in
+            \item Studen has already enrolled to the tournament
+        \end{itemize} \\
+        \hline
+        \textbf{Event flow} &
+        \begin{enumerate}
+            \item Student navigates to the tournaments section
+            \item System shows the list of tournaments the student is enrolled in
+            \item Student clicks on one of the tournaments in the list
+            \item Student is redirected to the page of the tournament containing the list of all the battles
+            \item Student clicks on the battle he wants to participate in
+            \item System redirects the student to the page of the battle
+            \item Student clicks on the “Create Team” button
+            \item System shows a pop-up with the team settings
+            \item Student inputs the name of the team, selects the desired privacy setting and clicks on “Confirm”
+        \end{enumerate} \\
+        \hline
+        \textbf{Exit conditions} &
+        \begin{itemize}
+            \item Student is correctly enrolled into the battle with its new team
+            \item System generates a unique invite API token and invite code valid for the team
+            \item The battle’s page now shows a “Your team” button to manage the team settings
+        \end{itemize} \\
+        \hline
+        \textbf{Exceptions} & 
+        \begin{itemize}
+            \item Student inputs a team name already in use for that battle
+        \end{itemize} 
+        In the previous case, the student is not able to create a team and a pop-up with a specific error message is shown \\
+        \hline
+    \end{tabular}
+    \begin{tabular}{ |c|m{10cm}| }
+        \hline
+        \textbf{ID} & 12 \\
+        \hline
+        \textbf{Name} & JoinTeam \\
+        \hline
+        \textbf{Actors} & Student \\
+        \hline
+        \textbf{Entry conditions} &
+        \begin{itemize}
+            \item Student is logged in
+            \item Studen has already enrolled to the tournament
+        \end{itemize} \\
+        \hline
+        \textbf{Event flow} &
+        \begin{enumerate}
+            \item Student navigates to the tournaments section
+            \item System shows the list of tournaments the student is enrolled in
+            \item Student clicks on one of the tournaments in the list
+            \item Student is redirected to the page of the tournament containing the list of all the battles
+            \item Student clicks on the battle he wants to participate in
+            \item System redirects the student to the page of the battle
+            \item Student clicks on the “Join Team” button
+            \item System shows a pop-up with 2 options and a input text field. The first options lets the user join a public team by name. The second option instead allows the user to join a team by invite code. The input field instead, asks for the team name or the invite code, depending on the checked option
+            \item Student selects his preferred option, inputs the requested string and clicks on “Confirm”
+        \end{enumerate} \\
+        \hline
+        \textbf{Exit conditions} &
+        \begin{itemize}
+            \item Student is correctly enrolled into the battle with its new team
+            \item The battle’s page now shows a “Your team” button to manage the team settings
+        \end{itemize} \\
+        \hline
+        \textbf{Exceptions} & 
+        \begin{itemize}
+            \item Student tries to join a private team by name
+            \item Student tries to join a team which has already reached maximum number of members
+            \item Student inputs invalid team name or invite code
+        \end{itemize} 
+        In all the previous cases, the student is not able to join a team and a pop-up with a specific error message is shown \\
+        \hline
+    \end{tabular}
+    \begin{tabular}{ |c|m{10cm}| }
+        \hline
+        \textbf{ID} & 13 \\
+        \hline
+        \textbf{Name} & ConfigureTeamRepoSettings \\
+        \hline
+        \textbf{Actors} & Student \\
+        \hline
+        \textbf{Entry conditions} &
+        \begin{itemize}
+            \item Student is logged in
+            \item Student is already participating to a battle
+        \end{itemize} \\
+        \hline
+        \textbf{Event flow} &
+        \begin{enumerate}
+            \item Student navigates to the tournaments section
+            \item System shows the list of tournaments the student is enrolled in
+            \item Student clicks on one of the tournaments in the list
+            \item Student is redirected to the page of the tournament containing the list of all the battles
+            \item Student clicks on the battle he wants to manage
+            \item System redirects the student to the page of the battle
+            \item Student clicks on “Your team” button
+            \item System redirects the student to the page of the team
+            \item Student can now visualize the team’s settings such as system’s API commit endpoint, team’s API token to setup the GitHub actions and the invite code. Student can also set the URL of the GitHub repository
+        \end{enumerate} \\
+        \hline
+        \textbf{Exit conditions} &
+        \begin{itemize}
+            \item Systems correctly saves the inputted GitHub repository URL
+        \end{itemize} \\
+        \hline
+        \textbf{Exceptions} & 
+        \begin{itemize}
+            \item URL is invalid
+        \end{itemize} 
+        In the previous case, the system won’t accept the input and an error message is shown next to the input field \\
+        \hline
+    \end{tabular}
+    \begin{tabular}{ |c|m{10cm}| }
+        \hline
+        \textbf{ID} & 14 \\
+        \hline
+        \textbf{Name} & VisualizeSubmissionScore \\
+        \hline
+        \textbf{Actors} & Student \\
+        \hline
+        \textbf{Entry conditions} &
+        \begin{itemize}
+            \item Student is logged in
+            \item Student is already participating to a battle
+        \end{itemize} \\
+        \hline
+        \textbf{Event flow} &
+        \begin{enumerate}
+            \item Student navigates to the tournaments section
+            \item System shows the list of tournaments the student is enrolled in
+            \item Student clicks on one of the tournaments in the list
+            \item Student is redirected to the page of the tournament containing the list of all the battles
+            \item Student clicks on the battle he wants to check 
+            \item System redirects the student to the page of the battle
+            \item Student clicks on “Your Team” button
+            \item System redirects the student to the page of the team
+        \end{enumerate} \\
+        \hline
+        \textbf{Exit conditions} &
+        \begin{itemize}
+            \item System shows all the scores related to the last submission and some statistics about past scores
+        \end{itemize} \\
+        \hline
+        \textbf{Exceptions} & 
+        \begin{itemize}
+            \item Team hasn’t submitted any solution yet
+        \end{itemize} 
+        In the previous case, the team page will show no scores about last submission \\
+        \hline
+    \end{tabular}
+\end{center}
+
+\textbf{Educator perspective}
+\begin{center}
+    \begin{tabular}{ |c|m{10cm}| }
+        \hline
+        \textbf{ID} & 15 \\
+        \hline
+        \textbf{Name} & CreateTournament \\
+        \hline
+        \textbf{Actors} & Educator, Email Service \\
+        \hline
+        \textbf{Entry conditions} &
+        \begin{itemize}
+            \item Educator is logged in
+        \end{itemize} \\
+        \hline
+        \textbf{Event flow} &
+        \begin{enumerate}
+            \item Educator navigates to the tournaments section
+            \item System shows the list of ongoing tournaments the educator is managing
+            \item Educator clicks on the button next to the list to create a new tournament
+            \item System prompts a pop-up asking the name and the subscription deadline
+            \item Educator fills in with requested information and clicks on “Save”
+            \item System notifies all the students of the platform about the new tournament via the Email Service
+        \end{enumerate} \\
+        \hline
+        \textbf{Exit conditions} &
+        \begin{itemize}
+            \item System correctly creates the new tournament
+            \item Educator is redirected to the new tournament page
+            \item Emails to all the students are dispatched
+        \end{itemize} \\
+        \hline
+        \textbf{Exceptions} & 
+        \begin{itemize}
+            \item Provided name is already in use
+            \item Subscription deadline is invalid
+        \end{itemize} 
+        In all the previous cases, the educator is not able to create the tournament and a pop-up with a specific error message is shown \\
+        \hline
+    \end{tabular}
+    \begin{tabular}{ |c|m{10cm}| }
+        \hline
+        \textbf{ID} & 16 \\
+        \hline
+        \textbf{Name} & CloseTournament \\
+        \hline
+        \textbf{Actors} & Educator, Email Service \\
+        \hline
+        \textbf{Entry conditions} &
+        \begin{itemize}
+            \item Educator is logged in
+            \item Educator is the creator of an ongoing tournament
+        \end{itemize} \\
+        \hline
+        \textbf{Event flow} &
+        \begin{enumerate}
+            \item Educator navigates to the tournaments section
+            \item System shows the list of ongoing tournaments the educator is managing
+            \item Educator clicks on the tournament he is interested in
+            \item System redirects the educator to the tournament’s page
+            \item Educator clicks on the “Close Tournament” button 
+            \item Systems notifies all the enrolled students about the end of the tournament
+        \end{enumerate} \\
+        \hline
+        \textbf{Exit conditions} &
+        \begin{itemize}
+            \item Tournament ends correctly
+            \item Emails to all the students are dispatched
+        \end{itemize} \\
+        \hline
+        \textbf{Exceptions} & 
+        \begin{itemize}
+            \item Educator is trying to close a tournament with an ongoing battle
+        \end{itemize} 
+        In the previous case, the educator is not able to close the tournament and a pop-up with a specific error message is shown \\
+        \hline
+    \end{tabular}
+    \begin{tabular}{ |c|m{10cm}| }
+        \hline
+        \textbf{ID} & 17 \\
+        \hline
+        \textbf{Name} & AddCollaborator \\
+        \hline
+        \textbf{Actors} & Educator \\
+        \hline
+        \textbf{Entry conditions} &
+        \begin{itemize}
+            \item Educator is logged in
+            \item Educator is the creator of a tournament
+        \end{itemize} \\
+        \hline
+        \textbf{Event flow} &
+        \begin{enumerate}
+            \item Educator navigates to the tournaments section
+            \item System shows the list of ongoing tournaments the educator is managing
+            \item Educator clicks on the tournament he is interested in
+            \item System redirects the educator to the tournament’s page
+            \item Educator clicks on the “Add Collaborator” button
+            \item System prompts a pop-up asking the email of the collaborator to add
+            \item Educator fills in the requested information and clicks on  “Save”
+        \end{enumerate} \\
+        \hline
+        \textbf{Exit conditions} &
+        \begin{itemize}
+            \item New educator is correctly added to the tournament and can now create battles
+        \end{itemize} \\
+        \hline
+        \textbf{Exceptions} & 
+        \begin{itemize}
+            \item Email does not belong to any educator registered to the platform
+        \end{itemize} 
+        In the previous case, the educator is not able to close the tournament and a pop-up with a specific error message is shown \\
+        \hline
+    \end{tabular}
+    \begin{tabular}{ |c|m{10cm}| }
+        \hline
+        \textbf{ID} & 18 \\
+        \hline
+        \textbf{Name} & CloseBattleConsolidationPhase \\
+        \hline
+        \textbf{Actors} & Educator, Email Service \\
+        \hline
+        \textbf{Entry conditions} &
+        \begin{itemize}
+            \item Educator is logged in
+            \item Educator is the creator of a battle with the manual optional evaluation activated
+            \item Battle's submission phase has expired
+        \end{itemize} \\
+        \hline
+        \textbf{Event flow} &
+        \begin{enumerate}
+            \item Educator navigates to the tournaments section
+            \item System shows the list of ongoing tournaments the educator is managing
+            \item Educator clicks on the tournament he is interested in
+            \item System redirects the educator to the tournament page, which contains the list of all the battles of the tournament
+            \item Educator clicks on the battle he is the creator of
+            \item System redirects the educator to the battle page
+            \item Educator clicks on the “Close Consolidation” button
+            \item System updates the personal tournament scores as the sum of all battle scores of the student obtained in the tournament
+            \item System updates both the tournament rank and the final battle rank
+            \item Systems notifies all the enrolled students into the battle about the availability of the battle scores
+        \end{enumerate} \\
+        \hline
+        \textbf{Exit conditions} &
+        \begin{itemize}
+            \item Battle is correctly closed, the new scores and ranks are updated
+            \item Emails to all the students are dispatched
+        \end{itemize} \\
+        \hline
+        \textbf{Exceptions} & 
+        \begin{itemize}
+            \item Email does not belong to any educator registered to the platformEducator is trying to close the consolidation stage of a battle without having completed the manual code evaluation
+        \end{itemize} 
+        In the previous case, the educator is not able to close the battle and a pop-up with a specific error message is shown, asking the educator to complete the evaluation first \\
+        \hline
+    \end{tabular}
+\end{center}
+
+\subsubsection{Mapping on Use Cases}
+\begin{center}
+    \begin{tabular}{ |c|m{10cm}| }
+        \hline
+        \textbf{Use Case} & \textbf{Requirements} \\
+        \hline
+    \end{tabular}
+\end{center}
+
+\subsubsection{Mapping on Goals}
 $\bullet$ \textbf{G1}: Allow students to participate to collaborative programming challenges
 \begin{center}
     \begin{tabular}{ |m{3cm}|m{10cm}| }
