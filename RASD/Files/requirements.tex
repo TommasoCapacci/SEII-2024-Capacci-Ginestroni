@@ -459,7 +459,7 @@ The main requirements the system has to fulfill are the following:
             \item GitHub Actions performs a request directed to the system’s API endpoint, including the relative API token of the team as an additional parameter of the request
             \item System checks the validity of the token and retrieves the corresponding repository URL
             \item System pulls the code of the new submission directly from GitHub via API
-            \item System computes a score for timeliness by comparing the timestamp of the POST request with the one corresponding to the start of the submission phase of the battle
+            \item System computes a score for timeliness by comparing the timestamp of the request with the one corresponding to the start of the submission phase of the battle
             \item System computes a score for correctness by executing all the test cases provided and comparing the results with the expected ones
             \item If specified from the battle creator, the system provides the code for the evaluation to the external static analysis tool which will assign a score for each of the code quality aspects selected at battle creation time
         \end{enumerate} \\
