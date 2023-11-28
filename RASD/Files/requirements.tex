@@ -181,10 +181,15 @@ The main requirements the system has to fulfill are the following:
 
 \subsubsection{Use cases}
 \textbf{Shared perspective}
+\begin{figure}[H]
+    \hspace{-40px}
+    \includegraphics[scale=0.5]{Diagrams/use_case_both.png}
+    \caption{Shared scenarios use case diagram}
+\end{figure}
 \begin{center}
     \begin{tabular}{ |c|m{10cm}| }
         \hline
-        \textbf{ID} & 1 \\
+        \textbf{ID} & UC1 \\
         \hline
         \textbf{Name} & Signup \\
         \hline
@@ -219,9 +224,14 @@ The main requirements the system has to fulfill are the following:
         In all previous cases the registration is rejected and an error message is displayed on the page \\
         \hline
     \end{tabular}
+    \begin{figure}[H]
+        \hspace{52px}
+        \includegraphics[scale=0.5]{Diagrams/activity_signup.png}
+        \caption{Sign up use case activity diagram}
+    \end{figure}
     \begin{tabular}{ |c|m{10cm}| }
         \hline
-        \textbf{ID} & 2 \\
+        \textbf{ID} & UC2 \\
         \hline
         \textbf{Name} & SignupSSO \\
         \hline
@@ -255,9 +265,14 @@ The main requirements the system has to fulfill are the following:
         In all previous cases the registration is rejected and an error message is displayed on the page \\
         \hline
     \end{tabular}
+    \begin{figure}[H]
+        \hspace{25px}
+        \includegraphics[scale=0.5]{Diagrams/activity_signupsso.png}
+        \caption{Sign up through SSO use case activity diagram}
+    \end{figure}
     \begin{tabular}{ |c|m{10cm}| }
         \hline
-        \textbf{ID} & 3 \\
+        \textbf{ID} & UC3 \\
         \hline
         \textbf{Name} & Login \\
         \hline
@@ -290,9 +305,14 @@ The main requirements the system has to fulfill are the following:
         In all previous cases the log in request is rejected and an error message is displayed on the page \\
         \hline
     \end{tabular}
+    \begin{figure}[H]
+        \hspace{57px}
+        \includegraphics[scale=0.5]{Diagrams/activity_login.png}
+        \caption{Log in use case activity diagram}
+    \end{figure}
     \begin{tabular}{ |c|m{10cm}| }
         \hline
-        \textbf{ID} & 4 \\
+        \textbf{ID} & UC4 \\
         \hline
         \textbf{Name} & LoginSSO \\
         \hline
@@ -324,9 +344,14 @@ The main requirements the system has to fulfill are the following:
         In the previous case the log in request is rejected and an error message is displayed on the page \\
         \hline
     \end{tabular}
+    \begin{figure}[H]
+        \hspace{15px}
+        \includegraphics[scale=0.5]{Diagrams/activity_loginsso.png}
+        \caption{Log in through SSO use case activity diagram}
+    \end{figure}
     \begin{tabular}{ |c|m{10cm}| }
         \hline
-        \textbf{ID} & 5 \\
+        \textbf{ID} & UC5 \\
         \hline
         \textbf{Name} & CreateBattle \\
         \hline
@@ -351,6 +376,10 @@ The main requirements the system has to fulfill are the following:
             \item System notifies all the students enrolled into the tournament about the new battle via the Email Service
         \end{enumerate} \\
         \hline
+    \end{tabular}
+    \newpage
+    \begin{tabular}{ |c|m{10cm}| }
+        \hline
         \textbf{Exit conditions} &
         \begin{itemize}
             \item System adds the new battle to the tournament’s battles list and students can subscribe to it until the registration deadline
@@ -367,9 +396,14 @@ The main requirements the system has to fulfill are the following:
         In all previous cases the battle creation request is refused and an error message is shown in the page \\
         \hline
     \end{tabular}
+    \begin{figure}[H]
+        \hspace{7px}
+        \includegraphics[scale=0.5]{Diagrams/activity_createbattle.png}
+        \caption{Battle creation use case activity diagram}
+    \end{figure}
     \begin{tabular}{ |c|m{10cm}| }
         \hline
-        \textbf{ID} & 6 \\
+        \textbf{ID} & UC6 \\
         \hline
         \textbf{Name} & VisualizeTournamentRank \\
         \hline
@@ -403,9 +437,14 @@ The main requirements the system has to fulfill are the following:
         In the previous case the “Leaderboard” button will not be clickable \\
         \hline
     \end{tabular}
+    \begin{figure}[H]
+        \hspace{30px}
+        \includegraphics[scale=0.5]{Diagrams/activity_visualizetournamentrank.png}
+        \caption{Tournament ranking's visualization use case activity diagram}
+    \end{figure}
     \begin{tabular}{ |c|m{10cm}| }
         \hline
-        \textbf{ID} & 7 \\
+        \textbf{ID} & UC7 \\
         \hline
         \textbf{Name} & VisualizeBattleRank \\
         \hline
@@ -439,9 +478,14 @@ The main requirements the system has to fulfill are the following:
         In the previous case the battle's ranking will simply show the list of teams that subscribed till now \\
         \hline
     \end{tabular}
+    \begin{figure}[H]
+        \hspace{90px}
+        \includegraphics[scale=0.5]{Diagrams/activity_visualizebattlerank.png}
+        \caption{Battle ranking's visualization use case activity diagram}
+    \end{figure}
     \begin{tabular}{ |c|m{10cm}| }
         \hline
-        \textbf{ID} & 8 \\
+        \textbf{ID} & UC8 \\
         \hline
         \textbf{Name} & EvaluateSubmission \\
         \hline
@@ -464,6 +508,10 @@ The main requirements the system has to fulfill are the following:
             \item If specified from the battle creator, the system provides the code for the evaluation to the external static analysis tool which will assign a score for each of the code quality aspects selected at battle creation time
         \end{enumerate} \\
         \hline
+    \end{tabular}
+    \newpage
+    \begin{tabular}{ |c|m{10cm}| }
+        \hline
         \textbf{Exit conditions} &
         \begin{itemize}
             \item System computes an overall score by averaging the results of all the previous evaluations and updates the team’s score and rank
@@ -477,9 +525,14 @@ The main requirements the system has to fulfill are the following:
         In all previous cases the new submission is simply ignored by the system \\
         \hline
     \end{tabular}
+    \begin{figure}[H]
+        \hspace{15px}
+        \includegraphics[scale=0.4]{Diagrams/activity_evaluatesubmission.png}
+        \caption{Submission evaluation use case activity diagram}
+    \end{figure}
     \begin{tabular}{ |c|m{10cm}| }
         \hline
-        \textbf{ID} & 9 \\
+        \textbf{ID} & UC9 \\
         \hline
         \textbf{Name} & ReviewCode \\
         \hline
@@ -517,13 +570,23 @@ The main requirements the system has to fulfill are the following:
         In this case the score registration request is rejected and an error message is shown \\
         \hline
     \end{tabular}
+    \begin{figure}[H]
+        \hspace{10px}
+        \includegraphics[scale=0.5]{Diagrams/activity_reviewcode.png}
+        \caption{Code review use case activity diagram}
+    \end{figure}
 \end{center}
 
 \textbf{Student perspective}
+\begin{figure}[H]
+    \hspace{40px}
+    \includegraphics[scale=0.5]{Diagrams/use_case_student.png}
+    \caption{Students' scenarios use case diagram}
+\end{figure}
 \begin{center}
     \begin{tabular}{ |c|m{10cm}| }
         \hline
-        \textbf{ID} & 10 \\
+        \textbf{ID} & UC10 \\
         \hline
         \textbf{Name} & JoinTournament \\
         \hline
@@ -549,9 +612,14 @@ The main requirements the system has to fulfill are the following:
         \end{itemize} \\
         \hline
     \end{tabular}
+    \begin{figure}[H]
+        \hspace{80px}
+        \includegraphics[scale=0.5]{Diagrams/activity_jointournament.png}
+        \caption{Joining a tournament use case activity diagram}
+    \end{figure}
     \begin{tabular}{ |c|m{10cm}| }
         \hline
-        \textbf{ID} & 11 \\
+        \textbf{ID} & UC11 \\
         \hline
         \textbf{Name} & CreateTeam \\
         \hline
@@ -576,6 +644,10 @@ The main requirements the system has to fulfill are the following:
             \item Student inputs the name of the team, selects the desired privacy setting and clicks on “Confirm”
         \end{enumerate} \\
         \hline
+    \end{tabular}
+    \newpage
+    \begin{tabular}{ |c|m{10cm}| }
+        \hline
         \textbf{Exit conditions} &
         \begin{itemize}
             \item Student is correctly enrolled into the battle with its new team
@@ -590,9 +662,14 @@ The main requirements the system has to fulfill are the following:
         In the previous case, the student is not able to create a team and a pop-up with a specific error message is shown \\
         \hline
     \end{tabular}
+    \begin{figure}[H]
+        \hspace{50px}
+        \includegraphics[scale=0.5]{Diagrams/activity_createteam.png}
+        \caption{Team creation use case activity diagram}
+    \end{figure}
     \begin{tabular}{ |c|m{10cm}| }
         \hline
-        \textbf{ID} & 12 \\
+        \textbf{ID} & UC12 \\
         \hline
         \textbf{Name} & JoinTeam \\
         \hline
@@ -617,6 +694,10 @@ The main requirements the system has to fulfill are the following:
             \item Student selects his preferred option, inputs the requested string and clicks on “Confirm”
         \end{enumerate} \\
         \hline
+    \end{tabular}
+    \newpage
+    \begin{tabular}{ |c|m{10cm}| }
+        \hline
         \textbf{Exit conditions} &
         \begin{itemize}
             \item Student is correctly enrolled into the battle with its new team
@@ -632,9 +713,14 @@ The main requirements the system has to fulfill are the following:
         In all the previous cases, the student is not able to join a team and a pop-up with a specific error message is shown \\
         \hline
     \end{tabular}
+    \begin{figure}[H]
+        \hspace{30px}
+        \includegraphics[scale=0.5]{Diagrams/activity_jointeam.png}
+        \caption{Joining a team use case activity diagram}
+    \end{figure}
     \begin{tabular}{ |c|m{10cm}| }
         \hline
-        \textbf{ID} & 13 \\
+        \textbf{ID} & UC13 \\
         \hline
         \textbf{Name} & ConfigureTeamRepoSettings \\
         \hline
@@ -659,6 +745,10 @@ The main requirements the system has to fulfill are the following:
             \item Student can now visualize the team’s settings such as system’s API commit endpoint, team’s API token to setup the GitHub actions and the invite code. Student can also set the URL of the GitHub repository
         \end{enumerate} \\
         \hline
+    \end{tabular}
+    \newpage
+    \begin{tabular}{ |c|m{10cm}| }
+        \hline
         \textbf{Exit conditions} &
         \begin{itemize}
             \item Systems correctly saves the inputted GitHub repository URL
@@ -671,9 +761,14 @@ The main requirements the system has to fulfill are the following:
         In the previous case, the system won’t accept the input and an error message is shown next to the input field \\
         \hline
     \end{tabular}
+    \begin{figure}[H]
+        \hspace{45px}
+        \includegraphics[scale=0.5]{Diagrams/activity_configureteamreposettings.png}
+        \caption{Team settings' configuration use case activity diagram}
+    \end{figure}
     \begin{tabular}{ |c|m{10cm}| }
         \hline
-        \textbf{ID} & 14 \\
+        \textbf{ID} & UC14 \\
         \hline
         \textbf{Name} & VisualizeSubmissionScore \\
         \hline
@@ -709,13 +804,23 @@ The main requirements the system has to fulfill are the following:
         In the previous case, the team page will show no scores about last submission \\
         \hline
     \end{tabular}
+    \begin{figure}[H]
+        \hspace{37px}
+        \includegraphics[scale=0.5]{Diagrams/activity_visualizesubmissionscore.png}
+        \caption{Submission's score visualization use case activity diagram}
+    \end{figure}
 \end{center}
+\newpage
 
 \textbf{Educator perspective}
+\begin{figure}[H]
+    \includegraphics[scale=0.5]{Diagrams/use_case_educator.png}
+    \caption{Educators' scenarios use case diagram}
+\end{figure}
 \begin{center}
     \begin{tabular}{ |c|m{10cm}| }
         \hline
-        \textbf{ID} & 15 \\
+        \textbf{ID} & UC15 \\
         \hline
         \textbf{Name} & CreateTournament \\
         \hline
@@ -751,9 +856,13 @@ The main requirements the system has to fulfill are the following:
         In all the previous cases, the educator is not able to create the tournament and a pop-up with a specific error message is shown \\
         \hline
     \end{tabular}
+    \begin{figure}[H]
+        \includegraphics[scale=0.9]{Diagrams/activity_createtournament.png}
+        \caption{Tournament creation use case activity diagram}
+    \end{figure}
     \begin{tabular}{ |c|m{10cm}| }
         \hline
-        \textbf{ID} & 16 \\
+        \textbf{ID} & UC16 \\
         \hline
         \textbf{Name} & CloseTournament \\
         \hline
@@ -788,9 +897,14 @@ The main requirements the system has to fulfill are the following:
         In the previous case, the educator is not able to close the tournament and a pop-up with a specific error message is shown \\
         \hline
     \end{tabular}
+    \begin{figure}[H]
+        \hspace{7px}
+        \includegraphics[scale=0.5]{Diagrams/activity_closetournament.png}
+        \caption{Tournament closure use case activity diagram}
+    \end{figure}
     \begin{tabular}{ |c|m{10cm}| }
         \hline
-        \textbf{ID} & 17 \\
+        \textbf{ID} & UC17 \\
         \hline
         \textbf{Name} & AddCollaborator \\
         \hline
@@ -825,9 +939,14 @@ The main requirements the system has to fulfill are the following:
         In the previous case, the educator is not able to close the tournament and a pop-up with a specific error message is shown \\
         \hline
     \end{tabular}
+    \begin{figure}[H]
+        \hspace{50px}
+        \includegraphics[scale=0.5]{Diagrams/activity_addcollaborator.png}
+        \caption{Adding a collaborator to a tournament use case activity diagram}
+    \end{figure}
     \begin{tabular}{ |c|m{10cm}| }
         \hline
-        \textbf{ID} & 18 \\
+        \textbf{ID} & UC18 \\
         \hline
         \textbf{Name} & CloseBattleConsolidationPhase \\
         \hline
@@ -854,6 +973,10 @@ The main requirements the system has to fulfill are the following:
             \item Systems notifies all the enrolled students into the battle about the availability of the battle scores
         \end{enumerate} \\
         \hline
+    \end{tabular}
+    \newpage
+    \begin{tabular}{ |c|m{10cm}| }
+        \hline
         \textbf{Exit conditions} &
         \begin{itemize}
             \item Battle is correctly closed, the new scores and ranks are updated
@@ -867,13 +990,37 @@ The main requirements the system has to fulfill are the following:
         In the previous case, the educator is not able to close the battle and a pop-up with a specific error message is shown, asking the educator to complete the evaluation first \\
         \hline
     \end{tabular}
+    \begin{figure}[H]
+        \hspace{-10px}
+        \includegraphics[scale=0.5]{Diagrams/activity_closebattleconsolidationphase.png}
+        \caption{Close the consolidation phase of a battle use case activity diagram}
+    \end{figure}
 \end{center}
 
 \subsubsection{Mapping on Use Cases}
 \begin{center}
-    \begin{tabular}{ |c|m{10cm}| }
+    \begin{tabular}{ |c|m{9cm}| }
         \hline
         \textbf{Use Case} & \textbf{Requirements} \\
+        \hline
+        UC1 & R1, R2 \\
+        UC2 & R1, R2 \\
+        UC3 & R2 \\
+        UC4 & R2 \\
+        UC5 & R9, R10, R11, R12, R13, R14, R15, R16, R18 \\
+        UC6 & R26, R27 \\
+        UC7 & R26, R28 \\
+        UC8 & R17, R19, R22, R29, R37, R38, R39 \\
+        UC9 & R20, R21, R39 \\
+        UC10 & R26, R30 \\
+        UC11 & R31, R32, R33, R37, R40 \\
+        UC12 & R31, R34, R35 \\
+        UC13 & R36, R37, R38, R40 \\
+        UC14 & R42 \\
+        UC15 & R3, R4, R5, R6 \\
+        UC16 & R7, R25 \\
+        UC17 & R8 \\
+        UC18 & R21, R23, R24, R41 \\
         \hline
     \end{tabular}
 \end{center}
@@ -1026,7 +1173,7 @@ $\bullet$ \textbf{G5}: Allow students to track their performance
 \end{center} 
 
 \subsection{Performance Requirements}
-Even though the platform is not mission critical, should guarantee a smooth and appealing experience to all kind of users. Given the complexity of the overall project, we describe different performance requirements for different aspects:
+Even though the platform is not mission critical, should guarantee a smooth and appealing experience to all kind of users. Given the complexity of the overall project, several performance requirements for different aspects of the system can be identified:
 \begin{itemize}
     \item \textit{Basic user interaction with the webapp}: response time for user actions like creating/joining a team, loading scoreboards, creating a tournament etc should be under 2 seconds for 90\% of requests under normal load.
     \item \textit{Space requirements}: a reasonable estimate of a project’s maximum size is about 40-50 MB. So, the system, to control the space usage, should limit the allowed projects sizes to 80 MB.

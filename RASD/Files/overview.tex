@@ -24,7 +24,7 @@
 \end{itemize}
 
 \subsubsection{State diagrams}
-In order to provide a complete description of the application domain, here we included the state diagrams relative to tournaments and battles.
+In order to provide a complete description of the application domain, here are included the state diagrams relative to tournaments and battles.
 \begin{figure}[H]
     \hspace{-20px}
     \includegraphics[scale=0.5]{Diagrams/tournament_state.jpg}
@@ -91,11 +91,11 @@ At this point the system creates 2 random strings that will be univocally associ
     \item an invite code: this will represent the only way to access private teams and, in general, an alternative way to join teams.
     \item an API token: this will be requested to be included inside the GitHub Actions workflow in order to allow the system to understand which team a solution belongs to.
 \end{itemize}  
-In this case the student that created the team will be marked as team leader (see “Create battles” functionality). This functionality is particularly important because students that want to participate by their own, need to create a group (in order to be sure, they can set it as private and simply keep the invitation code for theirselves: anyway we must keep in mind that this scenario is available only when the minimum number of students per group is set to 1).
+In this case the student that created the team will be marked as team leader (see “Create battles” functionality). This functionality is particularly important because students that want to participate by their own, need to create a group (in order to be sure, they can set it as private and simply keep the invitation code for theirselves: anyway, this scenario is available only when the minimum number of students per group is set to 1).
 
 The second button instead allows the student to join an already existing group: this is achieved by allowing the student to search groups by name (in case of private teams, in a following page the student will be asked to provide the right invite code) or by directly providing their invite code: if the specified group does not already contain the maximum number of students for the battle, the system adds the student to the group.
 \subsubsection{Submit a solution}
-Once the registration phase is over, the submission phase starts: the system provides each student/team a GitHub repository in which the solution code has to be collected (teams of students have to manually guarantee access to all needed collaborators). Then, GitHub Actions has to be set up in each of these repositories in order to enable the necessary workflow: in this way the submission of a new solution is performed by committing and pushing over the repository as we would normally use GitHub for. On push, an API call will notify the platform of the publication of a new solution for that student/team and proceed to evaluate it.
+Once the registration phase is over, the submission phase starts: the system provides each student/team a GitHub repository in which the solution code has to be collected (teams of students have to manually guarantee access to all needed collaborators). Then, GitHub Actions has to be set up in each of these repositories in order to enable the necessary workflow: in this way the submission of a new solution is performed by committing and pushing over the repository as GitHub would normally be used for. On push, an API call will notify the platform of the publication of a new solution for that student/team and proceed to evaluate it.
 \subsubsection{Evaluate a submission}
 The platform provides an automatic evaluation system that is used to score the solutions submitted by the students. Scoring is divided in 2 groups:
 \begin{itemize}
@@ -127,7 +127,7 @@ As previously mentioned, the system is meant to be used by 2 kind of users:
     \item \textbf{Students}: these are the users that will use the platform to be evaluated or simply to take part in a competition. They can subscribe to tournaments and battles, join groups of students and submit solutions. They are required to have a good knowledge of how to properly setup a GitHub repository and of all the programming languages involved in the battles.
 \end{itemize} 
 \subsubsection{Educator requirements}
-In order to allow for automatic recognition of all the different kinds of files that the educator has to upload, the system requires him/her to upload a zip file containing all the needed files formatted in a specific way. In this section we'll mainly focus on its content rather than the way it must be structured, which instead will be in the focus of the Design Document. 
+In order to allow for automatic recognition of all the different kinds of files that the educator has to upload, the system requires him/her to upload a zip file containing all the needed files formatted in a specific way. In this section the focus is on its content rather than the way it must be structured, which instead will be described in the Design Document. 
 
 In particular, the zip file must contain:
 \begin{itemize}
