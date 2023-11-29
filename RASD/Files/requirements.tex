@@ -130,6 +130,7 @@ Each of these interfaces are implemented by correctly setting and utilizing spec
 Moreover, in order to be notified about the submission of a new solution, the system itself must expose a REST endpoint that will be invoked by the automated GitHub Actions workflow set up by each team on their repository.
 \subsubsection{Communication Interfaces}
 Given that the majority of the system's services are provided through the platform's website and REST API calls, no other protocol than HTTP should be needed. Anyway, it is worth mentioning that part of the communication between the system and user is achieved through notifications sent via mail using an external mail service provider.
+\newpage
 
 \subsection{Functional Requirements}
 The main requirements the system has to fulfill are the following:
