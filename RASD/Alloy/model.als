@@ -297,10 +297,7 @@ all s:Submission | #s.a1Score = 1 <=> s.battle.a1Eval = True and
 			#s.a3Score = 1 <=> s.battle.a3Eval = True 
 }
 
-// manual score if the submission is present only if its enabled in the battle
-fact ManualScorePresentIfEanbled {
-all s:Submission | #s.manualScore = 1 <=> s.battle.manualEval = True 
-}
+
 
 // a submission can be associated to a battle only if the battle it’s in the submission/consolidation/ended state 
 fact noSubmissionInTeamFormationPhase {
@@ -354,7 +351,32 @@ fact NoDoubleEnrollment {
 no to:Tournament, s:Student| #to.participants[s] > 1 
 }
 
+// manual score can be present only if the related battle is in consolidation phase or finished
+fact ManualScoreOnlyInConsolidationOrFinished{
+all s: Submission | #s.manualScore = 1 implies (s.battle.state = ConsolidationPhase or s.battle.state = Finished)
+}
+
+// manual score in the submission is present only if its enabled in the battle
+fact ManualScorePresentIfEanbled {
+all s:Submission | #s.manualScore = 1 implies s.battle.manualEval = True 
+}
+
+// manualScore can be present only in the last submission
+fact manualScoreOnlyInLastSubmission{
+all t: Team, s: t.submissions | #s.manualScore = 1 implies s = lastSubmission[t]
+}
+
+// if a battle is ended, manualScore must be present in the last submission
+fact manualScoreWhenBattleFinished{
+all t: Team | (t.participates.state = Finished and t.participates.manualEval = True) implies #lastSubmission[t].manualScore = 1
+}
+
 pred world{
-#Submission = 2
+#Educator = 2
+#Student = 4
+#Submission = 5
+#Battle = 4
+#Tournament=2
+#Team= 3
 }
 run world  for 6
