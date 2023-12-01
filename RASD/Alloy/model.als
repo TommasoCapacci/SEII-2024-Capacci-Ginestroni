@@ -254,7 +254,7 @@ all t: Tournament, s: Student | #t.participants[s] = 1 implies t.participants[s]
 
 // submission's overall score is the sum of all the scores
 fact OverallScoreCombinesAutoManualScore {
-all s:Submission | s.overallScore = s.a1Score.value + s.a2Score.value + s.a3Score.value + s.manualScore.value
+all s:Submission | int s.overallScore = int s.a1Score.value + int s.a2Score.value + int s.a3Score.value + int s.manualScore.value
 }
 
 // battleScore is the overall score of the team’s last submission
