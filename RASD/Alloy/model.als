@@ -371,12 +371,32 @@ fact manualScoreWhenBattleFinished{
 all t: Team | (t.participates.state = Finished and t.participates.manualEval = True) implies #lastSubmission[t].manualScore = 1
 }
 
-pred world{
-#Educator = 2
-#Student = 4
-#Submission = 5
-#Battle = 4
-#Tournament=2
-#Team= 3
+//Check that all students enrolled in the tournament have 0 tournament score during subcription phase
+assert StudentTournamentScoreBeforeStart{
+  all t : Tournament, s:Student | (#t.participants[s]=1 and t.state=Subscription) implies int t.participants[s] = 0
 }
-run world  for 6
+//Check that all students enrolled to tournament without any finished battle have 0 tournament score
+assert StudentTournamentScoreNoFinishedBattles{
+  all t : Tournament, s:Student|(#t.participants[s]=1 and t.state=Ongoing and (no b: t.battles |  b.state != Finished)) implies int t.participants[s] = 0
+}
+//Check that all students enrolled to tournament with a tournament score greater than 0 have participated to at least 1 finished battle in that tournament
+assert StudentParticipatesWithTeam{
+  all t : Tournament, s:Student| int t.participants[s] > 0 implies ( some b:t.battles,te:t.battles.participants | b.state=Finished and s in te.members)
+}
+
+//Check that all teams enrolled to the battle have 0 battle score before their first submission
+assert TeamScoreZeroBeforeSubmissions{
+  all b : Battle, te:b.participants | (#te.submissions = 0) implies int te.battleScore = 0
+}
+
+//Check that all teams having battle score greater than 0 have at least 1 submission
+assert TeamNonZeroScore{
+  all b : Battle, te:b.participants |  int te.battleScore > 0  implies  (#te.submissions > 0)
+}
+
+//Check that all teams's latest submission have been manually evaluated if a battle is ended
+assert AllTeamsManuallyEvaluated{
+  no b : Battle |  b.manualEval = True and b.state=Finished and (some te:b.participants | #lastSubmission[te].manualScore = 0)
+}
+
+check AllTeamsManuallyEvaluated  for 4
