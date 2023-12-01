@@ -262,7 +262,7 @@ fun lastSubmission[t: Team]: one Submission {
   { s: t.submissions | no su: t.submissions - s | earlierThan[su.ts, s.ts] }
 }
 fact battleScoreCombinesAutoManualScore {
-  all t: Team | no t.submissions or t.battleScore = lastSubmission[t].overallScore
+  all t: Team | (no t.submissions and t.battleScore = 0) or (t.battleScore = lastSubmission[t].overallScore)
 }
 
 // submission happens after battle’s registration deadline
