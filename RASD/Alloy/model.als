@@ -265,11 +265,6 @@ fact battleScoreCombinesAutoManualScore {
   all t: Team | (no t.submissions and t.battleScore = 0) or (t.battleScore = lastSubmission[t].overallScore)
 }
 
-// submission happens after battle’s registration deadline
-fact SubmissionAfterRegistration {
-all s:Submission | earlierThan[s.ts,s.battle.registrationDeadline]
-}
-
 // battle registration deadline comes after tournament subscription deadline
 fact RegistrationAfterSubscription {
 all b:Battle,to:Tournament | b in to.battles	implies earlierThan[to.subscriptionDeadline,b.registrationDeadline]
@@ -360,8 +355,6 @@ no to:Tournament, s:Student| #to.participants[s] > 1
 }
 
 pred world{
-#Team=3
-#Tournament=2
-#Battle = 3
+#Submission = 2
 }
 run world  for 6
