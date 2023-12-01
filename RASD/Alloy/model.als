@@ -259,10 +259,10 @@ all s:Submission | s.overallScore = s.a1Score.value + s.a2Score.value + s.a3Scor
 
 // battleScore is the overall score of the team’s last submission
 fun lastSubmission[t: Team]: one Submission {
-{ s : Submission | all su : Submission | su in t.submissions implies earlierEqual[su.ts,s.ts] }
+  { s: t.submissions | no su: t.submissions - s | earlierThan[su.ts, s.ts] }
 }
 fact battleScoreCombinesAutoManualScore {
-all t:Team | t.battleScore = lastSubmission[t].overallScore
+  all t: Team | no t.submissions or t.battleScore = lastSubmission[t].overallScore
 }
 
 // submission happens after battle’s registration deadline
@@ -360,6 +360,8 @@ no to:Tournament, s:Student| #to.participants[s] > 1
 }
 
 pred world{
-#Team=1
+#Team=3
+#Tournament=2
+#Battle = 3
 }
-run world  for 10
+run world  for 6
