@@ -399,4 +399,21 @@ assert AllTeamsManuallyEvaluated{
   no b : Battle |  b.manualEval = True and b.state=Finished and (some te:b.participants | #lastSubmission[te].manualScore = 0)
 }
 
-check AllTeamsManuallyEvaluated  for 4
+
+pred world1{
+#Tournament=1
+#Educator=2
+#Educator.createsTournament=1
+#Battle=1
+#Tournament.isManaged=2
+}
+
+pred world2{
+#Tournament=1
+#Educator=1
+#Battle=2
+#Team=2
+#Submission=3
+}
+
+run world2  for 6
