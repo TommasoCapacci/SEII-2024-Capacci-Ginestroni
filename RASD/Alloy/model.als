@@ -54,7 +54,7 @@ isManaged: some Educator,
 
 var battles: set Battle,
 
-var participants: set Student -> one Int
+var participants: set Student -> one Score
 
 }
 
@@ -137,10 +137,6 @@ manualScore: lone Score,
 overallScore: one Score,
 
 battle: Battle
-
-}{
-
-int overallScore.value >= 0
 
 }
 
@@ -262,7 +258,7 @@ fun totalTournamentScore[t: Tournament, s: Student]: Int {
 sum te: t.battles.participants&allStudentTeamsInEndedBattles[s] | int te.battleScore.value
 }
 fact TournamentParticipantsScoreComputation{ 
-all t: Tournament, s: Student | #t.participants[s] = 1 implies t.participants[s] = totalTournamentScore[t,s]
+all t: Tournament, s: Student | #t.participants[s] = 1 implies int t.participants[s].value = int totalTournamentScore[t,s]
 }
 
 // submission's quality score is the sum of all aspects scores
@@ -283,10 +279,11 @@ all s:Submission | s.overallScore = add4Scores[s.functionalScore, s.timelinessSc
 
 // battleScore is the overall score of the team’s last submission
 fun lastSubmission[t: Team]: one Submission {
-  { s: t.submissions | no su: t.submissions - s | earlierThan[su.ts, s.ts] }
+  { s: t.submissions | no su: t.submissions - s | earlierThan[s.ts,su.ts] }
 }
 fact battleScoreIsLastOverallScore {
-  all t: Team | (no t.submissions and t.battleScore.value = 0) or (t.battleScore.value = int lastSubmission[t].overallScore.value)
+  all t: Team | (#t.submissions= 0 implies int t.battleScore.value = 0) and
+		(#t.submissions >0 implies int t.battleScore.value = int lastSubmission[t].overallScore.value)
 }
 
 // battle registration deadline comes after tournament subscription deadline
@@ -363,9 +360,9 @@ all s:Student, to:Tournament, b:Battle | (#to.participants[s] = 1
 
 // if a submission comes after another, then its timeliness score should be lower
 fact LowerTimelinessScore {
-all t1,t2:Team, disj s1,s2:Submission  |  (s1 in t1.submissions and s2 in t2.submissions and earlierThan[s1.ts,s2.ts]) 
+all b:Battle, disj s1,s2:Submission  |  (b in s1.battle and b in s2.battle and earlierThan[s1.ts,s2.ts]) 
 							     implies 
-							     s1.timelinessScore.value> s2.timelinessScore.value
+							     int s1.timelinessScore.value> int s2.timelinessScore.value
 }
 
 // There no exist 2 concurrent submissions from same team
@@ -403,17 +400,17 @@ all t: Team | (t.participates.state = Finished and t.participates.manualEval = T
 
 //Check that all students enrolled in the tournament have 0 tournament score during subcription phase
 assert StudentTournamentScoreBeforeStart{
-  all t : Tournament, s:Student | (#t.participants[s]=1 and t.state=Subscription) implies int t.participants[s] = 0
+  all t : Tournament, s:Student | (#t.participants[s]=1 and t.state=Subscription) implies int t.participants[s].value = 0
 }
 
 //Check that all students enrolled to tournament without any finished battle have 0 tournament score
 assert StudentTournamentScoreNoFinishedBattles{
-  all t : Tournament, s:Student, te:Team|(#t.participants[s]=1 and t.state=Ongoing and (no b: t.battles |  b.state != Finished and s in te.members and te in b.participants)) implies int t.participants[s] = 0
+  all t : Tournament, s:Student|(#t.participants[s]=1 and t.state=Ongoing and (no b: t.battles, te:b.participants |  b.state = Finished and s in te.members)) implies int t.participants[s].value = 0
 }
 
 //Check that all students enrolled to tournament with a tournament score greater than 0 have participated to at least 1 finished battle in that tournament
 assert StudentParticipatesWithTeam{
-  all t : Tournament, s:Student| int t.participants[s] > 0 implies ( some b:t.battles,te:t.battles.participants | b.state=Finished and s in te.members)
+  all t : Tournament, s:Student| int t.participants[s].value > 0 implies ( some b:t.battles,te:t.battles.participants | b.state=Finished and s in te.members)
 }
 
 //Check that all teams enrolled to the battle have 0 battle score before their first submission
@@ -442,5 +439,5 @@ pred show{
 }
 
 //run show  for 6
-check AllTeamsManuallyEvaluated for 4
+check StudentTournamentScoreNoFinishedBattles for 4
 
