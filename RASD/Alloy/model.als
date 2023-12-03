@@ -1,3 +1,5 @@
+open util/integer
+
 //SIGNATURES
 
 sig Email {}
@@ -110,13 +112,17 @@ value: Int
 
 } {
 
-int value >= 0 and int value <= 100
+int value >= 0
 
 }
 
 sig Submission {
 
-ts: Timestamp,
+ts: one Timestamp,
+
+functionalScore: one Score,
+
+timelinessScore: one Score,
 
 a1Score: lone Score,
 
@@ -124,11 +130,17 @@ a2Score: lone Score,
 
 a3Score: lone Score,
 
+qualityScore: one Score,
+
 manualScore: lone Score,
 
-overallScore: one Int,
+overallScore: one Score,
 
 battle: Battle
+
+}{
+
+int overallScore.value >= 0
 
 }
 
@@ -140,7 +152,7 @@ participates: one Battle,
 
 var members: some Student,
 
-var battleScore: one Int,
+var battleScore: one Score,
 
 apiToken: one ApiToken,
 
@@ -229,6 +241,7 @@ fact coherenceBetweenParticipantsAndParticipate{
 all t: Team, b: Battle | t in b.participants <=> t.participates = b
 }
 
+
 //ADDITIONAL CONSTRAINTS
 
 // each student can subscribe only once to a tournament
@@ -246,28 +259,39 @@ fun allStudentTeamsInEndedBattles[s:Student]:set Team{
 {t:Team | s in t.members and t.participates.state = Finished}
 }
 fun totalTournamentScore[t: Tournament, s: Student]: Int {
-sum te: t.battles.participants&allStudentTeamsInEndedBattles[s] | int te.battleScore
+sum te: t.battles.participants&allStudentTeamsInEndedBattles[s] | int te.battleScore.value
 }
 fact TournamentParticipantsScoreComputation{ 
 all t: Tournament, s: Student | #t.participants[s] = 1 implies t.participants[s] = totalTournamentScore[t,s]
 }
 
+// submission's quality score is the sum of all aspects scores
+fun add3Scores[a, b, c: Score]: Score {
+{i: Score | int i.value = integer/add[ integer/add[a.value, b.value], c.value]}
+}
+fact qualityScoreCombinesAspectsScores {
+all s:Submission | s.qualityScore = add3Scores[s.a1Score, s.a2Score, s.a3Score] 
+}
+
 // submission's overall score is the sum of all the scores
-fact OverallScoreCombinesAutoManualScore {
-all s:Submission | int s.overallScore = int s.a1Score.value + int s.a2Score.value + int s.a3Score.value + int s.manualScore.value
+fun add4Scores[a, b, c, d: Score]: Score {
+{i: Score | int i.value = integer/add[integer/add[integer/add[a.value,b.value],c.value], d.value]}
+}
+fact OverallScoreCombinesAutoAndManualScore {
+all s:Submission | s.overallScore = add4Scores[s.functionalScore, s.timelinessScore, s.qualityScore, s.manualScore]
 }
 
 // battleScore is the overall score of the team’s last submission
 fun lastSubmission[t: Team]: one Submission {
   { s: t.submissions | no su: t.submissions - s | earlierThan[su.ts, s.ts] }
 }
-fact battleScoreCombinesAutoManualScore {
-  all t: Team | (no t.submissions and t.battleScore = 0) or (t.battleScore = lastSubmission[t].overallScore)
+fact battleScoreIsLastOverallScore {
+  all t: Team | (no t.submissions and t.battleScore.value = 0) or (t.battleScore.value = int lastSubmission[t].overallScore.value)
 }
 
 // battle registration deadline comes after tournament subscription deadline
 fact RegistrationAfterSubscription {
-all b:Battle,to:Tournament | b in to.battles	implies earlierThan[to.subscriptionDeadline,b.registrationDeadline]
+all b:Battle,to:Tournament | b in to.battles implies earlierThan[to.subscriptionDeadline,b.registrationDeadline]
 }
 
 // Student participates only to battles that belong to tournaments he is enrolled in
@@ -292,12 +316,10 @@ fact AllBattleEndedIfTournamentEnded {
 
 // automated scores of the submission are present only if they are enabled in the battle
 fact AutomatedScorePresentIfEnabled {
-all s:Submission | #s.a1Score = 1 <=> s.battle.a1Eval = True and
-			#s.a2Score = 1 <=> s.battle.a2Eval = True and
-			#s.a3Score = 1 <=> s.battle.a3Eval = True 
+all s:Submission | (#s.a1Score = 1 <=> s.battle.a1Eval = True) and
+			     (#s.a2Score = 1 <=> s.battle.a2Eval = True) and
+			     (#s.a3Score = 1 <=> s.battle.a3Eval = True) 
 }
-
-
 
 // a submission can be associated to a battle only if the battle it’s in the submission/consolidation/ended state 
 fact noSubmissionInTeamFormationPhase {
@@ -341,9 +363,14 @@ all s:Student, to:Tournament, b:Battle | (#to.participants[s] = 1
 
 // if a submission comes after another, then its timeliness score should be lower
 fact LowerTimelinessScore {
-all t:Team, disj s1,s2:Submission  |  (s1 in t.submissions and s2 in t.submissions and earlierThan[s1.ts,s2.ts]) 
-						implies 
-						s1.a1Score.value > s2.a1Score.value
+all t1,t2:Team, disj s1,s2:Submission  |  (s1 in t1.submissions and s2 in t2.submissions and earlierThan[s1.ts,s2.ts]) 
+							     implies 
+							     s1.timelinessScore.value> s2.timelinessScore.value
+}
+
+// There no exist 2 concurrent submissions from same team
+fact NoConcurrentSubmission{
+all t:Team| no disj s1,s2:t.submissions  |  s1.ts.time = s2.ts.time
 }
 
 // a student can be enrolled to a tournament at most once
@@ -371,14 +398,19 @@ fact manualScoreWhenBattleFinished{
 all t: Team | (t.participates.state = Finished and t.participates.manualEval = True) implies #lastSubmission[t].manualScore = 1
 }
 
+
+// EXECUTION COMMANDS
+
 //Check that all students enrolled in the tournament have 0 tournament score during subcription phase
 assert StudentTournamentScoreBeforeStart{
   all t : Tournament, s:Student | (#t.participants[s]=1 and t.state=Subscription) implies int t.participants[s] = 0
 }
+
 //Check that all students enrolled to tournament without any finished battle have 0 tournament score
 assert StudentTournamentScoreNoFinishedBattles{
-  all t : Tournament, s:Student|(#t.participants[s]=1 and t.state=Ongoing and (no b: t.battles |  b.state != Finished)) implies int t.participants[s] = 0
+  all t : Tournament, s:Student, te:Team|(#t.participants[s]=1 and t.state=Ongoing and (no b: t.battles |  b.state != Finished and s in te.members and te in b.participants)) implies int t.participants[s] = 0
 }
+
 //Check that all students enrolled to tournament with a tournament score greater than 0 have participated to at least 1 finished battle in that tournament
 assert StudentParticipatesWithTeam{
   all t : Tournament, s:Student| int t.participants[s] > 0 implies ( some b:t.battles,te:t.battles.participants | b.state=Finished and s in te.members)
@@ -386,12 +418,12 @@ assert StudentParticipatesWithTeam{
 
 //Check that all teams enrolled to the battle have 0 battle score before their first submission
 assert TeamScoreZeroBeforeSubmissions{
-  all b : Battle, te:b.participants | (#te.submissions = 0) implies int te.battleScore = 0
+  all b : Battle, te:b.participants | (#te.submissions = 0) implies int te.battleScore.value = 0
 }
 
 //Check that all teams having battle score greater than 0 have at least 1 submission
 assert TeamNonZeroScore{
-  all b : Battle, te:b.participants |  int te.battleScore > 0  implies  (#te.submissions > 0)
+  all b : Battle, te:b.participants |  int te.battleScore.value > 0  implies  (#te.submissions > 0)
 }
 
 //Check that all teams's latest submission have been manually evaluated if a battle is ended
@@ -399,21 +431,16 @@ assert AllTeamsManuallyEvaluated{
   no b : Battle |  b.manualEval = True and b.state=Finished and (some te:b.participants | #lastSubmission[te].manualScore = 0)
 }
 
-
-pred world1{
-#Tournament=1
-#Educator=2
-#Educator.createsTournament=1
-#Battle=1
-#Tournament.isManaged=2
-}
-
-pred world2{
+// Show predicate
+pred show{
+//some s: Submission | int s.overallScore.value != int s.timelinessScore.value
 #Tournament=1
 #Educator=1
-#Battle=2
-#Team=2
-#Submission=3
+#Battle=1
+#Team=1
+#Submission=2
 }
 
-run world2  for 6
+//run show  for 6
+check AllTeamsManuallyEvaluated for 4
+
