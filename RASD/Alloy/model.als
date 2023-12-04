@@ -182,6 +182,16 @@ fact eachPasswordToSomeUser{
 all p : Password | ( some u : User | u. password = p)
 }
 
+ // each Int associated to at most 1 timestamp
+fact oneTimestampPerInteger{
+all i:Int | ( lone t : Timestamp | t.time = i)
+}
+
+ // each Intt associated to at most 1 score
+fact oneTimestampPerInteger{
+all i:Int | ( lone s : Score | s.value = i)
+}
+
 // each username is associated to a unique student
 fact eachGitHubUsernameToOneStudent{
 all u : GithubUsername | ( one s : Student | s. username = u)
@@ -429,15 +439,20 @@ assert AllTeamsManuallyEvaluated{
 }
 
 // Show predicate
-pred show{
-//some s: Submission | int s.overallScore.value != int s.timelinessScore.value
+pred world1{
 #Tournament=1
-#Educator=1
-#Battle=1
-#Team=1
-#Submission=2
+#Educator=2
+#Battle=2
+#Tournament.isManaged=2
 }
 
-//run show  for 6
-check StudentTournamentScoreNoFinishedBattles for 4
+pred world2{
+#Tournament=1
+#Educator=1
+#Battle=2
+#Team=2
+#Submission=3
+}
+run world2  for 6
+//check AllTeamsManuallyEvaluated for 4
 
