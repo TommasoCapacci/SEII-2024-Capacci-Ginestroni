@@ -194,7 +194,7 @@ The main requirements the system has to fulfill are the following:
         \hline
         \textbf{Name} & Signup \\
         \hline
-        \textbf{Actors} & User \\
+        \textbf{Actors} & User, Email Service \\
         \hline
         \textbf{Entry conditions} &
         \begin{itemize}
@@ -208,6 +208,8 @@ The main requirements the system has to fulfill are the following:
             \item User flags the “Sign up as student” checkbox if he/she wants to sign up as a student, otherwise leaves it unchecked. In the case of a student, is also asked to provide its GitHub username
             \item User clicks on the “Sign up” button
             \item System checks user data
+            \item System sends a confirmation email to the user
+            \item User confirms the email address by clicking on the link inside the verfication email
         \end{enumerate} \\
         \hline
         \textbf{Exit conditions} &
