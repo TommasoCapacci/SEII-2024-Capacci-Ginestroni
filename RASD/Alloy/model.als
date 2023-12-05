@@ -385,6 +385,11 @@ fact NoDoubleEnrollment {
 no to:Tournament, s:Student| #to.participants[s] > 1 
 }
 
+// a battle can enter ConsolidationPhase only if manual evaluation is enabled
+fact consolidationPhaseOnlyWithManualEval{
+all b: Battle | b.state = ConsolidationPhase implies b.manualEval = True
+}
+
 // manual score can be present only if the related battle is in consolidation phase or finished
 fact ManualScoreOnlyInConsolidationOrFinished{
 all s: Submission | #s.manualScore = 1 implies (s.battle.state = ConsolidationPhase or s.battle.state = Finished)
@@ -453,6 +458,7 @@ pred world2{
 #Team=2
 #Submission=3
 }
+
 run world2  for 6
 //check AllTeamsManuallyEvaluated for 4
 
