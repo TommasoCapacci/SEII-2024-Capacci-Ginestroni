@@ -362,10 +362,10 @@ no t1,t2:Team,s:Student  | t1 != t2
 				   and t1.participates = t2.participates
 }
 
-// tournament scores initialized to 0 ? (if tournament is not started yet or none of its battles are ended)
+// tournament scores initialized to 0  (if tournament is not started yet or none of its battles are ended)
 fact ZeroInitializedTournamentScores {
 all s:Student, to:Tournament, b:Battle | (#to.participants[s] = 1 
-						     and (to.state = Subscription or (b in to.battles and b.state != Finished) ) ) implies #to.participants[s] = 0
+						     and (to.state = Subscription or (b in to.battles and b.state != Finished) ) ) implies to.participants[s].value = 0
 }
 
 // if a submission comes after another, then its timeliness score should be lower
