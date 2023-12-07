@@ -269,6 +269,9 @@ fact TournamentParticipantsScoreComputation{
 all t: Tournament, s: Student | #t.participants[s] = 1 implies int t.participants[s].value = int totalTournamentScore[t,s]
 }
 
+
+
+
 // submission's quality score is the sum of all aspects scores
 fun add3Scores[a, b, c: Score]: Score {
 {i: Score | int i.value = integer/add[ integer/add[a.value, b.value], c.value]}
@@ -309,17 +312,15 @@ fact NoBattleInTournamentSubscription {
 no t:Tournament | t.state = Subscription and #t.battles > 0
 }
 
-
-
-
-
 // if a tournament is ended, then all its battles must be ended too
 fact AllBattleEndedIfTournamentEnded {
 all t:Tournament| t.state = Ended implies (all b: t.battles | b.state = Finished)
 }
 
+
+
 // if a battle is in teamFormation/submission/consolidation state, then its tournament must be on ongoing state
-fact AllBattleEndedIfTournamentEnded {
+fact TournamentOngoingIfBattleNotEnded {
 all t:Tournament, b:t.battles | b.state != Finished implies (t.state != Ended)
 }
 
@@ -356,10 +357,6 @@ all t:Team | #t.members >= int t.participates.minTeamSize and
 	     #t.members <= int t.participates.maxTeamSize
 }
 
-
-
-
-
 // a student can participate to a battle only with 1 team
 fact OnlyOneTeamPerBattle {
 no t1,t2:Team,s:Student  | t1 != t2 and
@@ -367,6 +364,8 @@ no t1,t2:Team,s:Student  | t1 != t2 and
 			   s in t2.members and
 			   t1.participates = t2.participates
 }
+
+
 
 // tournament scores initialized to 0  (if tournament is not started yet or none of its battles are ended)
 fact ZeroInitializedTournamentScores {
@@ -391,6 +390,11 @@ fact NoDoubleEnrollment {
 no to:Tournament, s:Student| #to.participants[s] > 1 
 }
 
+// a battle can enter ConsolidationPhase only if manual evaluation is enabled
+fact consolidationPhaseOnlyWithManualEval{
+all b: Battle | b.state = ConsolidationPhase implies b.manualEval = True
+}
+
 // manual score can be present only if the related battle is in consolidation phase or finished
 fact ManualScoreOnlyInConsolidationOrFinished{
 all s: Submission | #s.manualScore = 1 implies (s.battle.state = ConsolidationPhase or s.battle.state = Finished)
@@ -405,6 +409,9 @@ all s:Submission | #s.manualScore = 1 implies s.battle.manualEval = True
 fact manualScoreOnlyInLastSubmission{
 all t: Team, s: t.submissions | #s.manualScore = 1 implies s = lastSubmission[t]
 }
+
+
+
 
 
 
@@ -453,7 +460,6 @@ assert StudentParticipatesWithTeam{
     all t : Tournament, s:Student| int t.participants[s].value > 0 implies ( some b:t.battles,te:t.battles.participants | b.state=Finished and s in te.members)
 }
 check StudentParticipatesWithTeam for 4
-
 
 //Check that all teams enrolled to the battle have 0 battle score before their first submission
 assert TeamScoreZeroBeforeSubmissions{
