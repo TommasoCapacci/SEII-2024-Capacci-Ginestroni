@@ -1,0 +1,161 @@
+\subsection{Purpose}
+Traditional classroom teaching focuses heavily on theory and concepts, without providing sufficient opportunities for students to gain hands-on coding experience.
+Additionally, the student-instructor relationship is usually limited to formal lectures and exams, missing some kind of continuous evaluation, which is essential to stimulate learning.
+
+CodeKataBattle aims to fill these gaps by facilitating competitive programming challenges that motivate students to put concepts into practice. The aim of the product is to provide an alternative to evaluate students with respect to their coding skills in a more enjoyable way: this is achieved by allowing educators to create tournaments in which students can partecipate and compete. Through integration with static analysis tools, the automated scoring system provides reliable evaluation so students can measure their improvements. By collaborating in teams, they also learn key skills like communication and source control. Indeed, partecipating to battles, students will gain experience in using GitHub as source control system.
+
+ These kind of evaluation also teaches how the test-first approach can be useful when it comes to developing a new piece of software.
+
+ For instructors, CodeKataBattle enables closer mentorship driven by qualitative code reviews, by including optional manual evaluation. In this way, educators will have the opportunity to enhance their code review skills while increasing the engagement with their students. Overall, the platform creates a virtuous cycle of learning powered by practice, feedback and community.
+
+ %---------------------------------
+ \subsubsection{Goals}
+ \label{goals}
+ The main objectives of our system are the following:
+ \begin{enumerate}[label=$\bullet$ \textbf{G\arabic*:}]
+     \item \textbf{ Allow students to participate to collaborative programming challenges}\\This is the main goal of the system. Students will be able to form teams to partecipate to Code Kata Battles and collaborate through GitHub.
+     \item \textbf{ Allow educators to create programming challenges}\\Educators (and only them) are allowed to create tournaments, which are composed by a non predefined number of programming challenges called Code Kata Battles. Whenever a new tournament is created, all the students of the platform are notified and can partecipate to it. After the creation of a tournament, the educator can add collaborators that will help him in the management of the tournament. Both the creator of the tournament and the collaborators that are invited to it can create challenges within the context of a tournament.
+     \item \textbf{ Allow the system to automatically evaluate students' submissions}\\Students submissions are automatically analyzed and ranked by the system, combining functional aspects, timeliness and quality level of sources. Functional aspects are measured in terms of number of unit test cases passed out of all test cases. Timeliness instead is measured in terms of elapsed time passed since the start of the battle. Finally, quality level of sources is measured in terms of code quality, whose aspects can be selected by the educator at battle creation time, and is computed by integrating with static analysis tools.
+     \item \textbf{ Allow educators to manually evaluate students' submissions}\\Educators will have the possibility to enable manual evaluation of students' submissions for a battle. If the option is enabled, the educator who created the battle, at the end of the submission phase of a battle, can review the code of all the teams and assign a score. In this case, the system will combine the automatically computed score with the manual one to produce the final battle rank.
+     \item \textbf{ Allow students to track their performance}\\Teams will be able to see their current rank evolving during the battle, updated for each new submission. Additionally, at the end of each battle, the platform updates a personal tournament score of each student, that is the sum of all battle scores received in that tournament. This score is used to compute the ranking of students partecipating to the tournament. In this way, the student can track his performance during the tournament as well.
+ \end{enumerate}
+\newpage
+ %--------------------------------------
+\subsection{Scope}
+The Code Kata Battle (CKB) platform aims at providing a collaborative environment for students to enhance their software development skills through structured practice sessions called "code kata battles". CKB facilitates an engaging learning experience by enabling students to partecipate in friendly competition while refining their programming skills.
+
+The system should allow 2 types of accesses, one for \textbf{educators} and the other for normal \textbf{students}: educators will have the possibility to create \textbf{tournaments} and \textbf{battles}, while students will have the possibility to subscribe to tournaments and provide solutions for the battles that compose them.
+
+Students can decide whether to participate to a battle by creating a new team or joining one, in respect with the constraints decided by the educator at battle creation time. Teams can be created by students in the context of a battle so that other students subscribed to the same tournament can freely decide to join and team up to produce a solution.
+
+The system will facilitate the collaboration between team members by integrating with \textbf{GitHub} through its \emph{GitHub Actions}. In this way, students will be able to collaborate on the same project and share their code.
+
+Once the students start developing their solutions, the platform will also start evaluating them. Evaluation is performed in 2 ways:
+\begin{itemize}
+    \item {Mandatory \textbf{automated evaluation}; it includes:}
+    \begin{itemize}
+        \item {functional aspects measured in terms of number of test cases that are correctly solved; unit test cases are provided by the educator when uploading the project files related to the battle}
+        \item {timeliness, measured in terms of time passed between the start of the battle and the last commit}
+        \item {quality level of the sources, extracted through  \textbf{external static analysis tools} that consider multiple aspects selected by the educator at battle creation time (e.g. security, reliability, and maintainability)}
+    \end{itemize} 
+    \item {Optional \textbf{manual evaluation}: personal score assigned by the educator, who checks and evaluates the work done by students}
+\end{itemize}
+Lastly, once the deadline for the submission of solutions expires (and after the manual evaluation has been performed in case it was expected), the system assigns to every team that participated in the battle an integer score between 0 and 100. This will concur both to the team's battle rank and to the personal score of each user in the context of the tournament the battle belongs to. At any point in time every user subscribed to CKB can see the list of ongoing tournaments and the rank of enrolled users.
+For a smoother experience, students will receive email notifications about the most important events, such as the availability of a new tournament and battle, or the publication of the final rank of a battle.
+\subsubsection{Phenomena}
+According to the paper "The World and the Machine" by M.Jackson and P.Zave, in order to correctly describe the application domain, the phenomena involved in it must be identified and categorized. The following table describes the world, shared and the machine phenomena, including the reference to which part controls the phenomena.
+\begin{table}[H]
+    \rowcolors{3}{blue!15}{white}
+    \begin{tabular}{|p{9.5cm}|p{2cm}|p{1.5cm}|}
+        \hline
+        \rowcolor{blue!50}
+        Phenomenon & Controlled & Shared \\
+        \hline
+        Teachers test their students & W & N \\
+        Evaluator decides to challenge his students & W & N \\
+        Student wants to improve his coding skills & W & N \\
+        Students may communicate with each other & W & N \\
+        Student invites other student to join his team & W & N \\
+        Student/educator subscribes to the platform & W & Y \\
+        Student/educator logins & W & Y \\
+        Educator creates a tournament & W & Y \\
+        Educator adds other educator as tournament collaborator  & W & Y \\
+        Educator creates a battle within a tournament & W & Y \\
+        Educator closes the battle's consolidation stage & W & Y \\
+        Educator terminates a tournament & W & Y \\
+        Educator submits manual optional evaluation  & W & Y \\
+        Student creates a team & W & Y \\
+        Student joins a team & W & Y \\
+        Student checks list of ongoing tournaments and ranks & W & Y \\
+        Student forks the GitHub repository of the code kata & W & Y \\
+        Student commits a new submission on GitHub & W & Y \\
+        Student checks the updated score of a battle & W & Y \\
+        System closes tournament's subscription phase & M & Y \\
+        System closes battle's team formation phase & M & Y \\
+        System closes battle's submission phase & M & Y \\
+        Platform creates GitHub repository and sends the link to the students of the teams subscribed to the battle & M & Y \\
+        Platform sends notification to users & M & Y \\
+        System computes and updates battle score of a team & M & Y \\
+        System  updates battle ranking of teams & M & Y \\
+        System computes and updates student's tournament personal score & M & Y \\
+        System  updates tournament ranking of students & M & Y \\
+        System evaluates quality level of a submission through static analysis & M & Y \\
+        System checks login data & M & N \\
+        System pulls new submission from GitHub & M & N \\
+        System evaluates functional aspects of a submission & M & N \\
+        System evaluates timeliness of a submission & M & N \\
+        \hline
+    \end{tabular}
+    \caption{phenomena table}
+\end{table}
+\newpage
+\subsection{Definitions, Acronyms, Abbreviations}
+\subsubsection{Definitions}
+\begin{itemize}
+    \item {\textbf{User:} anyone that has registered to the platform}
+    \item {\textbf{Student:} the first kind of users and, basically, the people this product is designed for. Their objective is to submit solutions to battles}
+    \item {\textbf{Team:} students can decide to group up and form a team to partecipate to a battle. The score assigned to the submission of a team will be assigned also to each one of its members}
+    \item {\textbf{Educator:} the second kind of users. They create tournaments, set-up battles, and eventually, evaluate the solutions that teams of students have submitted during the challenge}
+    \item {\textbf{Tournament:} collection of coding exercises (battles) about specific topics of a subject. Interested students can subscribe to it and participate to its battles as soon as they are published}
+    \item {\textbf{Code Kata Battle (or battle):} the atomic unit of a tournament. Usually students are asked to implement an algorithm or to develope a simple project that solves the task. Each battle belongs to a specific tournament: students submitting solutions for a battle will obtain a score that will be used to compute both the team's rank for the battle and the members' tournament rank}
+    \item {\textbf{Code Kata:} description and software project necessary for the battle, including test cases and build automation scripts. These are uploaded by the educator at battle creation time}
+    \item {\textbf{Tournament collaborator:} other educator that is added by the tournament creator to help him in the management of the tournament. He can create battles and evaluate their submissions}
+    \item {\textbf{GitHub:} web-based hosting service for version control, mostly used for computer code. It offers both distributed version control and source code management functionalities}
+    \item {\textbf{GitHub repository:} a repository is a storage space where some project files are stored. It can be either public or private. In the context of the platform, each battle is associated with a GitHub repository that is created by the system and shared with the teams}
+    \item {\textbf{GitHub collaborator:} person who is granted access to a GitHub repository with write permission}
+    \item {\textbf{GitHub Actions:} GitHub feature that allows to automate tasks directly on GitHub, such as building and testing code, or deploying applications. In the context of the platform, GitHub Actions is used to automatically notify the system when a new submission is pushed to the repository of a team}
+    \item {\textbf{Test cases:} each battle is associated with a set of test cases, which  are input-output value pairs that describe the correct behavior of the ideal solution}
+    \item {\textbf{Static analysis:} is the analysis of programs performed without executing them, usually achieved by applying formal methods directly to the source code. In the context of the platform this kind of analysis is used to extract additional information about the level of security, reliability and maintainability of a battle submission}
+    \item {\textbf{Functional analysis:} measures the correctness of a solution in terms of passed test cases}
+    \item {\textbf{Timeliness:} measures the time passed between the start of the battle and the last commit of the submission}
+    \item {\textbf{Score:} to each solution is assigned a score which is computed taking into account timeliness, functional and static analysis and, eventually, manual score assigned by the educator that created the challenge. The score is a natural number between 0 and 100 (the higher the better)}
+    \item {\textbf{Rank:} during a battle, students can visualize the ranking of teams taking part to the battle. Moreover, at the end of each battle, the platform updates the personal tournament score of each student. Specifically, the score is computed as the sum of all the battles scores received in that tournament. This overall score is used to fill out a ranking of all the students participating to the tournament which is accessible by any time and by any user subscribed to the platform}
+    \item {\textbf{Notification:} it's an  email alert that is sent to users to inform them that a certain event occurred such as the creation of a new tournament and battle or the publication of the final rank of a battle}
+
+\end{itemize}
+\subsubsection{Acronyms}
+\begin{itemize}
+    \item {\textbf{CKB:} Code Kata Battles}
+    \item {\textbf{API:} Application Programming Interface}
+    \item {\textbf{UML:} Unified Modeling Language}
+    \item {\textbf{GDPR:} General Data Protection Regulation}
+    \item {\textbf{HTML:} HyperText Markup Language}
+    \item {\textbf{CSS:} Cascading Style Sheets}
+    \item {\textbf{JSON:} JavaScript Object Notation}
+    \item {\textbf{REST:} REpresentational State Transfer}
+    \item {\textbf{URL:} Uniform Resource Locator}
+    \item {\textbf{HTTPS:} HyperText Transfer Protocol Secure}
+\end{itemize}
+\subsubsection{Abbreviations}
+\begin{itemize}
+    \item {\textbf{Gn:} Goal number “n”}
+    \item {\textbf{Dn:} Domain Assumption number “n”}
+    \item {\textbf{Rn:} Requirement number “n”}
+\end{itemize}
+\subsection{Revision History}
+\begin{itemize}
+    \item December 22, 2023: version 1.0 (first release)
+\end{itemize}
+\subsection{Reference Documents}
+\begin{itemize}
+    \item Specification document: "Assignment RDD AY 2023-2024"
+    \item RASD reference template: “02g.CreatingRASD”
+    \item Paper: "Jackson and Zave: the world and the machine"
+    \item UML official specification \href{https://www.omg.org/spec/UML}{https://www.omg.org/spec/UML}
+    \item Alloy official documentation: \href{https://alloytools.org/documentation.html}{https://alloytools.org/documentation.html}
+    \item GitHub API official documentation: \href{https://docs.github.com/en/rest/guides/getting-started-with-the-rest-api?apiVersion=2022-11-28}{https://docs.github.com/en/rest/guides/getting-started-with-the-rest-api?apiVersion=2022-11-28}
+    \item General Data Protection Regulation (GDPR) official text: \href{https://gdpr-info.eu}{https://gdpr-info.eu}
+\end{itemize}
+
+\subsection{Document Structure}
+\begin{itemize}
+    \item {\textbf{Section 1: Introduction}\\This section offers a brief overview of the product and its purpose. It also contains the list of definitions, acronyms and abbreviations that could be found in this document.}
+    \item {\textbf{Section 2: Overall Description}\\The second chapter contains some scenarios to better understand the expected functionalities and offers a more detailed description of the product domain through state machine diagrams and UML class diagram. It contains also the hardware and the software costraints of the system. Finally, there is an overview of
+     all the product features and the actors they are built for. }
+    \item {\textbf{Section 3: Specific Requirements}\\This section contains a description of functional requirement through some use cases and activity diagrams.}
+    \item {\textbf{Section 4: Formal Analysis through Alloy}\\The fourth chapter is a formal analysis of the model, made through the Alloy, including a graphic
+    representation of it obtained from Alloy Tool.
+    }
+    \item {\textbf{Section 5: Effort spent}}\\The fifth and last chapter contains the time spent by each contributor of this document.
+
+\end{itemize}

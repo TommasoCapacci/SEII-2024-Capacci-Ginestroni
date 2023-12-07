@@ -52,13 +52,13 @@ sig Tournament {
 
     subscriptionDeadline: Timestamp,
 
-    var state: TournamentState ,
+    state: TournamentState ,
 
     isManaged: some Educator,
 
-    var battles: set Battle,
+    battles: set Battle,
 
-    var participants: set Student -> one Score
+    participants: set Student -> one Score
 
 }
 
@@ -84,9 +84,9 @@ testCases: some TestCase
 
 sig Battle {
 
-    var state: BattleState ,
+    state: BattleState ,
 
-    var participants: set Team,
+    participants: set Team,
 
     registrationDeadline: Timestamp,
 
@@ -158,13 +158,13 @@ sig InviteCode{}
 
 sig Team {
 
-    var submissions: set Submission,
+    submissions: set Submission,
 
     participates: one Battle,
 
-    var members: some Student,
+    members: some Student,
 
-    var battleScore: one Score,
+    battleScore: one Score,
 
     apiToken: one ApiToken,
 

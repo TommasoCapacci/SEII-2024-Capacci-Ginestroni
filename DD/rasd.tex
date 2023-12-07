@@ -1,0 +1,75 @@
+\documentclass[table, 12pt]{article}
+\usepackage{graphicx}
+\usepackage[T1]{fontenc}
+\usepackage{tocloft}
+\usepackage{todonotes}
+\usepackage{caption}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{listings}
+\usepackage{pdfpages}
+\usepackage{pdflscape}
+\usepackage{textpos}
+\usepackage{scrhack}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage{longtable}
+\usepackage{enumitem}
+\usepackage{tasks}
+\usepackage{tabularx}
+\usepackage{titlesec}
+\usepackage{listing}
+\usepackage{alloy}
+\usepackage{graphicx}
+
+% Some utilities
+\input{util/highlight}
+\input{util/abbrev}
+
+
+\titleformat{\paragraph}
+{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}
+{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+\begin{document}
+\begin{titlepage}
+    \centering
+    {\scshape\large AY 2023/2024 \par}
+    \vfill
+    \includegraphics[scale=0.7]{Images/PolimiLogo.png}\par\vspace{1cm}
+    \vspace{1cm}
+    {\huge\bfseries DD\@: Design Document \par}
+    \vspace{2cm}
+    {\Large {Tommaso Capacci \quad Gabriele Ginestroni}\par}
+    \vfill
+    {\large Professor\par
+        Elisabetta \textsc{Di Nitto}}
+    \vfill
+    {\large \textbf{Version 1}\\ \today \par}
+\end{titlepage}
+\hypersetup{
+    pdfborder = {0 0 0}
+}
+\thispagestyle{plain}
+\pagenumbering{gobble}
+\mbox{}
+\newpage
+\pagenumbering{roman}
+\tableofcontents
+\newpage
+\pagenumbering{arabic}
+
+%------------------------------------------------------------------------------------------------------------------------------------------------
+\clearpage
+{{\section{Introduction}}}
+\label{sect:introduction}
+\input{Files/introduction}
+
+%------------------------------------------------------------------------------------------------------------------------------------------------
+\clearpage
+{{\section{Effort Spent}}}
+\label{sect:effort}
+\input{Files/effort}
+
+\end{document}
