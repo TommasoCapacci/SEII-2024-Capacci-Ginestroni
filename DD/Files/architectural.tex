@@ -1,16 +1,10 @@
-\definecolor{grapefruit}{RGB}{218, 64, 38}
-\newcommand{\ckbautoref}[1] {%
-	\hypersetup{linkcolor=grapefruit}%
-	\autoref{#1}%
-}
-
 \subsection{Overview}
 \subsection{Component view}
 The following component diagram highlights the main components of the system and their interaction with external entities and services. In the diagram, the components have 
 been organized to highlight the logical grouping of the system elements.\\The WebApplication component represents the presentation layer of the system, being the only entry point for the users.
 The application and integration logic are represented together due to their tight interaction, while the data layer contains the databases accessed by the respective microservices.
 Different colors are used to highlight components that share similar roles in the system.\\ \textcolor{orange}{Orange} components represents the system's microservices. Some complex microservices have been further decomposed into subcomponents, for a more fine grained representation.\\
-\textcolor{red}{Yellow} components represents the model of the database accessed by its microservice. The model offers to the microservice an abstraction of the database, allowing it to access the data without knowing the underlying database implementation technology.\\ 
+\textcolor{yellow}{Yellow} components represents the model of the database accessed by its microservice. The model offers to the microservice an abstraction of the database, allowing it to access the data without knowing the underlying database implementation technology.\\ 
 The \textcolor{violet}{violet} has been used to highlight components that cover an important role in the integration between some of the main microservices of the system. Specifically, it has been used for the queues subcomponents, which are used to implement the asynchronous and concurrent communication between specific microservices.
 Some microservices have an important role in the integration with external entities as well, but have been depicted with their orange color used for microservices. This aspect will be clarified in the detailed description of the components that follows the diagram.\\
 \textcolor{red}{Red} components represent the external services that interact with the system.\\
@@ -20,9 +14,9 @@ Finally, the \textcolor{green}{green} color has been used to highlight the datab
     \vspace{-3cm}
     \includegraphics[width=1.6\textwidth,angle=90,origin=c]{Diagrams/component_diagram.png}
     \caption{Component diagram}
-    \label{fig:component_diagram}
+    \label{component_diagram}
 \end{figure}
-The components in \ckbautoref{fig:component_diagram} are :
+The components in Figure \ref{component_diagram} are :
 \begin{itemize}
     \item \textbf{WebApplication}: the web app to which users of the CKB platform (students and educators) connect through a modern web browser. It is the front end of the system, and thanks to the interface offered by the \textbf{APIGatewayService}, allows users to manage and access the most important aspects of tournaments and battles
     \item \textbf{APIGatewayService}: this component is the microservice that exposes the REST API used by the WebApplication. Indeed, it allows the implementation of the main functionalities needed by the users of the web application. It also offers a REST API, used by the GitHub Actions Service, to notify a submission of a student on the Github repository.
