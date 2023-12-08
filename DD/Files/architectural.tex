@@ -1,3 +1,9 @@
+\definecolor{grapefruit}{RGB}{218, 64, 38}
+\newcommand{\ckbautoref}[1] {%
+	\hypersetup{linkcolor=grapefruit}%
+	\autoref{#1}%
+}
+
 \subsection{Overview}
 \subsection{Component view}
 The following component diagram highlights the main components of the system and their interaction with external entities and services. In the diagram, the components have 
@@ -14,7 +20,39 @@ Finally, the \textcolor{green}{green} color has been used to highlight the datab
     \vspace{-3cm}
     \includegraphics[width=1.6\textwidth,angle=90,origin=c]{Diagrams/component_diagram.png}
     \caption{Component diagram}
+    \label{fig:component_diagram}
 \end{figure}
+The components in \ckbautoref{fig:component_diagram} are :
+\begin{itemize}
+    \item \textbf{WebApplication}: the web app to which users of the CKB platform (students and educators) connect through a modern web browser. It is the front end of the system, and thanks to the interface offered by the \textbf{APIGatewayService}, allows users to manage and access the most important aspects of tournaments and battles
+    \item \textbf{APIGatewayService}: this component is the microservice that exposes the REST API used by the WebApplication. Indeed, it allows the implementation of the main functionalities needed by the users of the web application. It also offers a REST API, used by the GitHub Actions Service, to notify a submission of a student on the Github repository.
+It's responsible for the following functionalities:
+    \begin{itemize}
+        \item Request validation and access limit: it is responsible for the validation of the requests, limiting the access to the system's APIs.
+        \item Orchestration: it is responsible for the orchestration of the interaction between different components of the system on behalf of the different clients. It also handles the authentication and authorization of the users, thanks to the interaction with the \textbf{AuthenticationService}.
+    \end{itemize}
+    \item \textbf{AuthenticationService}: this component is the microservice that handles the authentication and authorization of the users of the system. It is responsible also for all the data related to the users of the system, such as their personal information and their roles. It includes the following subcomponents:
+    \begin{itemize}
+        \item \textbf{AuthenticationManager}: implements the main logical functionalities of the AuthenticationService, exposing APIs used by other microservices to authenticate users and to retrieve their information.
+        \item \textbf{UserModel}: represents the model of the database used by the AuthenticationService to store the data related to the users of the system.
+    \end{itemize}
+    \item \textbf{TournamentService}: this component is the microservice that implements most of the functionalities needed by the users. It handles:
+    \begin{itemize}
+        \item Management of tournaments and battles: it allows the creation of battle and tournaments, enrollment of students to tournaments and battles.
+        \item Management of events regarding tournaments and battles.
+        \item Management of the ranking of the students.
+        \item Management of data related to tournaments, battles and submissions
+    \end{itemize}
+    It is composed of the following subcomponents:
+    \begin{itemize}
+        \item \textbf{TournamentManager}: implements the main logical functionalities of the TournamentService, exposing APIs used by other microservices to manage tournaments and battles and their data.
+        \item \textbf{TournamentModel}: represents the model of the database used by the TournamentService to store the data related to tournaments and battles.
+        \item \textbf{EventQueue}: implements the queue used by the TournamentService to manage the events related to tournaments and battles.
+        \item \textbf{EventManager}: periodically checks the EventQueue for events and processes them once the deadlines are reached.
+    \end{itemize}
+
+\end{itemize}
+
 
 
 \subsection{Deployment view}
