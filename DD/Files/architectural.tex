@@ -10,7 +10,12 @@ The following diagram represents the high level architecture of the system, incl
 The main elements contained in Figure \ref{overview_diagram} are:
 \begin{itemize}
     \item \textbf{WebBrowser}: used by students and educators to access the system functionalities through the web application.
-    \item \textbf{WebServer}: the web server that hosts the web application of the system. Its role is storing, processing, delivering webpages to users and serving their requests.
+    \item \textbf{WebServer}: its functions are:
+    \begin{itemize}
+        \item Serving static assets (HTML, CSS, JavaScript) to the client, necessary for handling the initial rendering of the UI.
+        \item Managing the client-side application and routing.
+        \item Generating API requests to the API Gateway for dynamic data.
+    \end{itemize}
     \item \textbf{CKB Distributed System}: the distributed system composed of multiple microservices that implement the core functionalities of the system. Its in charge of the data management, application and integration logic of the whole CKB platform.
     \item \textbf{External Entities}: the CKB Distributed System must be able to integrate with external actors to accomplish its functionalities. The arrow in the diagram highlights the direction of the interaction between the system and the external entities.
 \end{itemize}
@@ -35,11 +40,14 @@ It's important to notice that for the sake of simplicity and readability, the in
 The components in Figure \ref{component_diagram} are :
 \begin{itemize}
     \item \textbf{WebApplication}: the web app to which users of the CKB platform (students and educators) connect through a modern web browser. It is the front end of the system, and thanks to the interface offered by the \textbf{APIGatewayService}, allows users to manage and access the most important aspects of tournaments and battles
-    \item \textbf{APIGatewayService}: this component is the microservice that exposes the REST API used by the WebApplication. Indeed, it allows the implementation of the main functionalities needed by the users of the web application. It also offers a REST API, used by the GitHub Actions Service, to notify a submission of a student on the Github repository.
+    \item \textbf{APIGatewayService}: this component is the microservice that exposes the REST API used by the WebApplication. Indeed, it allows the implementation of the main functionalities needed by the users of the web application by orchestrating the microservices. It also offers a REST API, used by the GitHub Actions Service, to notify a submission of a student on the Github repository.
     It's responsible for the following functionalities:
     \begin{itemize}
-        \item Request validation and access limit: it is responsible for the validation of the requests, limiting the access to the system's APIs.
-        \item Orchestration: it is responsible for the orchestration of the interaction between different components of the system on behalf of the different clients. It also handles the authentication and authorization of the users, thanks to the interaction with the \textbf{AuthenticationService}.
+        \item Acts as a single entry point for client requests.
+        \item Handles authentication, authorization.
+        \item Routes requests to the appropriate microservices that provide the required business functionality.
+        \item Aggregates responses from multiple microservices if needed.
+        \item Load balancing and API rate limiting.
     \end{itemize}
     \item \textbf{AuthenticationService}: this component is the microservice that handles the authentication and authorization of the users of the system. It is responsible also for all the data related to the users of the system, such as their personal information and their roles. It includes the following subcomponents:
     \begin{itemize}
