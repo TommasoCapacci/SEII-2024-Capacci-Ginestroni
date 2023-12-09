@@ -1,3 +1,22 @@
 \subsection{Scope}
 Traditional software programming education often lacks of hands-on experience and continuous evaluation. CodeKataBattle addresses these issues by providing a platform for competitive programming challenges which promotes teamwork and emphasizes the test-first approach in software development. It allows students to apply theoretical knowledge in tournaments with an automated scoring system. Instructors benefit from closer mentorship through code reviews and manual evaluation, creating a cycle of learning through practice, feedback, and community engagement.
-\\\\HERE
+\\\\CodeKataBattle's platform will employ a microservices architecture, emphasizing the decomposition of the system into small, independently deployable services. Each microservice will be dedicated to a specific business capability, promoting modular development and ease of maintenance.The architecture facilitates scalability, allowing individual services to be scaled independently based on demand.
+Other important design choices include:
+\begin{itemize}
+    \item \textbf{Service Discovery}: A service registry will be used to allow services to locate each other without prior knowledge of their location. This enables efficient communication between services by providing up-to-date information. Service discovery enhances fault tolerance and load balancing, contributing to the overall reliability of the system.
+    \item \textbf{API Gateway}: An API gateway will be used to provide a single entry point for clients to access the system. This simplifies the client interface by abstracting the underlying microservices and provides a centralized location for authentication and authorization. The API Gateway enhances security measures, ensuring controlled and secure access to the microservices.
+    \item \textbf{Event-Driven COmmunication Framework}: An event-driven communication framework will be used to facilitate communication between microservices. This allows services to be loosely coupled, promoting modularity and scalability. The framework enhances the reliability of the system by providing a mechanism for asynchronous communication between services (i.e. queues).
+    \item \textbf{Data Management Strategies}: The system employs tailored data management strategies, utilizing databases suitable for microservices. NoSQL databases are considered for specific services, providing flexibility and scalability. Eventual consistency is embraced for distributed data management, ensuring data isolation and autonomy for individual microservices.
+\end{itemize}
+Incorporating these key properties into the CodeKataBattle system should provide a robust and scalable architecture, ensuring modularity, responsiveness, security, reliability, and effective data management.
+
+\subsection{Definitions, Acronyms, Abbreviations}
+\subsubsection{Definitions}
+\subsubsection{Acronyms}
+\subsubsection{Abbreviations}
+
+\subsection{Revision History}
+
+\subsection{Reference Documents}
+
+\subsection{Document Structure}
