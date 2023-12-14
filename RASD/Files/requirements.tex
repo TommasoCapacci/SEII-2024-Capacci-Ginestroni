@@ -1,43 +1,54 @@
 \subsection{External Interface Requirements}
 \subsubsection{User Interfaces}
-The platform will provide a web interface accessible via browser from both students and educators. Now, some mockups of the main pages of the website will be presented.\\
-TODO: write something else
+The platform will provide a web interface accessible via browser from both students and educators. In this section, mockups of the most important functionalities of the website will be presented. A complete description of the webapp will be provided in the Design Document.\\
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{Mockups/3_student_homepage.png}
     \caption{Home page from the perspective of an user logged as student}
+    \label{fig:student_homepage}
 \end{figure}
+The figure \ref{fig:student_homepage} shows the home page of the CKB website as it appears to a student. It contains different information depending on the user's role. In particular, the student can see the list of all tournaments and battles he is participating in and a calendar showing upcoming deadlines.
 
+The educator's version of the page shows instead the list of all tournaments and battles he is managing.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{Mockups/5_educator_tournaments.png}
     \caption{Tournaments page from the perspective of an user logged as educator}
 \end{figure}
 
+The tournaments section contains the list of all past, ongoing and upcoming tournaments. User can click on a specific tournament to navigate to the tournament's specific page.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{Mockups/8_educator_tournament_leaderboard.png}
     \caption{"leaderboard" tab available to both educators and students to check the ranking in tournament}
+    \label{fig:leaderboard}
 \end{figure}
 
+The tournament page allows the users to visualize the personal rank of students participating in it. The figure \ref{fig:leaderboard} shows in particular how the leaderboard will be displayed to an educator.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{Mockups/10_educator_create_battle.png}
     \caption{Page used from educators to create a new battle}
 \end{figure}
 
+The create battle functionality is available only to educators and allows them to insert all the relevant information about the challenge and to upload the Code Kata files.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{Mockups/11_student_battle_subscription.png}
     \caption{Page used from students to subscribe to a battle}
 \end{figure}
 
+Another key service of the platform is provided by the battle page. It allows educators to access the battle management functionality. Students, through this page, can instead subscribe to the battle. This section is also used to visualize the battle's leaderboard to all the users.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{Mockups/15_student_team.png}
     \caption{Page used from students to manage the settings of their team and to check submissions information}
 \end{figure}
 
+The team page is used by students to check and configure the settings of their team (e.g. GitHub repository related information). It also allows them to visualize details about their last submission.
+
+Also educators can access the same page to review the code and assign a manual score to the team.
+\newpage
 \subsubsection{Hardware Interfaces}
 The software does not require any other hardware interface different than personal computers or smartphones equipped with modern browser from which users can access the platform.
 \subsubsection{Software Interfaces}
