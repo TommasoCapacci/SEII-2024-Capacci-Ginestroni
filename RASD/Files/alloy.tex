@@ -1,6 +1,6 @@
 An Alloy model is provided to present a formal description of the system. 
 The goals of this kind of analysis are to check the consistency of the model and to find possible errors and corner cases in the requirements.\\
-A formal model is also useful to express complex facts which are not captured by the domain class diagram such as the constraints involving subcriptions, scores, timestamps, battle and tournament states.\\
+A formal model is also useful to express complex facts which are not captured by the domain class diagram such as the constraints involving subcriptions, scores, timestamps, battle and tournament states.\\ \\
 
 \subsection{Model Code}
 \begin{lstlisting}[language=alloy]
@@ -36,13 +36,10 @@ sig Educator extends User {
 
 }
 
-enum Bool { True, False }
 
-enum ProgrammingLanguage { Python, Java, C }
 
-enum TournamentState { Subscription, Ongoing, Ended }
 
-enum BattleState { TeamFormation, SubmissionPhase, ConsolidationPhase, Finished }
+
 
 sig Timestamp {
 
@@ -52,17 +49,9 @@ sig Timestamp {
     time >= 0 
 }
 
-sig Tournament {
+one sig SystemTimestamp {
 
-    subscriptionDeadline: Timestamp,
-
-    state: TournamentState ,
-
-    isManaged: some Educator,
-
-    battles: set Battle,
-
-    participants: set Student -> one Score
+    ts: Timestamp
 
 }
 
@@ -78,6 +67,22 @@ pred earlierEqual [t1, t2: Timestamp] {
 
 }
 
+enum TournamentState { Subscription, Ongoing, Ended }
+
+sig Tournament {
+
+    subscriptionDeadline: Timestamp,
+
+    state: TournamentState ,
+
+    isManaged: some Educator,
+
+    battles: set Battle,
+
+    participants: set Student -> one Score
+
+}
+
 sig TestCase {}
 
 sig CodeKata {
@@ -85,6 +90,12 @@ sig CodeKata {
 testCases: some TestCase
 
 }
+
+enum Bool { True, False }
+
+enum ProgrammingLanguage { Python, Java, C }
+
+enum BattleState { TeamFormation, SubmissionPhase, ConsolidationPhase, Finished }
 
 sig Battle {
 
@@ -250,7 +261,34 @@ all t: Team, b: Battle | t in b.participants <==> t.participates = b
 }
 
 
+
+
+
+
+
+
 //ADDITIONAL CONSTRAINTS
+
+//tournament is on ongoing state if and only if subscription deadline has elapsed
+fact tournamentStateCoherentWithSystemTimestamp{
+all t:Tournament | earlierThan[t.subscriptionDeadline, SystemTimestamp.ts] <=> t.state = Ongoing
+}
+
+// battle states coherent with system timestamp
+fact battleStateCoherentWithSystemTimestamp{
+all b:Battle | 
+    (earlierThan[SystemTimestamp.ts, b.registrationDeadline] 
+        implies b.state = TeamFormation) and
+    ((earlierEqual[ b.registrationDeadline,SystemTimestamp.ts] and earlierThan[ SystemTimestamp.ts, b.submissionDeadline]) 
+        implies b.state = SubmissionPhase) and
+    (earlierEqual[ b.submissionDeadline,SystemTimestamp.ts] 
+        implies (b.state = ConsolidationPhase or b.state = Finished) )
+}
+
+//submission ts come before system timestamp
+fact submissionTsBeforeSystemTimestamp{
+all s:Submission | earlierEqual[s.ts, SystemTimestamp.ts]
+}
 
 // each student can subscribe only once to a tournament
 fact eachStudentSubscribesMostOnce{
@@ -272,9 +310,6 @@ sum te: t.battles.participants&allStudentTeamsInEndedBattles[s] | int te.battleS
 fact TournamentParticipantsScoreComputation{ 
 all t: Tournament, s: Student | #t.participants[s] = 1 implies int t.participants[s].value = int totalTournamentScore[t,s]
 }
-
-
-
 
 // submission's quality score is the sum of all aspects scores
 fun add3Scores[a, b, c: Score]: Score {
@@ -320,8 +355,6 @@ no t:Tournament | t.state = Subscription and #t.battles > 0
 fact AllBattleEndedIfTournamentEnded {
 all t:Tournament| t.state = Ended implies (all b: t.battles | b.state = Finished)
 }
-
-
 
 // if a battle is in teamFormation/submission/consolidation state, then its tournament must be on ongoing state
 fact TournamentOngoingIfBattleNotEnded {
@@ -369,8 +402,6 @@ no t1,t2:Team,s:Student  | t1 != t2 and
 			   t1.participates = t2.participates
 }
 
-
-
 // tournament scores initialized to 0  (if tournament is not started yet or none of its battles are ended)
 fact ZeroInitializedTournamentScores {
 all s:Student, to:Tournament, b:Battle | (#to.participants[s] = 1 
@@ -414,17 +445,17 @@ fact manualScoreOnlyInLastSubmission{
 all t: Team, s: t.submissions | #s.manualScore = 1 implies s = lastSubmission[t]
 }
 
-
-
-
-
-
 // if a battle is ended, manualScore must be present in the last submission
 fact manualScoreWhenBattleFinished{
 all t: Team | (t.participates.state = Finished and t.participates.manualEval = True) 
         implies 
     #lastSubmission[t].manualScore = 1
 }
+
+
+
+
+
 
 // Show predicates
 pred world1{
@@ -442,10 +473,10 @@ pred world2{
 #Submission=3
 }
 
-run world2  for 6
+run world1  for 6
 \end{lstlisting}
 
-\subsection{Static analysis of the model}
+\subsection{Static analysis}
 \begin{lstlisting}[language=alloy]
 //Check that all students enrolled in the tournament have 0 tournament score during subcription phase
 assert StudentTournamentScoreBeforeStart{
@@ -484,20 +515,30 @@ assert AllTeamsManuallyEvaluated{
 check AllTeamsManuallyEvaluated for 4
 
 \end{lstlisting}
-
+\hfill \break
 The alloy model previously presented focuses on the most important entities and attributes of the domain, which are strictly necessary to describe the main functionalities of the system. Indeed, some concepts such as time and scores have been simplified to be easily handled by the Alloy Analyzer and syntax.\\
-Images of two world examples are shown below, the first focuses on educators, tournaments and battles, while the second one includes also all the aspects related to students, teams and submissions.
+Images of three world examples are shown below, the first focuses on educators, tournaments and battles, while the second and the third ones include all the aspects related to students, teams and submissions.
+\newpage
+
 \begin{figure}[H]
-    \centering
     \vspace{-2cm}
-    \hspace{-2cm}
-    \includegraphics[width=1.45\textwidth]{Alloy/world1.png}
+    \hspace{-4cm}
+    \includegraphics[width=1.65\textwidth]{Alloy/world1.png}
     \vspace{0.2cm}
-    \caption{World1}
+    \caption{World1, generated with the \textit{world1} predicate}
 \end{figure}
+\newpage
 \begin{figure}[H]
     \centering
     \vspace{-4cm}
     \includegraphics[width=1.65\textwidth,angle=90,origin=c]{Alloy/world2.png}
-    \caption{World2}
+    \caption{World2, generated with the \textit{world2} predicate}
 \end{figure}
+\newpage
+\begin{figure}[H]
+    \centering
+    \vspace{-4cm}
+    \includegraphics[width=1.65\textwidth,angle=90,origin=c]{Alloy/world3.png}
+    \caption{World2, generated with the \textit{world2} predicate}
+\end{figure}
+\newpage
