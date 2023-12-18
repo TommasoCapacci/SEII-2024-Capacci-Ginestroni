@@ -44,17 +44,21 @@ time: Int
 
 } { time >= 0 }
 
+one sig SystemTimestamp {
+ts: Timestamp
+}
+
 sig Tournament {
 
 subscriptionDeadline: Timestamp,
 
-var state: TournamentState ,
+state: TournamentState ,
 
 isManaged: some Educator,
 
-var battles: set Battle,
+battles: set Battle,
 
-var participants: set Student -> one Score
+participants: set Student -> one Score
 
 }
 
@@ -72,9 +76,9 @@ int t1.time <= int t2.time
 
 sig Battle {
 
-var state: BattleState ,
+state: BattleState ,
 
-var participants: set Team,
+participants: set Team,
 
 registrationDeadline: Timestamp,
 
@@ -142,13 +146,13 @@ battle: Battle
 
 sig Team {
 
-var submissions: set Submission,
+submissions: set Submission,
 
 participates: one Battle,
 
-var members: some Student,
+members: some Student,
 
-var battleScore: one Score,
+battleScore: one Score,
 
 apiToken: one ApiToken,
 
@@ -249,6 +253,23 @@ all t: Team, b: Battle | t in b.participants <=> t.participates = b
 
 
 //ADDITIONAL CONSTRAINTS
+
+//tournament is on ongoing state if and only if subscription deadline has elapsed
+fact tournamentStateCoherentWithSystemTimestamp{
+all t:Tournament | earlierThan[t.subscriptionDeadline, SystemTimestamp.ts] <=> t.state = Ongoing
+}
+
+// battle states coherent with system timestamp
+fact battleStateCoherentWithSystemTimestamp{
+all b:Battle | (earlierThan[SystemTimestamp.ts, b.registrationDeadline] implies b.state = TeamFormation) and
+		  ((earlierEqual[ b.registrationDeadline,SystemTimestamp.ts] and earlierThan[ SystemTimestamp.ts, b.submissionDeadline])  implies b.state = SubmissionPhase) and
+		(earlierEqual[ b.submissionDeadline,SystemTimestamp.ts] implies (b.state = ConsolidationPhase or b.state = Finished) )
+}
+
+//submission ts come before system timestamp
+fact submissionTsBeforeSystemTimestamp{
+all s:Submission | earlierEqual[s.ts, SystemTimestamp.ts]
+}
 
 // each student can subscribe only once to a tournament
 fact eachStudentSubscribesMostOnce{
@@ -459,6 +480,6 @@ pred world2{
 #Submission=3
 }
 
-run world2  for 6
-//check AllTeamsManuallyEvaluated for 4
+//run world2  for 6
+check StudentTournamentScoreNoFinishedBattles for 8
 
