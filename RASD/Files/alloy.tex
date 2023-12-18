@@ -190,7 +190,7 @@ sig Team {
 
 //INTEGRITY CONSTRAINTS
 
-// each password is associated to some user ( some registration may have the same password )
+// each password is associated to some user (some users may have the same password)
 fact eachPasswordToSomeUser{
 all p : Password | ( some u : User | u. password = p)
 }
@@ -200,7 +200,7 @@ fact oneTimestampPerInteger{
 all i:Int | ( lone t : Timestamp | t.time = i)
 }
 
-// each Intt associated to at most 1 score
+// each Int associated to at most 1 score
 fact oneTimestampPerInteger{
 all i:Int | ( lone s : Score | s.value = i)
 }
