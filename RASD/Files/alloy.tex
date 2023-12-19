@@ -271,7 +271,8 @@ all t: Team, b: Battle | t in b.participants <==> t.participates = b
 
 //tournament is on ongoing state if and only if subscription deadline has elapsed
 fact tournamentStateCoherentWithSystemTimestamp{
-all t:Tournament | earlierThan[t.subscriptionDeadline, SystemTimestamp.ts] <=> t.state = Ongoing
+all t:Tournament | 
+    earlierThan[t.subscriptionDeadline, SystemTimestamp.ts] <==> t.state = Ongoing
 }
 
 // battle states coherent with system timestamp
