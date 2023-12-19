@@ -9,20 +9,20 @@ The following diagram represents the high level architecture of the system, incl
 \end{figure}
 The main elements contained in Figure \ref{overview_diagram} are:
 \begin{itemize}
-    \item \textbf{WebBrowser}: used by students and educators to access the system functionalities through the web application.
-    \item \textbf{WebServer}: its functions are:
+    \item \textbf{WebBrowser} used by students and educators to access the system functionalities through the web application.
+    \item \textbf{WebServer} whose functions are:
     \begin{itemize}
         \item Serving static assets (HTML, CSS, JavaScript) to the client, necessary for handling the initial rendering of the UI.
         \item Managing the client-side application and routing.
         \item Generating requests directed to the backend system.
     \end{itemize}
-    \item \textbf{CKB Distributed System}: the distributed system composed of multiple microservices that implement the core functionalities of the system. Its in charge of the data management, application and integration logic of the whole CKB platform.
-    \item \textbf{External Entities}: the CKB Distributed System must be able to integrate with external actors to accomplish its functionalities. The arrow in the diagram highlights the direction of the interaction between the system and the external entities.
+    \item \textbf{CKB Distributed System} which is the distributed system composed of multiple microservices that implement the core functionalities of the system. Its in charge of the data management, application and integration logic of the whole CKB platform.
+    \item \textbf{External Entities} the CKB Distributed System must be able to integrate with to accomplish its functionalities. The arrow in the diagram highlights the direction of the interaction between the system and the external entities.
 \end{itemize}
 \subsection{Component view}
 The following component diagram highlights the main components of the system and their interaction with external entities and services. In the diagram, the components have 
 been organized to highlight the logical grouping of the system elements.\\The WebApplication component represents the presentation layer of the system, being the only entry point for the users.
-The application and integration logic are represented together due to their tight interaction, while the data layer contains the databases accessed by the respective microservices.
+The application and integration logics are represented together due to their tight interaction, while the data layer contains the databases accessed by the respective microservices.
 Different colors are used to highlight components that share similar roles in the system.\\ \textcolor{orange}{Orange} components represent the system's microservices. Some complex microservices have been further decomposed into subcomponents, for a more fine grained representation.\\
 \textcolor{yellow}{Yellow} components represent the model of the database accessed by its microservice. The model offers to the microservice an abstraction of the database, allowing it to access the data without knowing the underlying database implementation technology.\\ 
 The \textcolor{violet}{violet} has been used to highlight components that cover an important role in the integration between some of the main microservices of the system. Specifically, it has been used for the queues subcomponents, which are used to implement the asynchronous and concurrent communication between specific microservices.
@@ -44,15 +44,15 @@ The components in Figure \ref{component_diagram} are :
     It's responsible for the following functionalities:
     \begin{itemize}
         \item Acts as a single entry point for client requests.
-        \item Handles authentication, authorization.
+        \item Handles authentication, authorization through the interaction with the AuthService.
         \item Routes requests to the appropriate microservices that provide the required business functionality.
         \item Aggregates responses from multiple microservices if needed.
         \item Load balancing and API rate limiting.
     \end{itemize}
-    \item \textbf{AuthenticationService}: this component is the microservice that handles the authentication and authorization of the users of the system. It is responsible also for all the data related to the users of the system, such as their personal information and their roles. It includes the following subcomponents:
+    \item \textbf{AuthService}: this component is the microservice that handles the authentication and authorization of the users of the system. It is responsible also for all the data related to the users of the system, such as their personal information and their roles. It includes the following subcomponents:
     \begin{itemize}
-        \item \textbf{AuthenticationManager}: implements the main logical functionalities of the AuthenticationService, exposing APIs used by other microservices to authenticate users and to retrieve their information.
-        \item \textbf{UserModel}: represents the model of the database used by the AuthenticationService to store the data related to the users of the system.
+        \item \textbf{AuthManager}: implements the main logical functionalities of the AuthService, exposing APIs used by other microservices to authenticate, authorize users and to retrieve their information.
+        \item \textbf{UserModel}: represents the model of the database used by the AuthService to store the data related to the users of the system.
     \end{itemize}
     \item \textbf{TournamentService}: this component is the microservice that implements most of the functionalities needed by the users. It handles:
     \begin{itemize}

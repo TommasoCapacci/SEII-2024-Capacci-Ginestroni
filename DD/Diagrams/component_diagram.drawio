@@ -1,6 +1,6 @@
-<mxfile host="Electron" modified="2023-12-08T15:14:52.781Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.0.3 Chrome/114.0.5735.289 Electron/25.8.4 Safari/537.36" etag="IwkNMBRch8_V2W0L6gRv" version="22.0.3" type="device">
+<mxfile host="Electron" modified="2023-12-19T10:52:07.177Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.0.3 Chrome/114.0.5735.289 Electron/25.8.4 Safari/537.36" etag="U5kWlNF_MEUHjYvQML_N" version="22.0.3" type="device">
   <diagram name="Page-1" id="5f0bae14-7c28-e335-631c-24af17079c00">
-    <mxGraphModel dx="1977" dy="1383" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="none" math="0" shadow="0">
+    <mxGraphModel dx="2092" dy="1504" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="none" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -399,10 +399,10 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="hIF5-wNlFr5nMB-mbWGY-6" value="AuthenticationService" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;recursiveResize=0;container=1;collapsible=0;width=160;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="mmdkQ3DgxTQABvhwrMoQ-22" vertex="1">
+        <mxCell id="hIF5-wNlFr5nMB-mbWGY-6" value="AuthService" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;recursiveResize=0;container=1;collapsible=0;width=160;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="mmdkQ3DgxTQABvhwrMoQ-22" vertex="1">
           <mxGeometry x="1020" y="189" width="410" height="111" as="geometry" />
         </mxCell>
-        <mxCell id="39150e848f15840c-5" value="AuthenticationManager" style="shape=component;align=left;spacingLeft=36;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;html=1;" parent="hIF5-wNlFr5nMB-mbWGY-6" vertex="1">
+        <mxCell id="39150e848f15840c-5" value="AuthManager" style="shape=component;align=left;spacingLeft=36;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;html=1;" parent="hIF5-wNlFr5nMB-mbWGY-6" vertex="1">
           <mxGeometry x="30" y="39" width="180" height="50" as="geometry" />
         </mxCell>
         <mxCell id="hIF5-wNlFr5nMB-mbWGY-13" value="UserModel" style="shape=component;align=left;spacingLeft=36;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="hIF5-wNlFr5nMB-mbWGY-6" vertex="1">
