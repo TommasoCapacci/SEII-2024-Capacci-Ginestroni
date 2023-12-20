@@ -30,13 +30,18 @@ Some microservices have an important role in the integration with external entit
 \textcolor{red}{Red} components represent the external services that interact with the system.\\
 Finally, the \textcolor{green}{green} color has been used to highlight the databases components that are used to store the data of the system.\\
 It's important to notice that for the sake of simplicity and readability, the interface offered by the ServiceRegistry has been depicted with some dotted arrows that connect all the microservices to it.
+
+\newpage
+\thispagestyle{noheader}
 \begin{figure}[H]
     \centering
-    \vspace{-3cm}
+    \vspace{-3.5cm}
     \includegraphics[width=1.6\textwidth,angle=90,origin=c]{Diagrams/component_diagram.png}
     \caption{Component diagram}
     \label{component_diagram}
 \end{figure}
+
+\newpage
 The components in Figure \ref{component_diagram} are :
 \begin{itemize}
     \item \textbf{WebApplication}: the web app to which users of the CKB platform (students and educators) connect through a modern web browser. It is the front end of the system, and thanks to the interface offered by the \textbf{APIGatewayService}, allows users to manage and access the most important aspects of tournaments and battles
@@ -112,7 +117,9 @@ The Figure \ref{component_diagram} contains also some external entities the syst
 TODO
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1.3\textwidth,angle=90,origin=c]{Diagrams/deployment_diagram.png}
+    \vspace{-4cm}
+    \hspace{1cm}
+    \includegraphics[width=1.1\textwidth]{Diagrams/deployment_diagram.png}
     \caption{Deployment diagram}
     \label{deployment_diagram}
 \end{figure}
