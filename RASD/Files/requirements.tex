@@ -71,9 +71,8 @@ Some of the functionalities provided by the system exploit specific interfaces t
     \item \textbf{GitHub interface}: the system must be able to interface with GitHub API to create the original repository for each battle and to pull code submissions.
     \item \textbf{Static analysis tools}: some of the aspects that have to be evaluated require the execution of static analysis methods over the provided code. System achieves this by interfacing with external tools that provide this functionality. These services must support the set of languages allowed by the CKB platform and the analysis of specific code quality aspects such as security, maintainability and reliability.
 \end{itemize}
-Each of these interfaces are implemented by correctly setting and utilizing specific API calls to the involved services that will be included inside the platform’s inner processes.
 
-Moreover, in order to be notified about the submission of a new solution, the system itself must expose a REST endpoint that will be invoked by the automated GitHub Actions workflow set up by each team on their repository.
+Moreover, in order to be notified about the submission of a new solution, the system itself must expose a \textbf{REST endpoint} that will be invoked by the automated GitHub Actions workflow set up by each team on their repository.
 
 \newpage
 \subsubsection{Communication Interfaces}
