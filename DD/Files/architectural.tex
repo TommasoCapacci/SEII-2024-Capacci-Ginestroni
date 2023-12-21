@@ -24,12 +24,12 @@ The following component diagram highlights the main components of the system and
 been organized to highlight the logical grouping of the system elements.\\The WebApplication component represents the presentation layer of the system, being the only entry point for the users.
 The application and integration logics are represented together due to their tight interaction, while the data layer contains the databases accessed by the respective microservices.
 Different colors are used to highlight components that share similar roles in the system.\\ \textcolor{orange}{Orange} components represent the system's microservices. Some complex microservices have been further decomposed into subcomponents, for a more fine grained representation.\\
-\textcolor{yellow}{Yellow} components represent the model of the database accessed by its microservice. The model offers to the microservice an abstraction of the database, allowing it to access the data without knowing the underlying database implementation technology.\\ 
+\textcolor{myyellow}{Yellow} components represent the model of the database accessed by its microservice. The model offers to the microservice an abstraction of the database, allowing it to access the data without knowing the underlying database implementation technology.\\ 
 The \textcolor{violet}{violet} has been used to highlight components or services that cover an important role for the communication between microservices. It has been used for the queues subcomponents, which are used to implement the asynchronous and concurrent communication between specific microservices.
 Also the ServiceRegistry has been represented with the this color, since it enables the communication in the system.
 Some microservices have an important role in the integration and communication with external entities as well, but have been depicted with their orange color used for microservices. This aspect will be clarified in the detailed description of the components that follows the diagram.\\
 \textcolor{red}{Red} components represent the external services that interact with the system.\\
-Finally, the \textcolor{green}{green} color has been used to highlight the databases components that are used to store the data of the system.\\
+Finally, the \textcolor{mygreen}{green} color has been used to highlight the databases components that are used to store the data of the system.\\
 It's important to notice that for the sake of simplicity and readability, the interface offered by the ServiceRegistry has been depicted with some dotted arrows that connect all the microservices to it.
 
 \newpage
@@ -124,7 +124,7 @@ The Figure \ref{component_diagram} contains also some external entities the syst
 \subsection{Deployment view}
 The following diagram represents the deployment architecture of the system, highlighting the physical nodes on which the system will be deployed and the communication channels between them.
 
-In Figure \ref{deployment_diagram} the nodes have been colored according to the color scheme defined in the component view exception, with the only difference that the \textcolor{red}{red} color has been used to identify the user's web browser and the \textcolor{yellow}{yellow} one to represent the system's web server.
+In Figure \ref{deployment_diagram} the nodes have been colored according to the color scheme defined in the component view exception, with the only difference that the \textcolor{red}{red} color has been used to identify the user's web browser and the \textcolor{myyellow}{yellow} one to represent the system's web server.
 \begin{figure}[H]
     \centering
     \vspace{-4cm}
@@ -133,6 +133,11 @@ In Figure \ref{deployment_diagram} the nodes have been colored according to the 
     \caption{Deployment diagram}
     \label{deployment_diagram}
 \end{figure}
+The most important aspects that are worth noticing are:
+\begin{itemize}
+    \item Each microservice has its own queue: these are logged (i.e. also persisted in main memory) so that, in case of failure, a new service can be deployed and the previous queue can be restored. This allows the system to be fault tolerant and to ensure that no communication data is lost.
+    \item Most of the microservices are deployed in a containerized environment, using Docker containers. This allows them to be easily deployed on necessity, allowing the system to scale out according to the current load. The Service Registry instead is deployed in a non-containerized environment, since it is a critical component of the system and it is important to ensure its availability. In particular, in order to achieve this, a master-slave approach has been chosen. The master instance is deployed on a physical node, while slave instances are deployed on different nodes: the latter ones have the task of monitoring the master instance and to copy its logs. In this way, if the master instance fails, one of the slave instances (e.g. chosen through a consensus algorithm) can be promoted to master so the system can continue to work from the point the master left without any interruption.
+\end{itemize}
 
 \subsection{Component interfaces}
 \subsection{Runtime view}
