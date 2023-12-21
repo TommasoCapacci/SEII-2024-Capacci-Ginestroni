@@ -25,8 +25,9 @@ been organized to highlight the logical grouping of the system elements.\\The We
 The application and integration logics are represented together due to their tight interaction, while the data layer contains the databases accessed by the respective microservices.
 Different colors are used to highlight components that share similar roles in the system.\\ \textcolor{orange}{Orange} components represent the system's microservices. Some complex microservices have been further decomposed into subcomponents, for a more fine grained representation.\\
 \textcolor{yellow}{Yellow} components represent the model of the database accessed by its microservice. The model offers to the microservice an abstraction of the database, allowing it to access the data without knowing the underlying database implementation technology.\\ 
-The \textcolor{violet}{violet} has been used to highlight components that cover an important role in the integration between some of the main microservices of the system. Specifically, it has been used for the queues subcomponents, which are used to implement the asynchronous and concurrent communication between specific microservices.
-Some microservices have an important role in the integration with external entities as well, but have been depicted with their orange color used for microservices. This aspect will be clarified in the detailed description of the components that follows the diagram.\\
+The \textcolor{violet}{violet} has been used to highlight components or services that cover an important role for the communication between microservices. It has been used for the queues subcomponents, which are used to implement the asynchronous and concurrent communication between specific microservices.
+Also the ServiceRegistry has been represented with the this color, since it enables the communication in the system.
+Some microservices have an important role in the integration and communication with external entities as well, but have been depicted with their orange color used for microservices. This aspect will be clarified in the detailed description of the components that follows the diagram.\\
 \textcolor{red}{Red} components represent the external services that interact with the system.\\
 Finally, the \textcolor{green}{green} color has been used to highlight the databases components that are used to store the data of the system.\\
 It's important to notice that for the sake of simplicity and readability, the interface offered by the ServiceRegistry has been depicted with some dotted arrows that connect all the microservices to it.
@@ -44,9 +45,9 @@ It's important to notice that for the sake of simplicity and readability, the in
 \newpage
 The components in Figure \ref{component_diagram} are :
 \begin{itemize}
-    \item \textbf{WebApplication}: the web app to which users of the CKB platform (students and educators) connect through a modern web browser. It is the front end of the system, and thanks to the interface offered by the \textbf{APIGatewayService}, allows users to manage and access the most important aspects of tournaments and battles
+    \item \textbf{WebApplication}: the web app to which users of the CKB platform (students and educators) connect through a modern web browser. It is the front end of the system, and thanks to the interface offered by the \textbf{APIGatewayService}, allows users to manage and access the most important aspects of tournaments and battles.
     \item \textbf{APIGatewayService}: this component is the microservice that exposes the REST API used by the WebApplication. Indeed, it allows the implementation of the main functionalities needed by the users of the web application by orchestrating the microservices. It also offers a REST API, used by the GitHub Actions Service, to notify a submission of a student on the Github repository.
-    It's responsible for the following functionalities:
+    It's also responsible for the following functionalities:
     \begin{itemize}
         \item Acts as a single entry point for client requests.
         \item Handles authentication, authorization through the interaction with the AuthService.
@@ -54,7 +55,8 @@ The components in Figure \ref{component_diagram} are :
         \item Aggregates responses from multiple microservices if needed.
         \item Load balancing and API rate limiting.
     \end{itemize}
-    \item \textbf{AuthService}: this component is the microservice that handles the authentication and authorization of the users of the system. It is responsible also for all the data related to the users of the system, such as their personal information and their roles. It includes the following subcomponents:
+    \item \textbf{AuthService}: this component is the microservice that handles the authentication and authorization of the users of the system. To accomplish this task, it may be required to interact with external identity providers, depending on the user preferences. 
+    It is responsible also for all the data related to the users of the system, such as their personal information and their roles. It includes the following subcomponents:
     \begin{itemize}
         \item \textbf{AuthManager}: implements the main logical functionalities of the AuthService, exposing APIs used by other microservices to authenticate, authorize users and to retrieve their information.
         \item \textbf{UserModel}: represents the model of the database used by the AuthService to store the data related to the users of the system.
@@ -89,10 +91,16 @@ The components in Figure \ref{component_diagram} are :
         \item \textbf{EvaluationManager}: implements the main logical functionalities of the EvaluationService, periodically checking the EvaluationQueue for submissions to evaluate and processing them.
         \item \textbf{EvaluationQueue}: queue that stores notifications about new pending submissions, appended by the GitHubActionsService through the REST API exposed by the APIGatewayService, yet to be evaluated.
     \end{itemize}
-    \item \textbf{NotificationService}: this component is the microservice that handles the notifications of the users of the system. It is responsible for the following functionalities:
+    \item \textbf{NotificationService}: this component is the microservice that handles the notifications of the users of the system. To perform this task, the NotificationService interacts with the external email service provider to send notifications to the users.
+     It is responsible for the following functionalities:
     \begin{itemize}
         \item Dispatch of confirmation email to new registered users.
         \item Dispatch of email notifications to users in case of events related to tournaments and battles.
+    \end{itemize}
+    It is composed of the following subcomponents:
+    \begin{itemize}
+        \item \textbf{NotificationManager}: implements the main logical functionalities of the NotificationService, periodically checking the NotificationQueue for notifications to send and processing them.
+        \item \textbf{NotificationQueue}: queue that stores new notifications to be dispatched.
     \end{itemize}
     \item \textbf{ServiceRegistry}: this component is the microservice that handles the registration of the microservices to the system. It offers to all the other microservices the following:
     \begin{itemize}
