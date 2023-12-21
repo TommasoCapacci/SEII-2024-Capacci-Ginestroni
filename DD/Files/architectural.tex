@@ -103,7 +103,7 @@ The components in Figure \ref{component_diagram} are :
     \item \textbf{UserDatabase}: this component is the database used by the system to store the data related to the users of the system, such as kind of user, email and usernames.
     \item \textbf{NotificationQueue}: queue that stores new notifications to be dispatched.
     \item \textbf{SubmissionQueue}: queue that stores notifications about new pending submissions, appended by the GitHubActions through the REST API exposed by the APIGatewayService, yet to be evaluated.
-    \item \textbf{EventQueue}: implements the queue used by the TournamentService to manage the events related to tournaments and battles.
+    \item \textbf{EventQueue}: the queue used by the TournamentService to manage the events related to tournaments and battles. It is implemented as a priority queue, so that events are ordered by their deadlines.
 \end{itemize}
 The Figure \ref{component_diagram} contains also some external entities the system interacts with:
 \begin{itemize}
