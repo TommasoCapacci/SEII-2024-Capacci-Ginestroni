@@ -73,7 +73,6 @@ The components in Figure \ref{component_diagram} are :
     \begin{itemize}
         \item \textbf{TournamentManager}: implements the main logical functionalities of the TournamentService, exposing APIs used by other microservices to manage tournaments and battles and their data.
         \item \textbf{TournamentModel}: represents the model of the database used by the TournamentService to store the data related to tournaments and battles.
-        \item \textbf{EventQueue}: implements the queue used by the TournamentService to manage the events related to tournaments and battles.
         \item \textbf{EventManager}: periodically checks the EventQueue for events and processes them once the deadlines are reached.
     \end{itemize}
     \item \textbf{GitHubIntegrationService}: this component is the microservice that handles the integration with GitHub. It is responsible for the following functionalities:
@@ -81,28 +80,20 @@ The components in Figure \ref{component_diagram} are :
         \item Creation of the GitHub repository of the battle.
         \item Retrieval of the code of the submission from the GitHub repository.
     \end{itemize}
-    \item \textbf{EvaluationService}: this component is the microservice that handles the evaluation of the submissions of the students. It is responsible for the following functionalities:
+    \item \textbf{EvaluationService}: this component is the microservice that handles the evaluation of the submissions of the students. It periodically checks the SubmissionQueue for submissions to evaluate and processing them. The submission notification contains only the token associated to the team, so the service retrieves the code from the GitHub repository, interacting with the GitHubIntegrationService.
+     This service is responsible for the following functionalities:
     \begin{itemize}
         \item Evaluation of the submissions, in terms of timeliness and functional analysis 
         \item Integration with external static code analysis tools to evaluate the quality of the code of the submissions.
     \end{itemize}
-    It is composed of the following subcomponents:
-    \begin{itemize}
-        \item \textbf{EvaluationManager}: implements the main logical functionalities of the EvaluationService, periodically checking the EvaluationQueue for submissions to evaluate and processing them.
-        \item \textbf{EvaluationQueue}: queue that stores notifications about new pending submissions, appended by the GitHubActionsService through the REST API exposed by the APIGatewayService, yet to be evaluated.
-    \end{itemize}
-    \item \textbf{NotificationService}: this component is the microservice that handles the notifications of the users of the system. To perform this task, the NotificationService interacts with the external email service provider to send notifications to the users.
+    \item \textbf{NotificationService}: this component is the microservice that handles the notifications of the users of the system. It periodically checks the NotificationQueue for new notifications to send and processing them. To perform this task, the NotificationService interacts with the external email service provider to send notifications to the users.
      It is responsible for the following functionalities:
     \begin{itemize}
         \item Dispatch of confirmation email to new registered users.
         \item Dispatch of email notifications to users in case of events related to tournaments and battles.
     \end{itemize}
-    It is composed of the following subcomponents:
-    \begin{itemize}
-        \item \textbf{NotificationManager}: implements the main logical functionalities of the NotificationService, periodically checking the NotificationQueue for notifications to send and processing them.
-        \item \textbf{NotificationQueue}: queue that stores new notifications to be dispatched.
-    \end{itemize}
-    \item \textbf{ServiceRegistry}: this component is the microservice that handles the registration of the microservices to the system. It offers to all the other microservices the following:
+    In the diagram, this component has not been connected to the ServiceRegistry, since it is a standlone service that does not need to synchronously communicate with the other microservices (communication with others microservices is asynchronous and relies only on the NotificationQueue).
+    \item \textbf{ServiceRegistry}: this component handles the registration of the microservices to the system. It offers to all the microservices the following:
     \begin{itemize}
         \item Registration of the microservices istances to the system.
         \item Discovery of the microservices istances by the other microservices.
@@ -110,6 +101,9 @@ The components in Figure \ref{component_diagram} are :
     \end{itemize}
     \item \textbf{TournamentDatabase}: this component is the database used by the system to store the data related to tournaments and battles, including also scores and ranks.
     \item \textbf{UserDatabase}: this component is the database used by the system to store the data related to the users of the system, such as kind of user, email and usernames.
+    \item \textbf{NotificationQueue}: queue that stores new notifications to be dispatched.
+    \item \textbf{SubmissionQueue}: queue that stores notifications about new pending submissions, appended by the GitHubActions through the REST API exposed by the APIGatewayService, yet to be evaluated.
+    \item \textbf{EventQueue}: implements the queue used by the TournamentService to manage the events related to tournaments and battles.
 \end{itemize}
 The Figure \ref{component_diagram} contains also some external entities the system interacts with:
 \begin{itemize}
