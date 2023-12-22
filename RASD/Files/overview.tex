@@ -26,7 +26,7 @@
 \subsubsection{State diagrams}
 In order to provide a complete description of the application domain, here are included the state diagrams relative to tournaments and battles.
 \begin{figure}[H]
-    \hspace{-20px}
+    \hspace{-0.8cm}
     \includegraphics[scale=0.5]{Diagrams/tournament_state.jpg}
     \caption{Tournament state diagram}
     \label{tournament_state}
@@ -50,11 +50,11 @@ In the educator’s case instead, the system will ask the same information but, 
 
 At this point, since notifications will be send via mail in any case, in order to use the system the new user has to verify its email: a verification email is sent to the provided email address containing a link that the user will have to click to confirm it.
 
-Obviously in the future, in order to log in, the user will be asked to provide the email and password entered during the sign up phase: if these match, the system will grant access.
+Obviously in the future, in order to log in, the user will be asked to select the identity provider he/she originally signed up with or to provide the email and password entered during the sign up phase: if these match, the system will grant access.
 \subsubsection{Manage tournaments}
 This functionality is available only to educators and basically represents the main functionality that the platform provides.
 
-In order to initiate a new competition, each educator can decide to create a new tournament. To do this the educator log in to its personal area and then goes to the page listing all the tournaments that he’s ever created (even the ones that have already terminated: the system persists their final ranks and other useful information, see “Create battles” function) or that he has been granted access to. Here the educator can click a button to create a new tournament: a new page is displayed, in which the user has to provide a new (unique) name for the tournament, fix a subscription deadline and, eventually, grant the possibility to other educators to create battles in the context of the new tournament (this is done by fulfilling a search box with their emails such that the system can send them an invitation, which they can accept or not). This is the only setting that can be changed at any time, even while the tournament is active.
+In order to initiate a new competition, each educator can decide to create a new tournament. To do this the educator log in to its personal area and then goes to the page listing all the tournaments that he’s ever created (even the ones that have already terminated: the system persists their final ranks and other useful information, see “Create battles” function) or that he has been granted access to. Here the educator can click a button to create a new tournament: a new page is displayed, in which the user has to provide a new (unique) name for the tournament, fix a subscription deadline and, eventually, grant the possibility to other educators to create battles in the context of the new tournament (this is done by fulfilling a search box with their emails such that the system can send them a notification). This is the only setting that can be changed at any time, even while the tournament is active.
 \subsubsection{Join a tournament}
 This functionality is available only to students. In order to subscribe to a new tournament a student can find inside its personal area a page listing all the tournaments he/she has ever participated to. In this page there’s also a button that allows the student to join a new tournament: a new page is displayed, in which the user has to provide the name (or part of it) of the tournament of interest. The system searches among all the (active) tournaments those whose name is compatible with what the user’s query and returns the list of these.
 
@@ -71,13 +71,13 @@ By clicking it, the user is brought to a new webpage in which has to provide mul
     \item Set registration and final submission deadline
     \item Specify scoring configuration (see “Evaluate a submission” function)
 \end{itemize}
-At this point the battle is created and the registration phase starts. Once the registration deadline is met, the system will prepare the development environment for each student: specifically, it will create a new public repository on the platform GitHub account and send the relative link to all team leaders, which will need to fork the repository, set up GitHub Actions and invite his/her teammates (if there are) as collaborators.
+At this point the battle is created and the registration phase starts.
 \subsubsection{Join a battle}
 This functionality is available only to students. A student that is subscribed to a tournament is notified upon the creation of a new battle in the context of it. In the case the user is interested into participating, he/she can subscribe to it by creating a team or joining one that has already been created.
 
 As first thing he/she has to access the page relative to the teams for that battle. This can be done in 2 ways:
 \begin{itemize}
-    \item Directly by clicking the link inside the notification sent through the email.
+    \item Directly by clicking the link inside the email sent to notify the creation of the battle.
     \item Go to the page displaying his/her list of tournaments and select the one of the new battle: inside a new page there will be shown the actual rank and the list of battles up to the last,  the active one, which can be selected. If a user selects a battle it has already subscribed to, he/she is brought to the page devoted to its team.
 \end{itemize}
 Inside a new page it will be displayed the list of available teams and 2 buttons.
@@ -92,11 +92,13 @@ At this point the system creates 2 random strings that will be univocally associ
     \item an invite code: this will represent the only way to access private teams and, in general, an alternative way to join teams.
     \item an API token: this will be requested to be included inside the GitHub Actions workflow in order to allow the system to understand which team a solution belongs to.
 \end{itemize}  
-In this case the student that created the team will be marked as team leader (see “Create battles” functionality). This functionality is particularly important because students that want to participate by their own, need to create a group (in order to be sure, they can set it as private and simply keep the invitation code for theirselves: anyway, this scenario is available only when the minimum number of students per group is set to 1).
+This functionality is particularly important because students that want to participate by their own, need to create a group (in order to be sure, they can set it as private and simply keep the invitation code for theirselves): anyway, this scenario is available only when the minimum number of students per group is set to 1.
 
 The second button instead allows the student to join an already existing group: this is achieved by allowing the student to search groups by name (in case of private teams, in a following page the student will be asked to provide the right invite code) or by directly providing their invite code: if the specified group does not already contain the maximum number of students for the battle, the system adds the student to the group.
+
+Once the registration deadline is met, the system will prepare the development environment: specifically, it will create a new public repository on the platform's GitHub account and send the relative link to the members of every team subscribed to the battle. Then, the system will need \textit{only} one member per team to fork the repository, copy the relative link on the team's settings, set up GitHub Actions and invite his/her teammates (if there are) as collaborators.
 \subsubsection{Submit a solution}
-Once the registration phase is over, the submission phase starts: the system provides each student/team a GitHub repository in which the solution code has to be collected (teams of students have to manually guarantee access to all needed collaborators). Then, GitHub Actions has to be set up in each of these repositories in order to enable the necessary workflow: in this way the submission of a new solution is performed by committing and pushing over the repository as GitHub would normally be used for. On push, an API call will notify the platform of the publication of a new solution for that student/team and proceed to evaluate it.
+Once the registration phase is over, the submission phase starts: at this point each team should have its own GitHub repository in which the code for their solutions has to be collected. GitHub Actions will enable the necessary workflow: the submission of a new solution is performed by committing and pushing over the team's repository. On a new push, an API call will notify the platform of the publication of a new solution for that team and proceed to evaluate it.
 \subsubsection{Evaluate a submission}
 The platform provides an automatic evaluation system that is used to score the solutions submitted by the students. Scoring is divided in 2 groups:
 \begin{itemize}
@@ -110,7 +112,7 @@ The platform provides an automatic evaluation system that is used to score the s
     \item \textbf{Manual evaluation}: this is an optional evaluation phase that educators can decide to reserve time for (must be indicated at battle creation time). Specifically, in the case the educator has specified it, as soon as the mandatory evaluation has been computed the system allows him/her to manually inspect the code provided by each team: by clicking on the name of the team inside the final rank the system displays a new page in which is shown the link to the team’s GitHub repository and a form that must be filled with an integer score between 0 and 100.\\ The final mark will be computed as the arithmetic average between the automatically assessed score and the one assigned by the educator.
 \end{itemize}
 \subsubsection{Visualize ranking}
-At any time, any user of any kind can visualize the ranking of the tournaments/battles it was involved in by reaching the dedicated page inside their personal area and selecting the tournament/battle of interest. Battle ranks are computed considering the highest score of each team, while the tournament ranks are computed considering, for each student, the sum of the scores assigned to its teams during battles in the context of that tournament.
+At any time, any user of any kind can visualize the ranking of the tournaments/battles it was involved in by reaching the dedicated page inside their personal area and selecting the tournament/battle of interest. Battle ranks are computed considering the latest score for each team, while tournament ranks are computed considering, for each student, the sum of the scores assigned to its teams in the context of that tournament.
 \subsubsection{Send notification}
 The system sends notifications (by means of emails) to its users in the following cases:
 \begin{itemize}

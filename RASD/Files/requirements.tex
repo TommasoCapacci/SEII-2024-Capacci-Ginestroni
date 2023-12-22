@@ -860,13 +860,10 @@ The main requirements the system has to fulfill are the following:
         \hline
         \textbf{Name} & AddCollaborator \\
         \hline
-        \textbf{Actors} & Educator \\
+        \textbf{Actors} & Educator, Email Service \\
         \hline
         \textbf{Entry conditions} &
-        \begin{itemize}
-            \item Educator is logged in
-            \item Educator is the creator of a tournament
-        \end{itemize} \\
+            Educator is logged in and is the creator of a tournament \\
         \hline
         \textbf{Event flow} &
         \begin{enumerate}
@@ -876,12 +873,14 @@ The main requirements the system has to fulfill are the following:
             \item System redirects the educator to the tournament’s page
             \item Educator clicks on the “Add Collaborator” button
             \item System prompts a pop-up asking the email of the collaborator to add
-            \item Educator fills in the requested information and clicks on  “Save”
+            \item Educator fills in the requested information and clicks on “Save”
+            \item System notifies the new collaborator about the invitation
         \end{enumerate} \\
         \hline
         \textbf{Exit conditions} &
         \begin{itemize}
             \item New educator is correctly added to the tournament and can now create battles
+            \item Email to the new educator is dispatched
         \end{itemize} \\
         \hline
         \textbf{Exceptions} & 
