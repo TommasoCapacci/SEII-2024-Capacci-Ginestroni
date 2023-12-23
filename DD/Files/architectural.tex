@@ -55,10 +55,10 @@ The components in Figure \ref{component_diagram} are :
         \item Aggregates responses from multiple microservices if needed.
         \item Load balancing and API rate limiting.
     \end{itemize}
-    \item \textbf{AuthService}: this component is the microservice that handles the authentication and authorization of the users of the system. To accomplish this task, it may be required to interact with external identity providers, depending on the user preferences. 
+    \item \textbf{AuthService}: this component is the microservice that handles the authentication of the users of the system. To accomplish this task, it may be required to interact with external identity providers, depending on the user preferences. 
     It is responsible also for all the data related to the users of the system, such as their personal information and their roles. It includes the following subcomponents:
     \begin{itemize}
-        \item \textbf{AuthManager}: implements the main logical functionalities of the AuthService, exposing APIs used by other microservices to authenticate, authorize users and to retrieve their information.
+        \item \textbf{AuthManager}: implements the main logical functionalities of the AuthService, exposing APIs used by other microservices to authenticate and to retrieve user information.
         \item \textbf{UserModel}: represents the model of the database used by the AuthService to store the data related to the users of the system.
     \end{itemize}
     \item \textbf{TournamentService}: this component is the microservice that implements most of the functionalities needed by the users. It handles:
@@ -139,6 +139,29 @@ In this section the interfaces of the components of the system are described. Th
 \begin{itemize}
     \item \textbf{APIGatewayI}
     \begin{itemize}
+        \item login(credentials): bool
+        \item signup(credentials): bool
+        \item initializeLoginSSO(identityProvider): none
+        \item completeLoginSSO(identityProvider,ssoToken): bool
+        \item initializeSignupSSO(identityProvider): none
+        \item completeSignupSSO(identityProvider,ssoToken): bool
+    \end{itemize}
+    \item \textbf{Auth2GatewayI}
+    \begin{itemize}
+        \item authenticateUser(credentials): userId
+        \item createUser(credentials): userId
+        \item completeLoginSSO(identityProvider,ssoToken): userId
+        \item completeSignupSSO(identityProvider,ssoToken): userId
+    \end{itemize}
+    \item \textbf{UserModelI}
+    \begin{itemize}
+        \item getUserId(credentials): userId
+        \item createUser(credentials): userId
+        \item createUserSSO(userData): userId
+        \item getUserData(userId): userData
+    \end{itemize}
+    \item \textbf{Auth2TournamentI}
+    \begin{itemize}
         \item 
     \end{itemize}
     \item \textbf{CommitI}
@@ -189,18 +212,6 @@ In this section the interfaces of the components of the system are described. Th
     \begin{itemize}
         \item 
     \end{itemize}
-    \item \textbf{Auth2TournamentI}
-    \begin{itemize}
-        \item 
-    \end{itemize}
-    \item \textbf{Auth2GatewayI}
-    \begin{itemize}
-        \item 
-    \end{itemize}
-    \item \textbf{UserModelI}
-    \begin{itemize}
-        \item 
-    \end{itemize}
     \item \textbf{PushNotificationI}
     \begin{itemize}
         \item 
@@ -223,6 +234,9 @@ The system's components will exploit the following APIs, provided by already exi
     \item \textbf{StaticAnalysis API}: 
     \item \textbf{Email API}:
     \item \textbf{SSO API}:
+        \begin{itemize}
+            \item retrieveUserInformation(ssoToken): userData
+        \end{itemize}
 \end{itemize}
 
 
