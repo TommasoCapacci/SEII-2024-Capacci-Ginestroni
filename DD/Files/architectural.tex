@@ -117,11 +117,16 @@ The Figure \ref{component_diagram} contains also some external entities the syst
 
 \newpage
 \subsection{Deployment view}
-The following diagram represents the deployment architecture of the system, highlighting the physical nodes on which the system will be deployed and the communication channels between them.
+The following diagrams represent the deployment architecture of the system, highlighting the physical nodes on which the system will be deployed and the communication channels between them.
 
-In Figure \ref{deployment_diagram} the nodes have been colored according to the color scheme defined in the component view exception, with the only difference that the \textcolor{red}{red} color has been used to identify the user's web browser and the \textcolor{myyellow}{yellow} one to represent the system's web server.
+Figure \ref{deployment_net_diagram} shows how the network infrastructure of the system is organized: a first firewall is used separate the system from the Internet, creating a DMZ which will contain all the services that must be accessible from outside the system (i.e. Web server and API gateway), while a second firewall is used to separate the DMZ from the internal network of the organization.\\
+\begin{figure}[H]
+    \includegraphics[width=1\textwidth]{Diagrams/deployment_network_diagram.png}
+    \caption{Network perspective deployment diagram}
+    \label{deployment_net_diagram}
+\end{figure}
 
-Important aspects that are worth noticing are:
+Figure \ref{deployment_diagram} instead represents how different software modules will be deployed on physical nodes. These nodes have been colored according to the color scheme defined in the component view section, with the only difference that the \textcolor{red}{red} color here has been used to identify the user's web browser and the \textcolor{myyellow}{yellow} one to represent the system's web server.\\ Important aspects that are worth noticing are:
 \begin{itemize}
     \item Queues are deployed on a single phisical node. As we can see from the artifacts, all queues are built over the same code but replicated in a way that each type of microservice uses its own: this should increase modularity and maintainability of the system. Moreover these queues are logged (i.e. also persisted in secondary memory) so that, in case of failure, a new service can be deployed and the previous state of the queue can be restored: this allows the system to be fault tolerant by ensuring that no communication data is lost.
     \item Most of the architecture is deployed within Docker containers, providing a lightweight and scalable environment. Each instance of a microservice, instantiated as a separate container, follows a \textbf{thread-per-request model} to handle multiple incoming requests concurrently. This design choice optimizes resource utilization and responsiveness, allowing each microservice instance to efficiently manage concurrent requests through the creation of dedicated threads. The use of Docker ensures portability and consistency across different environments, enabling seamless deployment and scaling.\\ 
@@ -137,8 +142,7 @@ Important aspects that are worth noticing are:
 \end{figure}
 
 \subsection{Component interfaces}
-In this section the interfaces of the components of the system are described. The interfaces are described in terms of the operations they offer and the parameters they require and return.\\
-
+The interfaces of the system's components are described in terms of the methods they offer, the parameters they require and the type of the values they return:
 \begin{itemize}
     \item \textbf{APIGatewayI}
     \begin{itemize}
