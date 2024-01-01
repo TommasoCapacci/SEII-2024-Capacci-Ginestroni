@@ -187,7 +187,7 @@ The interfaces of the system's components are described in terms of the methods 
         \item retrieveUserDataByEmail(userEmail): userData
         \item retrieveAllStudentsData(): usersDataList
     \end{itemize}
-    \item \textbf{Auth2TournamentI}
+    \item \textbf{Auth2EventI}
     \begin{itemize}
         \item getUserData(userId): userData
         \item getUsersData(userIdList): userDataList
@@ -346,6 +346,9 @@ This representation of the system's interfaces is only for illustrative purposes
 
 \newpage
 \subsection{Runtime view}
+
+
+\newpage
 \subsection{Selected architectural styles and patterns}
 \begin{itemize}
     \item \textbf{Client-Server}: the system can be seen as a client-server architecture from the point of view of the client, since it is composed of a front-end application (the client) and a back-end system (the server). The client is the web application that users interact with, while the server is the CKB Distributed System, which is constitued by multiple microservices. 
