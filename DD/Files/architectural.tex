@@ -293,6 +293,7 @@ The interfaces of the system's components are described in terms of the methods 
     \begin{itemize}
         \item retrieveRepo(repoUrl): code
     \end{itemize}
+    \newpage
     \item \textbf{PushSubmissionI}
     \begin{itemize}
         \item push(teamId): bool
@@ -342,11 +343,35 @@ The system's components will exploit the following APIs, provided by already exi
         \item sendEmail(recipientEmail,object,body): none
     \end{itemize}
 \end{itemize}
-This representation of the system's interfaces is only for illustrative purposes: actual function calls will be performed through proper HTTPS requests in which parameters will be included in the request body and the response will be encoded in JSON format. This is allowed by the use of REST APIs, as described in the next section.
+This representation of the system's interfaces is only for illustrative purposes: actual function calls will be performed through proper HTTP requests in which parameters will be included in the request body and the response will be encoded in JSON format. This is allowed by the use of REST APIs, as described in the next section.
 
 \newpage
 \subsection{Runtime view}
+In this section the most important runtime scenarios of the system are presented, highlighting the interactions between different components and, eventually, external entities.
 
+For the sake of brevity, the retrival of dynamic content used to populate the pages rendered by the web server is not shown, so that only the most important exchanges can be represented.
+\subsubsection{Service Registry}
+The Service Registry is a critical component of the system, since it is responsible for the service discovery functionality, on which the microservice architecture is based. This is achieved by allowing 3 fundamental operations:
+\begin{itemize}
+    \item \textbf{Service registration}: each microservice instance can register itself to the Service Registry, specifying the type of service it provides and its URL.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.8\textwidth]{Diagrams/sequence/service_registration.png}
+        \caption{Service registration}
+    \end{figure}
+    \item \textbf{Service discovery}: each microservice instance can query the Service Registry to retrieve the URL of an instance of a specific type.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.6\textwidth]{Diagrams/sequence/service_discovery.png}
+        \caption{Service discovery}
+    \end{figure}
+    \item \textbf{Heartbeat}: each microservice instance periodically sends a heartbeat to the Registry to notify that it is still alive and update its availability status.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.8\textwidth]{Diagrams/sequence/service_heartbeat.png}
+        \caption{Heartbeat reception}
+    \end{figure}
+\end{itemize}
 
 \newpage
 \subsection{Selected architectural styles and patterns}
