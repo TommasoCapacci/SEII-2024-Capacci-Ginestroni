@@ -146,117 +146,205 @@ The interfaces of the system's components are described in terms of the methods 
 \begin{itemize}
     \item \textbf{APIGatewayI}
     \begin{itemize}
-        \item login(credentials): bool
-        \item signup(credentials): bool
-        \item initializeLoginSSO(identityProvider): none
-        \item completeLoginSSO(identityProvider,ssoToken): bool
-        \item initializeSignupSSO(identityProvider): none
-        \item completeSignupSSO(identityProvider,ssoToken): bool
+        \item login(credentials): userId
+        \item loginSSO(identityProvider,ssoToken): userId
+        \item signup(credentials,userType): userId
+        \item signupSSO(identityProvider,ssoToken,userType): userId
+        \item createBattle(userId,tournamentId,battleData): bool
+        \item getTournaments(): tournamentDataList
+        \item getEnrolledTournaments(userId): tournamentsDataList
+        \item createTeam(userId,battleId,teamName,teamPrivacy): bool
+        \item joinTeam(userId,battleId,joinOption,joinTextInput): bool
+        \item readTeamSettings(userId,tournamentId,battleId,teamId): teamData
+        \item updateTeamSettings(userId,tournamentId,battleId,teamId,gitHubRepoUrl): bool
+        \item getTournamentRank(tournamentId): tournamentRank
+        \item getBattleRank(battleId): battleRank
+        \item getTeamSubmissions(userId,tournamentId,battleId,teamId): submissionsDataList
+        \item joinTournament(userId,tournamentId): bool
+        \item createTournament(userId,tournamentData): bool
+        \item setManualScore(userId,teamId,score): bool
+        \item closeBattleConsolidationPhase(userId,tournamentId,battleId): bool
+        \item addCollaborator(userId,tournamentId,collaboratorEmail): bool
+        \item closeTournament(userId,tournamentId): bool
     \end{itemize}
+    \newpage
     \item \textbf{Auth2GatewayI}
     \begin{itemize}
         \item authenticateUser(credentials): userId
-        \item createUser(credentials): userId
+        \item createUser(credentials,userType): userId
         \item completeLoginSSO(identityProvider,ssoToken): userId
-        \item completeSignupSSO(identityProvider,ssoToken): userId
+        \item completeSignupSSO(identityProvider,ssoToken,userType): userId
+        \item getUserType(userId): userType
+        \item getUserDataByEmail(userEmail): userData
     \end{itemize}
     \item \textbf{UserModelI}
     \begin{itemize}
-        \item getUserId(credentials): userId
-        \item createUser(credentials): userId
-        \item createUserSSO(userData): userId
-        \item getUserData(userId): userData
+        \item retrieveUserId(credentials): userId
+        \item createUser(credentials, userType): userId
+        \item retrieveUserData(userId): userData
+        \item retrieveUsersData(userIdList): userDataList
+        \item retrieveUserType(userId): userType
+        \item retrieveUserDataByEmail(userEmail): userData
+        \item retrieveAllStudentsData(): usersDataList
     \end{itemize}
     \item \textbf{Auth2TournamentI}
     \begin{itemize}
-        \item 
+        \item getUserData(userId): userData
+        \item getUsersData(userIdList): userDataList
+        \item getAllStudentsData(): usersDataList
     \end{itemize}
     \item \textbf{CommitI}
     \begin{itemize}
-        \item 
-    \end{itemize}
-    \item \textbf{Auth2GatewayI}
-    \begin{itemize}
-        \item 
+        \item notifySubmission(teamId): none
     \end{itemize}
     \item \textbf{Tournament2GatewayI}
     \begin{itemize}
-        \item 
+        \item createBattle(userId,tournamentId,battleData): bool
+        \item setManualScore(userId,teamId,score): bool
+        \item getTournaments(): tournamentDataList
+        \item getTournamentRank(tournamentId): tournamentRank
+        \item getBattleRank(battleId): battleRank
+        \item getEnrolledTournaments(userId): tournamentsDataList
+        \item createTeam(userId,battleId,teamName,teamPrivacy): bool
+        \item joinTeam(userId,battleId,joinOption,joinTextInput): bool
+        \item readTeamSettings(userId,tournamentId,battleId,teamId): teamData
+        \item updateTeamSettings(userId,tournamentId,battleId,teamId,gitHubRepoUrl): bool
+        \item getTeamSubmissions(userId,tournamentId,battleId,teamId): submissionsDataList
+        \item joinTournament(userId,tournamentId): bool
+        \item createTournament(userId,tournamentData): bool
+        \item closeBattleConsolidationPhase(userId,tournamentId,battleId): bool
+        \item addCollaborator(userId,tournamentId,collaboratorEmail,collaboratorId): bool
+        \item closeTournament(userId,tournamentId): bool
     \end{itemize}
     \item \textbf{Tournament2EventI}
     \begin{itemize}
-        \item 
+        \item getTournamentUsers(tournamentId): userIdList
+        \item getKataData(battleId): codeKataData
+        \item getBattleStudents(battleId): userIdList
+        \item getTeamStudents(teamId): userIdList
+        \item setNextBattleState(battleId): none
+        \item closeTournamentSubscriptionPhase(tournamentId): none
+        \item endBattle(battleId): none
+        \item updateBattleRank(tournamentId,battleId,battleRank): none
+        \item endTournament(tournamentId): none
     \end{itemize}
     \item \textbf{Tournament2EvaluationI}
     \begin{itemize}
-        \item 
+        \item setAutomaticScore(teamId,scores): none
+        \item getTeamRepoUrl(teamId): repoUrl
+        \item getBattleByTeamId(teamId): battleId
+        \item getBattleSettings(battleId): battleSettings
+        \item notifyTeamEvaluation(teamId): none
+        \item getBattleDataByTeamId(teamId): battleData
     \end{itemize}
     \item \textbf{TournamentModelI}
     \begin{itemize}
-        \item 
+        \item retrieveEducators(tournamentId): userIdList
+        \item retrieveKataData(battleId): codeKataData
+        \item retrieveBattleCreator(battleId): userId
+        \item retrieveTournamentCreator(tournamentId): userId
+        \item retrieveBattleStudents(battleId): userIdList
+        \item retrieveTeamRepoUrl(teamId): repoUrl
+        \item retrieveTeamStudents(teamId): userIdList
+        \item setAutomaticScore(teamId,scores): none
+        \item setManualScore(teamId,score): bool
+        \item retrieveTournaments(): tournamentsDataList
+        \item retrieveTournamentByBattle(battleId): tournamentData
+        \item retrieveTournamentUsers(tournamentId): userIdList
+        \item retrieveTournamentState(tournamentId): tournamentState
+        \item retrieveBattleState(battleId): battleState
+        \item retrieveEnrolledTournaments(userId): tournamentsDataList
+        \item setBattleState(battleId,state): none
+        \item createBattle(userId,tournamentId,battleData): battleId
+        \item retrieveBattleByTeamId(teamId): battleId
+        \item retrieveBattleSettings(battleId): battleSettings
+        \item createTeam(userId,tournamentId,battleId,teamName,teamPrivacy): bool
+        \item addStudentToTeam(userId,tournamentId,battleId,teamId): none
+        \item retrieveTeamData(tournamentId,battleId,teamId): teamData
+        \item updateTeamData(tournamentId,battleId,teamId,gitHubRepoUrl): bool
+        \item retrieveTournamentRank(tournamentId): tournamentRank
+        \item retrieveBattleRank(battleId): battleRank
+        \item updateBattleRank(battleId,battleRank): none
+        \item retrieveTeamSubmissions(tournamentId,battleId,teamId): submissionsDataList
+        \item addStudentToTournament(userId,tournamentId): none
+        \item createTournament(userId,tournamentData): tournamentId
+        \item setTournamentState(tournamentId,tournamentState): none
+        \item retrieveBattleData(tournamentId,battleId): battleData
+        \item retrieveTournamentData(tournamentId): tournamentData
+        \item updateTournamentRankAndScores(tournamentId,tournamentRank,tournamentScores): none
+        \item updateBattleRank(tournamentId,battleId,battleRank): none
+        \item addCollaborator(tournamentId,collaboratorId): none
+        \item retrieveBattleDataByTeamId(teamId): battleData
     \end{itemize}
     \item \textbf{PushEventI}
     \begin{itemize}
-        \item 
+        \item push(event): bool
     \end{itemize}
     \item \textbf{PullEventI}
     \begin{itemize}
-        \item 
+        \item fetchHeadTimestamp(): timestamp
+        \item pull(): event
     \end{itemize}
     \item \textbf{CreateRepositoryI}
     \begin{itemize}
-        \item 
+        \item createRepo(repoData): none
     \end{itemize}
     \item \textbf{RetrieveSubmissionCodeI}
     \begin{itemize}
-        \item 
-    \end{itemize}
-    \item \textbf{PullSubmissionI}
-    \begin{itemize}
-        \item 
+        \item retrieveRepo(repoUrl): code
     \end{itemize}
     \item \textbf{PushSubmissionI}
     \begin{itemize}
-        \item 
+        \item push(teamId): bool
+    \end{itemize}
+    \item \textbf{PullSubmissionI}
+    \begin{itemize}
+        \item isEmpty(): bool
+        \item pull(): teamId
     \end{itemize}
     \item \textbf{PushNotificationI}
     \begin{itemize}
-        \item 
+        \item push(notification): bool
     \end{itemize}
     \item \textbf{PullNotificationI}
     \begin{itemize}
-        \item 
+        \item isEmpty(): bool
+        \item pull(): notification
     \end{itemize}
     \item \textbf{RegistryI}
     \begin{itemize}
-        \item 
+        \item getInstance(serviceType): instanceUrl
+        \item subscribeInstance(serviceType,instanceUrl): bool
+        \item heartbeat(serviceType,instanceUrl): bool
     \end{itemize}
 \end{itemize}
 
 The system's components will exploit the following APIs, provided by already existing services or components:
 \begin{itemize}
-    \item \textbf{TournamentDBMS API}: 
-    \item \textbf{UserDBMS API}: 
-    \item \textbf{GitHub API}: 
-    \item \textbf{StaticAnalysis API}: 
-    \item \textbf{Email API}:
+    \item \textbf{TournamentDBMS API}
+    \item \textbf{UserDBMS API}
     \item \textbf{SSO API}:
-        \begin{itemize}
-            \item retrieveUserInformation(ssoToken): userData
-        \end{itemize}
+    \begin{itemize}
+        \item checkToken(ssoToken): userData
+        \item initializeSSO(ssoCredentials): ssoToken
+    \end{itemize}
+    \item \textbf{GitHub API}: 
+    \begin{itemize}
+        \item createRepo(repoData): none
+        \item retrieveRepo(repoUrl): code
+    \end{itemize}
+    \item \textbf{StaticAnalysis API}: 
+    \begin{itemize}
+        \item analyze(code,qualityAspect): score
+    \end{itemize}
+    \item \textbf{Email API}:
+    \begin{itemize}
+        \item sendEmail(recipientEmail,object,body): none
+    \end{itemize}
 \end{itemize}
+This representation of the system's interfaces is only for illustrative purposes: actual function calls will be performed through proper HTTPS requests in which parameters will be included in the request body and the response will be encoded in JSON format. This is allowed by the use of REST APIs, as described in the next section.
 
-
-
-
-
-
-
-
-
-
-
-
+\newpage
 \subsection{Runtime view}
 \subsection{Selected architectural styles and patterns}
 \begin{itemize}
