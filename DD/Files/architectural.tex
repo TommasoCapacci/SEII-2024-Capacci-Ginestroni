@@ -297,10 +297,11 @@ The system's components will exploit the following APIs, provided by already exi
 In this section some other design decisions are presented and justified.
 \begin{itemize}
     \item \textbf{Database solutions}: the database technologies and models have been chosen analyzing the most common interactions and queries that the system will perform. 
-    A document-oriented database fits particularly well the TournamentDatabase, given the hierarchical structure of tournaments, battles and teams. The use of a unique tournament collection allows to perform useful and common queries without performing complex joins, which would be required in a relational database.
+    A \textbf{document-oriented} database fits particularly well the TournamentDatabase, given the hierarchical structure of tournaments, battles and teams. The use of a unique tournament collection allows to perform useful and common queries without performing complex joins, which would be required in a relational database.
     Additionally, no drawbacks are expected in terms of redundancy, as no users data is stored in the TournamentDatabase (only the userIds are stored).
+    However, \textbf{indexes} will be needed to quickly retrieve some data without performing a full scan of the collection, such as tournaments and battles data related to a specific user. These kind of indexes are indeed useful to populate the customized user's homepage or accessing battle or team data directly using their respective ids.
     A document-oriented database is also a good choice for the tournament collection, as it allows to conveniently store complex and unstructured data, such as tournament/battle scores and ranks within the same data structure.
-    The UserDatabase instead is a relational database, since the data stored in it is structured and simple and no complex queries are expected to be performed on it.
+    The UserDatabase instead is a \textbf{relational} database, since the data stored in it is structured and simple and no complex queries are expected to be performed on it.
     \item \textbf{Code Kata files}: as described in the RASD document, the educators are asked to provide some files to create a new battle. The system expects the project files to be correctly formatted, in order to be able to create the battle repository and to evaluate the submissions.
     The uploaded file must be a zip file containing the following:
     \begin{itemize}
