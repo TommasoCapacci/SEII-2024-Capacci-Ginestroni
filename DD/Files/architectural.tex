@@ -259,4 +259,53 @@ The system's components will exploit the following APIs, provided by already exi
 
 \subsection{Runtime view}
 \subsection{Selected architectural styles and patterns}
+\begin{itemize}
+    \item \textbf{Client-Server}: the system can be seen as a client-server architecture from the point of view of the client, since it is composed of a front-end application (the client) and a back-end system (the server). The client is the web application that users interact with, while the server is the CKB Distributed System, which is constitued by multiple microservices. 
+    The client and the server communicate over a network to perform specific tasks and to exchange data. The client sends requests to one of the available webserver instances, which in turn processes the request and replies with the appropriate response.
+    The webserver, to process the request, redirects it to an API Gateway instance, which is the entry point of the backend system.
+    \item \textbf{Microservices}: the back-end, as previously described, is composed of multiple microservices. This architectural style has been chosen because it allows to decompose the system into multiple almost-independent components, each one responsible for specific tasks.
+    This is particularly useful in terms of deployment and scalability, since each node can be scaled independently from the others, which is fundamental in a system that is expected to handle a large variety of requests with different workloads.
+    Concerning maintainability, this also allows to easily modify and update the system, since each microservice can be updated independently from the others.
+    Also availability is improved, since the failure of a single microservice may not affect the availability of some functionalities of the system.
+    \item \textbf{API gateway}: the API gateway pattern is similar to the facade pattern from object-oriented design, but it is part of a distributed system reverse proxy or gateway routing for using as a synchronous communication model.
+    More in details, it acts as the system's facade, so it provides a single entry point to the APIs allowing the encapsulation of the underlying system architecture.
+    It also works as a reverse proxy, since it route requests to internal microservices endpoints and is responsible of cross-cutting concerns such as load balancing, caching, security.
+    \item \textbf{REST APIs}: the REST architectural style has been chosen to implement the communication between the client, the system and microservices, since it is the most common and widely used style for building web APIs.
+    Additionally, REST APIs are stateless, which means that no client context is stored on the server between requests, simplifying implementation and horizontal scaling.. HTTPS is used as communication protocol and data exchanges are performed through JSON objects.
+    \item \textbf{Model View Controller}: the MVC pattern decomposes the program logic into three interconnected elements:
+    \begin{itemize}
+        \item \textbf{Model}, which represents the dynamic data structure of the application, independent of the user interface. It is responsible for managing the data of the application and receives user input from the controller.
+        \item \textbf{View}, which is responsible for the presentation of the data to the user. It sends user input to the controller.
+        \item \textbf{Controller}, which is responsible for handling user requests and updating the model and the view accordingly. The state of the controller is inferred from the state of system which is represented by the model.
+    \end{itemize}
+    \item \textbf{Routing patterns}: the ServiceRegistry component enables the service discovery. Each microservice mantains a local cache of the registry, and periodically refreshes it by contacting the ServiceRegistry.
+    Microservices use the local cache to contact other microservices and spread the load across the available instances following a round-robin schema.
+    The ServiceRegistry is replicated through a master-slave schema, to ensure the availability of the service discovery functionality.
+    \item \textbf{Security patterns}: the system uses the OAuth2 protocol to authenticate users. This protocol allows the system to delegate the authentication to an external identity provider. The system only receives a token from the identity provider, which is used to identify the user in the system.
+    \item \textbf{Communication patterns}: both synchronous and asynchronous patterns are used in the system. The asynchronous communication pattern, which is implemented through the use of one-way queues, has been used for the communication between microservices that do not require any response from the receiver.
+    This event-driven approach enforces the decoupling between microservices and concurs to the scalability of the system, since multiple instances of the same microservice can consume from the same queue and process the requests concurrently.
+    The choice of a hybrid approach, is driven by the following advantages related to the synchronous communication:
+    \begin{itemize}
+        \item \textbf{Reduced latency}: synchronous requests allow services to retrieve data with minimal delay, providing fast response times. This is important for user-facing services like the API Gateway.
+        \item \textbf{Simplicity}: does not require the use of queues and complex mechanism to handle bidierectional communication. This reduces complexity for services with simple integration needs.
+        \item \textbf{Transactional integrity}:  allow several operations to be executed as an atomic transaction, ensuring data consistency across services. Useful when multiple services need to update related data.
+        \item \textbf{Request-response pattern}: some use cases have an inherent request-response flow that fits synchronous communication. For example, the API Gateway may need to query other services to aggregate the response for the client.
+    \end{itemize}
+
+\end{itemize}
 \subsection{Other design decisions}
+In this section some other design decisions are presented and justified.
+\begin{itemize}
+    \item \textbf{Database solutions}: the database technologies and models have been chosen analyzing the most common interactions and queries that the system will perform. 
+    A document-oriented database fits particularly well the TournamentDatabase, given the hierarchical structure of tournaments, battles and teams. The use of a unique tournament collection allows to perform useful and common queries without performing complex joins, which would be required in a relational database.
+    Additionally, no drawbacks are expected in terms of redundancy, as no users data is stored in the TournamentDatabase (only the userIds are stored).
+    A document-oriented database is also a good choice for the tournament collection, as it allows to conveniently store complex and unstructured data, such as tournament/battle scores and ranks within the same data structure.
+    The UserDatabase instead is a relational database, since the data stored in it is structured and simple and no complex queries are expected to be performed on it.
+    \item \textbf{Code Kata files}: as described in the RASD document, the educators are asked to provide some files to create a new battle. The system expects the project files to be correctly formatted, in order to be able to create the battle repository and to evaluate the submissions.
+    The uploaded file must be a zip file containing the following:
+    \begin{itemize}
+        \item \textbf{src} folder containing the source code of the project, including build automation scripts (e.g. pom.xml for Maven projects, build.gradle for Gradle projects, make files for C projects and so on). 
+        \item \textbf{test.txt} file containing the test cases to be used to evaluate the submissions. The file must contain one test case per line, and each test case must be formatted as follows:\\
+         \textit{input1,input2,...,inputN;output}
+    \end{itemize}
+\end{itemize}
