@@ -611,3 +611,38 @@ In this section some other design decisions are presented and justified.
          \textit{input1,input2,...,inputN;output}
     \end{itemize}
 \end{itemize}
+
+%personalized listings
+\newcommand\YAMLcolonstyle{\color{black}\mdseries}
+\newcommand\YAMLkeystyle{\color{black}\bfseries}
+\newcommand\YAMLvaluestyle{\color{blue}\mdseries}
+\newcommand\ProcessThreeDashes{\llap{\color{cyan}\mdseries-{-}-}}
+
+It is now showed the structure of an example tournament document.\\
+
+\lstdefinestyle{yaml}{
+    basicstyle=\footnotesize\ttfamily,
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    showstringspaces=false,
+    tabsize=2,
+    frame=single,
+    captionpos=b,
+    keywords={true,false,null,y,n},
+    sensitive=false,
+    comment=[l]{\#},
+    morecomment=[s]{/*}{*/},
+    commentstyle=\color{red}\ttfamily,
+    stringstyle=\YAMLvaluestyle\ttfamily,
+    moredelim=[l][\color{orange}]{\&},
+    moredelim=[l][\color{magenta}]{*},
+    moredelim=**[il][\YAMLcolonstyle{:}\YAMLvaluestyle]{:},   % switch to value style at :
+    morestring=[b]',
+    morestring=[b]",
+    literate =    {---}{{\ProcessThreeDashes}}3
+                  {>}{{\textcolor{red}\textgreater}}1     
+                  {|}{{\textcolor{red}\textbar}}1 
+                  {\ -\ }{{\mdseries\ -\ }}3,
+}
+\lstinputlisting[style=yaml,caption={Your YAML Data},label={lst:yamlData}]{util/tournament.yaml}

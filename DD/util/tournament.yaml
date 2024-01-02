@@ -1,0 +1,60 @@
+tournamentId: tournamentId
+name: ''
+creator: userId1
+managers:
+  - userId1
+  - userId2
+tournamentState: ongoing
+subscriptionDeadline: ''
+tournamentLeaderboard:
+  - studentId: userId3
+    tournamentScore: ''
+  - studentId: userId4
+    tournamentScore: ''
+battles:
+- battleId: battleId
+  creator: userId2
+  name: ''
+  description: ''
+  mainGitHubRepo: ''
+  manualEval: true
+  #more battle settings here
+  registrationDeadline: ''
+  submissionDeadline: ''
+  battleState: finished
+  kata: path/to/zip/file/example
+  teams:
+    - teamId: teamId1
+      inviteCode: ''
+      gitHubRepo: ''
+      privacy: open
+      members:
+        - userId3
+        - userId5
+      submissions:
+        - submissionId: ''
+          ts: ''
+          scoreFun: ''
+          #more submission scores and data 
+        - submissionId: ''
+          ts: ''
+          scoreFun: ''
+          #more submission scores and data 
+      battleScore: ''
+    - teamId: teamId2
+      inviteCode: ''
+      gitHubRepo: ''
+      privacy: open
+      members:
+        - userId4
+      submissions:
+        - submissionId: ''
+          scoreFun: ''
+          #more submission scores and data 
+      battleScore: ''
+  battleLeaderboard:
+    - teamId: teamId1
+      battleScore: ''
+    - teamId: teamId2
+      battleScore: ''
+
