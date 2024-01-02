@@ -72,16 +72,17 @@ The components in Figure \ref{component_diagram} are :
     \end{itemize}
     It is composed of the following subcomponents:
     \begin{itemize}
-        \item \textbf{TournamentManager}: implements the main logical functionalities of the TournamentService, exposing APIs used by other microservices to manage tournaments and battles and their data.
+        \item \textbf{TournamentManager}: implements the main logical functionalities of the TournamentService, exposing APIs used by other microservices to manage tournaments, battles, team and their data.
         \item \textbf{TournamentModel}: represents the model of the database used by the TournamentService to store the data related to tournaments and battles.
-        \item \textbf{EventManager}: periodically checks the EventQueue for events and processes them once the deadlines are reached.
     \end{itemize}
+    \item \textbf{EventService}: periodically checks the EventQueue for events and processes them once the deadlines are reached. It is the consumer of events created by the TournamentService.
     \item \textbf{GitHubIntegrationService}: this component is the microservice that handles the integration with GitHub. It is responsible for the following functionalities:
     \begin{itemize}
         \item Creation of the GitHub repository of the battle.
         \item Retrieval of the code of the submission from the GitHub repository.
     \end{itemize}
-    \item \textbf{EvaluationService}: this component is the microservice that handles the evaluation of the submissions of the students. It periodically checks the SubmissionQueue for submissions to evaluate and processing them. The submission notification contains only the token associated to the team, so the service retrieves the code from the GitHub repository, interacting with the GitHubIntegrationService.
+    \item \textbf{EvaluationService}: this component is the microservice that handles the evaluation of the submissions of the students. It periodically checks the SubmissionQueue for submissions to evaluate and processing them, so it is the consumer of the events appended by the APIGatewayService on behalf of the GitHubActions.
+     The submission notification contains only the token associated to the team (which corresponds to the teamId), so the service retrieves the code from the GitHub repository, interacting with the GitHubIntegrationService.
      This service is responsible for the following functionalities:
     \begin{itemize}
         \item Evaluation of the submissions, in terms of timeliness and functional analysis 
@@ -93,7 +94,6 @@ The components in Figure \ref{component_diagram} are :
         \item Dispatch of confirmation email to new registered users.
         \item Dispatch of email notifications to users in case of events related to tournaments and battles.
     \end{itemize}
-    In the diagram, this component has not been connected to the ServiceRegistry, since it is a standlone service that does not need to synchronously communicate with the other microservices (communication with others microservices is asynchronous and relies only on the NotificationQueue).
     \item \textbf{ServiceRegistry}: this component handles the registration of the microservices to the system. It offers to all the microservices the following:
     \begin{itemize}
         \item Registration of the microservices istances to the system.
