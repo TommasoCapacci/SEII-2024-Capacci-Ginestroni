@@ -11,6 +11,7 @@ tournamentLeaderboard:
     tournamentScore: ''
   - studentId: userId4
     tournamentScore: ''
+#rank of students is implicitly given by the order
 battles:
 - battleId: battleId
   creator: userId2
@@ -32,15 +33,15 @@ battles:
         - userId3
         - userId5
       submissions:
-        - submissionId: ''
+        - submissionId: submissionId1
           ts: ''
-          scoreFun: ''
-          #more submission scores and data 
-        - submissionId: ''
+          overallScore: ''
+          #functional/timeliness/quality/manual scores here
+        - submissionId: submissionId2
           ts: ''
-          scoreFun: ''
-          #more submission scores and data 
-      battleScore: ''
+          overallScore: ''
+          #functional/timeliness/quality/manual scores here
+      battleScore: '' #equal to last submission overall score
     - teamId: teamId2
       inviteCode: ''
       gitHubRepo: ''
@@ -48,13 +49,13 @@ battles:
       members:
         - userId4
       submissions:
-        - submissionId: ''
-          scoreFun: ''
-          #more submission scores and data 
+        - submissionId: submissionId3
+          ts: ''
+          overallScore: ''
       battleScore: ''
   battleLeaderboard:
     - teamId: teamId1
       battleScore: ''
     - teamId: teamId2
       battleScore: ''
-
+  #rank of teams is implicitly given by the order 

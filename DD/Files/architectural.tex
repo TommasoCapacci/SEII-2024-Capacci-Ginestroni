@@ -645,4 +645,28 @@ It is now showed the structure of an example tournament document.\\
                   {|}{{\textcolor{red}\textbar}}1 
                   {\ -\ }{{\mdseries\ -\ }}3,
 }
-\lstinputlisting[style=yaml,caption={Your YAML Data},label={lst:yamlData}]{util/tournament.yaml}
+\lstinputlisting[style=yaml]{util/tournament.yaml}
+
+For what concerns the relational Users table instead, the following table shows its structure.\\
+
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{lll}
+    \toprule
+    \textbf{Column} & \textbf{Type} & \textbf{Description} \\
+    \midrule
+    userId & integer & Unique id  \\
+    name & string &  \\
+    surname & string &  \\
+    email & string &  \\
+    password & string & Salted password for login \\
+    username & string & GitHub username if student \\
+    userType & string & Student or educator \\
+    \bottomrule
+    \end{tabular}
+    \caption{Structure of the Users table}
+    \label{tab:user_table}
+    \end{table}
+
+It's important to underline that userId, which is the primary key of the table, must be consistent with the userIds used in the TournamentDatabase, since this attribute is needed to authenticate and authorize users.
