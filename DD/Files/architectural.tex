@@ -322,8 +322,18 @@ The interfaces of the system's components are described in terms of the methods 
 
 The system's components will exploit the following APIs, provided by already existing services or components:
 \begin{itemize}
-    \item \textbf{TournamentDBMS API}
-    \item \textbf{UserDBMS API}
+    \item \textbf{TournamentDBMS API}:
+    \begin{itemize}
+        \item getQuery()
+        \item createQuery()
+        \item updateQuery()
+    \end{itemize}
+    \item \textbf{UserDBMS API}:
+    \begin{itemize}
+        \item getQuery()
+        \item createQuery()
+        \item updateQuery()
+    \end{itemize}
     \item \textbf{SSO API}:
     \begin{itemize}
         \item checkToken(ssoToken): userData
@@ -344,6 +354,8 @@ The system's components will exploit the following APIs, provided by already exi
     \end{itemize}
 \end{itemize}
 This representation of the system's interfaces is only for illustrative purposes: actual function calls will be performed through proper HTTP requests in which parameters will be included in the request body and the response will be encoded in JSON format. This is allowed by the use of REST APIs, as described in the next section.
+
+The methods offered by the DBMSs, instead, are kept generic since they are a representation of the queries that can be performed on the databases, which will be implemented using the most appropriate technology.
 
 \newpage
 \subsection{Runtime view}
