@@ -24,6 +24,7 @@ The design of CodeKataBattle uses a microservices architecture. Each core functi
 
 ## CodeKataBattle's high level view
 ![Architecture](https://github.com/TommasoCapacci/SEII-2024-Capacci-Ginestroni/blob/main/DD/Diagrams/overview.png)
+
 *High level view of the platform and its interactions with external services.*
 
 ## Mockups
